@@ -13,7 +13,7 @@ import {
   CONFIRMATION_TYPES,
   TIME_CONSTANTS,
   ERROR_TYPES
-} from '@andrea/shared-components/constants';
+} from '@santonastaso/shared-components/constants';
 
 // Re-export shared constants
 export {

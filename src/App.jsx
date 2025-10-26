@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
-import { showError, showSuccess } from '@andrea/shared-utils';
+import { showError, showSuccess } from '@santonastaso/shared-utils';
 import SideNav from './components/layout/SideNav';
 import { Header } from './components/layout/Header';
 import MachineryListPage from './pages/MachineryListPage';
@@ -23,7 +23,7 @@ import { useUIStore, useMainStore, useSchedulerStore } from './store';
 import { useAuth } from './auth/AuthContext';
 import { useStoreSync } from './hooks';
 import { useQueryClient } from '@tanstack/react-query';
-import { ThemeProvider } from '@andrea/crm-ui';
+import { ThemeProvider } from '@santonastaso/crm-ui';
 
 
 // This component creates the main layout with the sidebar

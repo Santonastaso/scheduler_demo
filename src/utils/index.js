@@ -13,7 +13,7 @@ export {
   showInfo, 
   dismissAll, 
   dismiss 
-} from '@andrea/shared-utils';
+} from '@santonastaso/shared-utils';
 export {
   AppError,
   ERROR_TYPES,

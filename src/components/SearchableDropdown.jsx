@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Input, Label } from '@andrea/crm-ui';
+import { Input, Label } from '@santonastaso/crm-ui';
 
 /**
  * Reusable SearchableDropdown component for filtering options

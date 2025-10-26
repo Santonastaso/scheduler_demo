@@ -3,7 +3,7 @@ import { useMachineStore, useOrderStore, useUIStore, useMainStore } from '../sto
 import { useMachines, useOrders } from '../hooks';
 import { format } from 'date-fns';
 import { MACHINE_STATUSES } from '../constants';
-import { Card, CardHeader, CardTitle, CardContent } from '@andrea/crm-ui';
+import { Card, CardHeader, CardTitle, CardContent } from '@santonastaso/crm-ui';
 import { Line, Pie } from 'react-chartjs-2';
 import {
   Chart as ChartJS,

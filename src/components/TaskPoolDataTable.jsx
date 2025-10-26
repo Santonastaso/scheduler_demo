@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@andrea/crm-ui';
+} from '@santonastaso/crm-ui';
 import { useOrderStore, useUIStore } from '../store';
 import { useErrorHandler, useOrders, useRemoveOrder } from '../hooks';
 import { format } from 'date-fns';

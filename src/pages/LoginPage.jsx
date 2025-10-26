@@ -4,7 +4,7 @@ import { useAuth } from '../auth/AuthContext';
 import { useUIStore } from '../store';
 import { WORK_CENTERS } from '../constants';
 import { useErrorHandler } from '../hooks';
-import {  Input, Label } from '@andrea/crm-ui';
+import {  Input, Label } from '@santonastaso/crm-ui';
 // Using native HTML select instead of complex Select component
 
 /**
