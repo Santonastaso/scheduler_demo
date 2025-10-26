@@ -5,7 +5,7 @@
 
 export { default as useProductionCalculations } from './useProductionCalculations';
 export { default as useValidation } from './useValidation';
-export { default as useErrorHandler } from './useErrorHandler';
+export { useErrorHandler, useValidationErrorHandler } from './useErrorHandler';
 export { usePhaseSearch } from './usePhaseSearch';
 
 // React Query hooks
@@ -21,5 +21,5 @@ export { useSidebar } from './useSidebar';
 // Export all custom hooks
 export * from './useProductionCalculations';
 export * from './useValidation';
-export * from './useErrorHandler';
+// useErrorHandler already exported above
 export * from './usePhaseSearch';
