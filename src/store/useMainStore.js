@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { apiService } from '../services';
-import { handleApiError, AppError } from '@santonastaso/shared';
+import { handleApiError } from '@santonastaso/shared';
+import { AppError } from '../utils/errorHandling';
 import { useMachineStore } from './useMachineStore';
 import { useOrderStore } from './useOrderStore';
 import { usePhaseStore } from './usePhaseStore';

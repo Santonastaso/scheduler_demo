@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { apiService } from '../services';
-import { createErrorHandler, AppError, ERROR_TYPES } from '@santonastaso/shared';
+import { createErrorHandler } from '@santonastaso/shared';
+import { AppError, ERROR_TYPES } from '../utils/errorHandling';
 import { WORK_CENTERS } from '../constants';
 import { useUIStore } from './useUIStore';
 
