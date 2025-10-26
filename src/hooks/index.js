@@ -5,7 +5,7 @@
 
 export { default as useProductionCalculations } from './useProductionCalculations';
 export { default as useValidation } from './useValidation';
-export { useErrorHandler, useValidationErrorHandler } from './useErrorHandler';
+export { useErrorHandler, useValidationErrorHandler } from '@santonastaso/shared';
 export { usePhaseSearch } from './usePhaseSearch';
 
 // React Query hooks
@@ -16,7 +16,7 @@ export { useStoreSync } from './useStoreSync';
 
 // Theme and UI hooks
 export { useTheme } from './useTheme';
-export { useSidebar } from './useSidebar';
+export { useSidebar } from '@santonastaso/shared';
 
 // Export all custom hooks
 export * from './useProductionCalculations';
