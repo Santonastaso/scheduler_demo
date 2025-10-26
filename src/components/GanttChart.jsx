@@ -9,7 +9,7 @@ import PreviousDayDropZone from './PreviousDayDropZone';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMachineAvailabilityForDateAllMachines } from '../hooks/useQueries';
 import { Button } from '@andrea/crm-ui';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+// Using native HTML select instead of complex Select component
 
 
 // A single 15-minute time slot on the calendar that can receive a dropped task
@@ -775,15 +775,14 @@ const GanttChart = React.memo(({ machines, currentDate, dropTargetId, dragPrevie
 
           {/* View Selector */}
           <div className="gantt-view-selector">
-            <Select value={currentView} onValueChange={setCurrentView}>
-              <SelectTrigger className="view-selector">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Daily">Vista Giornaliera</SelectItem>
-                <SelectItem value="Weekly">Vista Settimanale</SelectItem>
-              </SelectContent>
-            </Select>
+            <select
+              value={currentView}
+              onChange={(e) => setCurrentView(e.target.value)}
+              className="view-selector flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            >
+              <option value="Daily">Vista Giornaliera</option>
+              <option value="Weekly">Vista Settimanale</option>
+            </select>
           </div>
         </div>
         

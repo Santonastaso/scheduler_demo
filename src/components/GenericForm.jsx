@@ -3,13 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useErrorHandler, useValidation } from '../hooks';
 import { showValidationError } from '../utils';
 import { Input, Label, Button } from '@andrea/crm-ui';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from './ui';
+// Using native HTML select instead of complex Select component
 
 /**
  * Generic Form Component
@@ -140,25 +134,18 @@ function GenericForm({
       case 'select':
         return (
           <div>
-            <Select 
-              onValueChange={(value) => {
-                setValue(field.name, value, { shouldValidate: true });
-                clearErrors(field.name);
-              }} 
-              value={getValues(field.name) || ''}
+            <select
+              {...register(field.name, field.validation)}
               disabled={field.disabled || isSubmitting}
+              className={`flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring ${errors[field.name] ? 'border-red-500' : 'border-input'}`}
             >
-              <SelectTrigger className={errors[field.name] ? 'border-red-500' : ''}>
-                <SelectValue placeholder={field.placeholder || `Seleziona ${field.label.toLowerCase()}`} />
-              </SelectTrigger>
-              <SelectContent>
-                {field.options?.map(option => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <option value="">{field.placeholder || `Seleziona ${field.label.toLowerCase()}`}</option>
+              {field.options?.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
             {errors[field.name] && (
               <p className="text-sm text-destructive mt-1">{errors[field.name].message}</p>
             )}

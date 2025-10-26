@@ -7,7 +7,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from './ui/table';
+} from '@andrea/crm-ui';
 import { Button } from '@andrea/crm-ui';
 import FilterDropdown from './FilterDropdown';
 

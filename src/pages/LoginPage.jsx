@@ -5,13 +5,7 @@ import { useUIStore } from '../store';
 import { WORK_CENTERS } from '../constants';
 import { useErrorHandler } from '../hooks';
 import {  Input, Label } from '@andrea/crm-ui';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '../components/ui';
+// Using native HTML select instead of complex Select component
 
 /**
  * LoginPage component for user authentication
@@ -149,16 +143,17 @@ function LoginPage() {
           {/* Work Center Field */}
           <div className="space-y-2">
             <Label htmlFor="workCenter">Centro di Lavoro *</Label>
-            <Select onValueChange={(value) => handleChange({ target: { name: 'workCenter', value } })} value={formData.workCenter}>
-              <SelectTrigger className={formErrors.workCenter ? 'border-red-500' : ''}>
-                <SelectValue placeholder="Seleziona un centro di lavoro" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={WORK_CENTERS.ZANICA}>{WORK_CENTERS.ZANICA}</SelectItem>
-                <SelectItem value={WORK_CENTERS.BUSTO_GAROLFO}>{WORK_CENTERS.BUSTO_GAROLFO}</SelectItem>
-                <SelectItem value={WORK_CENTERS.BOTH}>{WORK_CENTERS.BOTH}</SelectItem>
-              </SelectContent>
-            </Select>
+            <select
+              name="workCenter"
+              value={formData.workCenter}
+              onChange={handleChange}
+              className={`flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring ${formErrors.workCenter ? 'border-red-500' : 'border-input'}`}
+            >
+              <option value="">Seleziona un centro di lavoro</option>
+              <option value={WORK_CENTERS.ZANICA}>{WORK_CENTERS.ZANICA}</option>
+              <option value={WORK_CENTERS.BUSTO_GAROLFO}>{WORK_CENTERS.BUSTO_GAROLFO}</option>
+              <option value={WORK_CENTERS.BOTH}>{WORK_CENTERS.BOTH}</option>
+            </select>
             {getFieldError('workCenter')}
           </div>
 

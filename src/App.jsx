@@ -18,7 +18,7 @@ import SignupPage from './pages/SignupPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ErrorBoundary from './components/ErrorBoundary';
 import ProtectedRoute from './auth/ProtectedRoute';
-import ConfirmDialog from './components/ui/confirm-dialog';
+// ConfirmDialog removed - using native confirm() instead
 import { useUIStore, useMainStore, useSchedulerStore } from './store';
 import { useAuth } from './auth/AuthContext';
 import { useStoreSync } from './hooks';
