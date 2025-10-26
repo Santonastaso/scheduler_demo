@@ -11,11 +11,11 @@ The following environment variables must be set:
 
 ## GitHub Secrets Setup
 
-For production deployments, set these as GitHub Secrets:
+For production deployments, set these as GitHub Repository Secrets:
 
 1. Go to your GitHub repository
 2. Navigate to **Settings** → **Secrets and variables** → **Actions**
-3. Add the following repository secrets:
+3. Click **New repository secret** and add the following secrets:
 
 ### Repository Secrets to Add:
 
