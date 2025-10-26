@@ -1,6 +1,6 @@
 import { useOrderStore } from '../useOrderStore';
 import { useUIStore } from '../useUIStore';
-import { AppError, ERROR_TYPES } from '@santonastaso/shared'errorHandling';
+import { AppError, ERROR_TYPES } from '@santonastaso/shared';
 import { TIME_CONSTANTS } from '../../constants';
 import { apiService } from '../../services/api';
 
