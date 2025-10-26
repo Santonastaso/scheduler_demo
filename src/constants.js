@@ -1,5 +1,5 @@
-// Re-export shared constants and add scheduler-specific ones
-export {
+// Import shared constants first
+import {
   DEPARTMENT_TYPES,
   WORK_CENTERS,
   MACHINE_STATUSES,
@@ -14,6 +14,23 @@ export {
   TIME_CONSTANTS,
   ERROR_TYPES
 } from '@andrea/shared-components/constants';
+
+// Re-export shared constants
+export {
+  DEPARTMENT_TYPES,
+  WORK_CENTERS,
+  MACHINE_STATUSES,
+  PRODUCT_TYPES,
+  SHIFT_TYPES,
+  SEAL_SIDES,
+  TASK_STATUSES,
+  VALIDATION_MESSAGES,
+  FIELD_CONFIGS,
+  ALERT_TYPES,
+  CONFIRMATION_TYPES,
+  TIME_CONSTANTS,
+  ERROR_TYPES
+};
 
 // ===== SCHEDULER-SPECIFIC CONSTANTS =====
 
