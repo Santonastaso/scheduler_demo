@@ -312,8 +312,8 @@ function TaskPoolDataTable() {
             columns={columns}
             onEditRow={handleEditRow}
             onDeleteRow={handleDeleteRow}
-            enableFiltering={true}
-            filterableColumns={['odp_number', 'article_code', 'nome_cliente']}
+            enableGlobalSearch={false}
+            enableFiltering={false}
           />
         ) : (
           <div className="empty-state">

@@ -260,8 +260,8 @@ function BacklogListPage() {
         onEditRow={handleEditOrder}
         onDeleteRow={handleDeleteOrder}
         stickyColumns={['odp_number', 'article_code']}
-        enableFiltering={true}
-        filterableColumns={filterableColumns}
+        enableGlobalSearch={false}
+        enableFiltering={false}
       />
     </div>
   );

@@ -106,6 +106,7 @@ function PhasesListPage() {
         data={filteredPhases}
         onEditRow={handleEditPhase}
         onDeleteRow={handleDeletePhase}
+        enableGlobalSearch={false}
       />
     </div>
   );

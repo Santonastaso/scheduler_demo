@@ -108,6 +108,7 @@ function MachineryListPage() {
         data={machines}
         onEditRow={handleEditMachine}
         onDeleteRow={handleDeleteMachine}
+        enableGlobalSearch={false}
       />
     </div>
   );
