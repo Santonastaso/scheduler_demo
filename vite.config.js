@@ -9,7 +9,7 @@ export default defineConfig(({ command }) => {
     base: isDev ? '/' : '/scheduler_demo/', // Use root for dev, /scheduler_demo/ for production
     server: {
       // Ensure dev server works correctly
-      port: 5175,
+      port: 5174,
       host: true,
     },
     build: {
