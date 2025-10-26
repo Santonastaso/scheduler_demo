@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from './dialog';
-import { Button } from './button';
+import { Button } from '@andrea/crm-ui';
 
 const ConfirmDialog = ({ 
   isOpen, 

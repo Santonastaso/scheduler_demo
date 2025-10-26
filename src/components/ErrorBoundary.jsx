@@ -1,6 +1,6 @@
 import React from 'react';
 import { reportError } from '../services/sentry';
-import { Button } from './ui/button';
+import { Button } from '@andrea/crm-ui';
 
 /**
  * React Error Boundary Component

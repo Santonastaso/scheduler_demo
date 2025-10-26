@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import BacklogForm from '../components/BacklogForm';
 import StickyHeader from '../components/StickyHeader';
-import { Button } from '../components/ui';
+import { Button } from '@andrea/crm-ui';
 import { useOrderStore, useUIStore, useMainStore } from '../store';
 import { useOrder } from '../hooks';
 

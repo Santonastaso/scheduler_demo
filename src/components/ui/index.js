@@ -1,4 +1,3 @@
-export { Button, buttonVariants } from './button';
 export {
   Dialog,
   DialogContent,
@@ -8,8 +7,6 @@ export {
   DialogTitle,
 } from './dialog';
 
-export { Input } from './input';
-export { Label } from './label';
 export {
   Select,
   SelectContent,
@@ -42,8 +39,6 @@ export {
 } from './dropdown-menu';
 
 export { Avatar, AvatarImage, AvatarFallback } from './avatar';
-export { ThemeDropdown } from './theme-dropdown';
-export { ThemeToggle } from './theme-toggle';
 export { Badge, badgeVariants } from './badge';
 export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from './card';
 export { Textarea } from './textarea';

@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import { useErrorHandler } from '../hooks';
-import {
-  Button,
-  Input,
-  Label,
-} from '../components/ui';
+import { Input, Label } from '@andrea/crm-ui';
 
 /**
  * ForgotPasswordPage component for password reset

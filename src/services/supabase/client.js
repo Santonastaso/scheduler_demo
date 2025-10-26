@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
+import { createSupabaseClient, handleSupabaseError as sharedHandleSupabaseError, checkSupabaseConnection as sharedCheckSupabaseConnection } from '@andrea/shared-utils';
 
 // Supabase configuration from environment variables
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
@@ -12,56 +12,20 @@ if (!SUPABASE_ANON_KEY) {
   throw new Error('Missing VITE_SUPABASE_ANON_KEY environment variable');
 }
 
-// Create and export the Supabase client
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true
-  },
-  realtime: {
-    params: {
-      eventsPerSecond: 10
-    }
-  }
+// Create and export the Supabase client using shared utilities
+export const supabase = createSupabaseClient({
+  url: SUPABASE_URL,
+  anonKey: SUPABASE_ANON_KEY
 });
 
-/**
- * Handle Supabase errors with user-friendly messages
- */
-export const handleSupabaseError = (error, _context = '') => {
-  
-  // User-friendly error messages
-  if (error.code === '23505') {
-    return 'This record already exists';
-  } else if (error.code === '23503') {
-    return 'Cannot perform this operation due to related records';
-  } else if (error.code === 'PGRST116') {
-    return 'No records found';
-  } else if (error.message?.includes('JWT')) {
-    return 'Authentication error. Please refresh the page';
-  }
-  
-  return error.message || 'An unexpected error occurred';
-};
+// Re-export shared utilities for backward compatibility
+export const handleSupabaseError = sharedHandleSupabaseError;
 
 /**
- * Check if Supabase connection is working
+ * Check if Supabase connection is working (scheduler_demo-specific)
  */
 export const checkSupabaseConnection = async () => {
-  try {
-    const { error } = await supabase
-      .from('machines')
-      .select('count')
-      .limit(1);
-      
-    if (error) {
-      return false;
-    }
-    
-    return true;
-  } catch (_error) {
-    return false;
-  }
+  return sharedCheckSupabaseConnection(supabase, 'machines');
 };
 
 export default supabase;

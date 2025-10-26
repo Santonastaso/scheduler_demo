@@ -8,7 +8,7 @@ import NextDayDropZone from './NextDayDropZone';
 import PreviousDayDropZone from './PreviousDayDropZone';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMachineAvailabilityForDateAllMachines } from '../hooks/useQueries';
-import { Button } from './ui/button';
+import { Button } from '@andrea/crm-ui';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 
 

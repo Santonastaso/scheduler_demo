@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from './ui/table';
-import { Button } from './ui/button';
+import { Button } from '@andrea/crm-ui';
 import FilterDropdown from './FilterDropdown';
 
 function DataTable({ 

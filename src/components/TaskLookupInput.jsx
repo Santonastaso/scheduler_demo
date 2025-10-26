@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from './ui';
+import { Input } from '@andrea/crm-ui';
 
 const TaskLookupInput = ({
   placeholder,

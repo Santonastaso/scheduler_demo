@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
+import { showError, showSuccess } from '@andrea/shared-utils';
 import SideNav from './components/layout/SideNav';
 import { Header } from './components/layout/Header';
 import MachineryListPage from './pages/MachineryListPage';
@@ -22,7 +23,7 @@ import { useUIStore, useMainStore, useSchedulerStore } from './store';
 import { useAuth } from './auth/AuthContext';
 import { useStoreSync } from './hooks';
 import { useQueryClient } from '@tanstack/react-query';
-import { ThemeProvider } from './components/ThemeProvider';
+import { ThemeProvider } from '@andrea/crm-ui';
 
 
 // This component creates the main layout with the sidebar
@@ -102,16 +103,16 @@ const AppLayout = () => {
                 const result = await resolveConflictByShunting(conflictData, 'left', queryClient);
                 
                 if (result.error) {
-                  const { showError } = await import('./utils/toast');
+                  // showError imported at top
                   showError(result.error);
                 } else {
-                  const { showSuccess } = await import('./utils/toast');
+                  // showSuccess imported at top
                   showSuccess('Task spostato con successo');
                   hideConflictDialog();
                 }
               } catch (error) {
                 console.error('❌ SHUNTING ERROR:', error);
-                const { showError } = await import('./utils/toast');
+                // showError imported at top
                 showError('Errore durante lo spostamento del task');
               }
             }
@@ -132,16 +133,16 @@ const AppLayout = () => {
                 const result = await resolveConflictByShunting(conflictData, 'right', queryClient);
                 
                 if (result.error) {
-                  const { showError } = await import('./utils/toast');
+                  // showError imported at top
                   showError(result.error);
                 } else {
-                  const { showSuccess } = await import('./utils/toast');
+                  // showSuccess imported at top
                   showSuccess('Task spostato con successo');
                   hideConflictDialog();
                 }
               } catch (error) {
                 console.error('❌ SHUNTING ERROR:', error);
-                const { showError } = await import('./utils/toast');
+                // showError imported at top
                 showError('Errore durante lo spostamento del task');
               }
             }

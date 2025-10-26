@@ -4,7 +4,7 @@
  */
 
 import { reportError, addBreadcrumb } from '../services/sentry';
-import { showError } from './toast';
+import { showError } from '@andrea/shared-utils';
 
 // Simple error types for user-friendly messages
 export const ERROR_TYPES = {

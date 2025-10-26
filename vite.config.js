@@ -6,10 +6,10 @@ export default defineConfig(({ command }) => {
   
   return {
     plugins: [react()],
-    base: '/scheduler_demo/', // Correct for GitHub Pages subdirectory
+    base: isDev ? '/' : '/scheduler_demo/', // Use root for dev, /scheduler_demo/ for production
     server: {
       // Ensure dev server works correctly
-      port: 5173,
+      port: 5175,
       host: true,
     },
     build: {

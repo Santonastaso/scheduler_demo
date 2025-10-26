@@ -13,7 +13,7 @@ export {
   showInfo, 
   dismissAll, 
   dismiss 
-} from './toast';
+} from '@andrea/shared-utils';
 export {
   AppError,
   ERROR_TYPES,
