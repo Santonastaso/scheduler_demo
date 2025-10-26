@@ -16,7 +16,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
-import ErrorBoundary from './components/ErrorBoundary';
+import { ErrorBoundary } from '@santonastaso/shared';
 import ProtectedRoute from './auth/ProtectedRoute';
 // ConfirmDialog removed - using native confirm() instead
 import { useUIStore, useMainStore, useSchedulerStore } from './store';
