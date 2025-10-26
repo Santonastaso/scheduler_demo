@@ -12,7 +12,7 @@ import {
 import { useOrderStore, useUIStore } from '../store';
 import { useErrorHandler, useOrders, useRemoveOrder } from '../hooks';
 import { format } from 'date-fns';
-import DataTable from './DataTable';
+import { DataTable } from '@santonastaso/shared';
 
 // Gantt Actions Cell Component
 const GanttActionsCell = ({ task, isEditMode, schedulingLoading, conflictDialog }) => {

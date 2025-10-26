@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import DataTable from '../components/DataTable';
+import { DataTable } from '@santonastaso/shared';
 
 import { useUIStore } from '../store';
 import { useErrorHandler, useOrders, useMachines, usePhases, useRemoveOrder } from '../hooks';
