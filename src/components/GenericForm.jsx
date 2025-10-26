@@ -82,7 +82,7 @@ function GenericForm({
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
     watch,
     setValue,
     getValues,
@@ -159,31 +159,44 @@ function GenericForm({
     switch (field.type) {
       case 'select':
         return (
-          <Select 
-            onValueChange={(value) => setValue(field.name, value)} 
-            value={getValues(field.name) || ''}
-            disabled={field.disabled || isSubmitting}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder={field.placeholder || `Seleziona ${field.label.toLowerCase()}`} />
-            </SelectTrigger>
-            <SelectContent>
-              {field.options?.map(option => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div>
+            <Select 
+              onValueChange={(value) => {
+                setValue(field.name, value);
+                clearErrors(field.name);
+              }} 
+              value={getValues(field.name) || ''}
+              disabled={field.disabled || isSubmitting}
+            >
+              <SelectTrigger className={errors[field.name] ? 'border-red-500' : ''}>
+                <SelectValue placeholder={field.placeholder || `Seleziona ${field.label.toLowerCase()}`} />
+              </SelectTrigger>
+              <SelectContent>
+                {field.options?.map(option => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {errors[field.name] && (
+              <p className="text-[10px] text-red-600 mt-1">{errors[field.name].message}</p>
+            )}
+          </div>
         );
 
       case 'textarea':
         return (
-          <textarea
-            {...baseInputProps}
-            rows={field.rows || 3}
-            className={`w-full px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-navy-800 focus:border-transparent text-[10px] placeholder:text-muted-foreground ${field.className || ''}`}
-          />
+          <div>
+            <textarea
+              {...baseInputProps}
+              rows={field.rows || 3}
+              className={`w-full px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-navy-800 focus:border-transparent text-[10px] placeholder:text-muted-foreground ${field.className || ''} ${errors[field.name] ? 'border-red-500' : ''}`}
+            />
+            {errors[field.name] && (
+              <p className="text-[10px] text-red-600 mt-1">{errors[field.name].message}</p>
+            )}
+          </div>
         );
 
       case 'checkbox':
@@ -215,20 +228,55 @@ function GenericForm({
         );
 
       case 'datetime-local':
-        return <Input type="datetime-local" {...baseInputProps} />;
+        return (
+          <div>
+            <Input type="datetime-local" {...baseInputProps} className={`${baseInputProps.className} ${errors[field.name] ? 'border-red-500' : ''}`} />
+            {errors[field.name] && (
+              <p className="text-[10px] text-red-600 mt-1">{errors[field.name].message}</p>
+            )}
+          </div>
+        );
 
       case 'date':
-        return <Input type="date" {...baseInputProps} />;
+        return (
+          <div>
+            <Input type="date" {...baseInputProps} className={`${baseInputProps.className} ${errors[field.name] ? 'border-red-500' : ''}`} />
+            {errors[field.name] && (
+              <p className="text-[10px] text-red-600 mt-1">{errors[field.name].message}</p>
+            )}
+          </div>
+        );
 
       case 'time':
-        return <Input type="time" {...baseInputProps} />;
+        return (
+          <div>
+            <Input type="time" {...baseInputProps} className={`${baseInputProps.className} ${errors[field.name] ? 'border-red-500' : ''}`} />
+            {errors[field.name] && (
+              <p className="text-[10px] text-red-600 mt-1">{errors[field.name].message}</p>
+            )}
+          </div>
+        );
 
       case 'number':
-        return <Input type="number" {...baseInputProps} />;
+        return (
+          <div>
+            <Input type="number" {...baseInputProps} className={`${baseInputProps.className} ${errors[field.name] ? 'border-red-500' : ''}`} />
+            {errors[field.name] && (
+              <p className="text-[10px] text-red-600 mt-1">{errors[field.name].message}</p>
+            )}
+          </div>
+        );
 
       case 'text':
       default:
-        return <Input type="text" {...baseInputProps} />;
+        return (
+          <div>
+            <Input type="text" {...baseInputProps} className={`${baseInputProps.className} ${errors[field.name] ? 'border-red-500' : ''}`} />
+            {errors[field.name] && (
+              <p className="text-[10px] text-red-600 mt-1">{errors[field.name].message}</p>
+            )}
+          </div>
+        );
     }
   };
 

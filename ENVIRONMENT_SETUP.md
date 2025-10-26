@@ -37,7 +37,13 @@ VITE_SUPABASE_URL=https://wufsjkzyjxgvualcaftn.supabase.co
 VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind1ZnNqa3p5anhndnVhbGNhZnRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE0NzAyNzAsImV4cCI6MjA3NzA0NjI3MH0.cq8pGstXbA3OzgPbkJNRrQT39ROA4t9N3czLSIWpjUs
 ```
 
-**Important:** Add `.env` to your `.gitignore` file to prevent committing sensitive data.
+**Important:** The `.env` file is already in `.gitignore` to prevent committing sensitive data.
+
+### Quick Setup for Local Development:
+
+1. Create the `.env` file in your project root
+2. Copy the values above into the file
+3. Run `npm run dev` - the environment variables will be loaded automatically
 
 ## Deployment
 
