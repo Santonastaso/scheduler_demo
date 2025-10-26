@@ -4,7 +4,7 @@ import { DataTable } from '@santonastaso/shared';
 
 import { usePhaseStore, useUIStore, useMainStore } from '../store';
 import { useErrorHandler, usePhases, useRemovePhase } from '../hooks';
-import { showError, showSuccess } from '../utils';
+import { showError, showSuccess } from '@santonastaso/shared';
 import { WORK_CENTERS } from '../constants';
 
 

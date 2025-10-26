@@ -4,7 +4,7 @@ import { DataTable } from '@santonastaso/shared';
 
 import { useUIStore } from '../store';
 import { useErrorHandler, useOrders, useMachines, usePhases, useRemoveOrder } from '../hooks';
-import { showSuccess } from '../utils';
+import { showSuccess } from '@santonastaso/shared';
 import { WORK_CENTERS } from '../constants';
 import { format } from 'date-fns';
 

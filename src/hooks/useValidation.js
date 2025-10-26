@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { validateData, SCHEMAS } from '../utils/yupSchemas';
+import { validateData, SCHEMAS } from '@santonastaso/shared'yupSchemas';
 
 /**
  * Unified validation hook that replaces all individual validation hooks

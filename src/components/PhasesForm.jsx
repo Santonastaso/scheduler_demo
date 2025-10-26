@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { useUIStore } from '../store';
 import { useErrorHandler, useAddPhase, useUpdatePhase } from '../hooks';
-import { showSuccess } from '../utils';
+import { showSuccess } from '@santonastaso/shared';
 import { WORK_CENTERS, DEPARTMENT_TYPES } from '../constants';
 import GenericForm from './GenericForm';
 import { phaseFormConfig } from './formConfigs';

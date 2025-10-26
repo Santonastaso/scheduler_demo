@@ -4,7 +4,7 @@ import { DataTable } from '@santonastaso/shared';
 
 import { useUIStore } from '../store';
 import { useErrorHandler, useMachinesByWorkCenter, useRemoveMachine } from '../hooks';
-import { showError, showSuccess } from '../utils';
+import { showError, showSuccess } from '@santonastaso/shared';
 import { WORK_CENTERS } from '../constants';
 
 function MachineryListPage() {

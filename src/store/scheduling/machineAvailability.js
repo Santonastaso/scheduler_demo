@@ -1,6 +1,6 @@
 import { apiService } from '../../services';
 import { format, addDays } from 'date-fns';
-import { handleApiError, AppError, ERROR_TYPES } from '../../utils/errorHandling';
+import { handleApiError, AppError, ERROR_TYPES } from '@santonastaso/shared'errorHandling';
 import { useOrderStore } from '../useOrderStore';
 import { useUIStore } from '../useUIStore';
 

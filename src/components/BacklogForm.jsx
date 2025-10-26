@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useUIStore, useSchedulerStore, useOrderStore } from '../store';
 import { useProductionCalculations, useValidation, useAddOrder, useUpdateOrder } from '../hooks';
 import { usePhaseSearch } from '../hooks/usePhaseSearch';
-import { showValidationError, showSuccess, showWarning, showError } from '../utils';
+import { showValidationError, showSuccess, showWarning, showError } from '@santonastaso/shared';
 import { DEPARTMENT_TYPES, WORK_CENTERS, DEFAULT_VALUES } from '../constants';
 import { useErrorHandler } from '../hooks';
 import { backlogFormConfig } from './formConfigs';
