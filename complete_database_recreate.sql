@@ -171,6 +171,12 @@ CREATE TABLE public.odp_orders (
   asd_notes text NULL,
   material_availability_global integer NULL,
   status text DEFAULT 'NOT SCHEDULED'::text,
+  duration real NULL,
+  cost real NULL,
+  scheduled_machine_id uuid NULL,
+  scheduled_start_time timestamp with time zone NULL,
+  scheduled_end_time timestamp with time zone NULL,
+  description text NULL,
   created_at timestamp with time zone NOT NULL DEFAULT now(),
   updated_at timestamp with time zone NOT NULL DEFAULT now(),
   CONSTRAINT odp_orders_pkey PRIMARY KEY (id),
@@ -189,7 +195,10 @@ CREATE TABLE public.odp_orders (
     (
       status = ANY (ARRAY['NOT SCHEDULED'::text, 'SCHEDULED'::text, 'IN PROGRESS'::text, 'COMPLETED'::text, 'CANCELLED'::text])
     )
-  )
+  ),
+  CONSTRAINT fk_odp_orders_scheduled_machine FOREIGN KEY (scheduled_machine_id) REFERENCES machines (id) ON DELETE SET NULL,
+  CONSTRAINT valid_duration CHECK ((duration IS NULL OR duration >= 0)),
+  CONSTRAINT valid_cost CHECK ((cost IS NULL OR cost >= 0))
 ) TABLESPACE pg_default;
 
 -- =====================================================
@@ -217,6 +226,8 @@ CREATE INDEX IF NOT EXISTS idx_odp_orders_work_center ON public.odp_orders USING
 CREATE INDEX IF NOT EXISTS idx_odp_orders_department ON public.odp_orders USING btree (department) TABLESPACE pg_default;
 CREATE INDEX IF NOT EXISTS idx_odp_orders_status ON public.odp_orders USING btree (status) TABLESPACE pg_default;
 CREATE INDEX IF NOT EXISTS idx_odp_orders_delivery_date ON public.odp_orders USING btree (delivery_date) TABLESPACE pg_default;
+CREATE INDEX IF NOT EXISTS idx_odp_orders_scheduled_machine_id ON public.odp_orders USING btree (scheduled_machine_id) TABLESPACE pg_default;
+CREATE INDEX IF NOT EXISTS idx_odp_orders_scheduled_start_time ON public.odp_orders USING btree (scheduled_start_time) TABLESPACE pg_default;
 
 -- =====================================================
 -- 8. CREATE INDEXES FOR MACHINES TABLE
