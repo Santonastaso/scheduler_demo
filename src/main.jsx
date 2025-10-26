@@ -25,8 +25,8 @@ const queryClient = new QueryClient({
   },
 });
 
-// Base path for custom domain deployment
-const basename = '/';
+// Base path for GitHub Pages deployment
+const basename = '/scheduler_demo/';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
