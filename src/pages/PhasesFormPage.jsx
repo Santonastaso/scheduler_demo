@@ -52,8 +52,13 @@ function PhasesFormPage() {
   }
 
   return (
-    <div className="p-1 bg-white rounded shadow-sm border">
-      {isEditMode && <StickyHeader title={`Modifica Fase: ${phase?.name}`} />}
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold text-foreground">
+          {isEditMode ? `Modifica Fase: ${phase?.name}` : 'Aggiungi Nuova Fase'}
+        </h1>
+      </div>
+      
       <PhasesForm phaseToEdit={phase} />
     </div>
   );

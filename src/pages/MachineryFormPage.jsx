@@ -48,17 +48,21 @@ function MachineryFormPage() {
   }
 
   return (
-    <div className="p-1 bg-white rounded shadow-sm border">
-      {isEditMode && (
-        <>
-          <StickyHeader title={`Modifica Macchina: ${machine?.machine_name}`} />
-          <div className="flex justify-end mb-1">
-                       <Link to={`/machinery/${id}/calendar`} className="inline-flex items-center px-1 py-1 border border-gray-300 rounded shadow-sm text-[10px] font-medium text-gray-700 bg-white hover:bg-gray-50">
-              Visualizza Calendario
-            </Link>
-          </div>
-        </>
-      )}
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold text-foreground">
+          {isEditMode ? `Modifica Macchina: ${machine?.machine_name}` : 'Aggiungi Nuova Macchina'}
+        </h1>
+        {isEditMode && (
+          <Link 
+            to={`/machinery/${id}/calendar`} 
+            className="inline-flex items-center px-4 py-2 border border-border rounded-md text-sm font-medium text-foreground bg-background hover:bg-muted"
+          >
+            Visualizza Calendario
+          </Link>
+        )}
+      </div>
+      
       <MachineForm machineToEdit={machine} />
     </div>
   );

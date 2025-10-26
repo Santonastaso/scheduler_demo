@@ -14,6 +14,10 @@ export * from './useQueries';
 // Store sync hook
 export { useStoreSync } from './useStoreSync';
 
+// Theme and UI hooks
+export { useTheme } from './useTheme';
+export { useSidebar } from './useSidebar';
+
 // Export all custom hooks
 export * from './useProductionCalculations';
 export * from './useValidation';

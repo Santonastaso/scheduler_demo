@@ -55,7 +55,7 @@ function GenericForm({
   isLoading = false,
   customActions = null,
   customFieldRenderers = {},
-  className = "p-1 bg-white rounded-lg shadow-sm border"
+  className = "p-1 bg-card rounded-lg shadow-sm border"
 }) {
   const { handleAsync } = useErrorHandler('GenericForm');
   const { validate } = useValidation();
@@ -162,7 +162,7 @@ function GenericForm({
               </SelectContent>
             </Select>
             {errors[field.name] && (
-              <p className="text-[10px] text-red-600 mt-1">{errors[field.name].message}</p>
+              <p className="text-sm text-destructive mt-1">{errors[field.name].message}</p>
             )}
           </div>
         );
@@ -173,10 +173,10 @@ function GenericForm({
             <textarea
               {...baseInputProps}
               rows={field.rows || 3}
-              className={`w-full px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-navy-800 focus:border-transparent text-[10px] placeholder:text-muted-foreground ${field.className || ''} ${errors[field.name] ? 'border-red-500' : ''}`}
+              className={`w-full px-3 py-2 border border-input rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent ${field.className || ''} ${errors[field.name] ? 'border-destructive' : ''}`}
             />
             {errors[field.name] && (
-              <p className="text-[10px] text-red-600 mt-1">{errors[field.name].message}</p>
+              <p className="text-sm text-destructive mt-1">{errors[field.name].message}</p>
             )}
           </div>
         );
@@ -214,7 +214,7 @@ function GenericForm({
           <div>
             <Input type="datetime-local" {...baseInputProps} className={`${baseInputProps.className} ${errors[field.name] ? 'border-red-500' : ''}`} />
             {errors[field.name] && (
-              <p className="text-[10px] text-red-600 mt-1">{errors[field.name].message}</p>
+              <p className="text-sm text-destructive mt-1">{errors[field.name].message}</p>
             )}
           </div>
         );
@@ -224,7 +224,7 @@ function GenericForm({
           <div>
             <Input type="date" {...baseInputProps} className={`${baseInputProps.className} ${errors[field.name] ? 'border-red-500' : ''}`} />
             {errors[field.name] && (
-              <p className="text-[10px] text-red-600 mt-1">{errors[field.name].message}</p>
+              <p className="text-sm text-destructive mt-1">{errors[field.name].message}</p>
             )}
           </div>
         );
@@ -234,7 +234,7 @@ function GenericForm({
           <div>
             <Input type="time" {...baseInputProps} className={`${baseInputProps.className} ${errors[field.name] ? 'border-red-500' : ''}`} />
             {errors[field.name] && (
-              <p className="text-[10px] text-red-600 mt-1">{errors[field.name].message}</p>
+              <p className="text-sm text-destructive mt-1">{errors[field.name].message}</p>
             )}
           </div>
         );
@@ -244,7 +244,7 @@ function GenericForm({
           <div>
             <Input type="number" {...baseInputProps} className={`${baseInputProps.className} ${errors[field.name] ? 'border-red-500' : ''}`} />
             {errors[field.name] && (
-              <p className="text-[10px] text-red-600 mt-1">{errors[field.name].message}</p>
+              <p className="text-sm text-destructive mt-1">{errors[field.name].message}</p>
             )}
           </div>
         );
@@ -255,14 +255,14 @@ function GenericForm({
           <div>
             <Input type="text" {...baseInputProps} className={`${baseInputProps.className} ${errors[field.name] ? 'border-red-500' : ''}`} />
             {errors[field.name] && (
-              <p className="text-[10px] text-red-600 mt-1">{errors[field.name].message}</p>
+              <p className="text-sm text-destructive mt-1">{errors[field.name].message}</p>
             )}
           </div>
         );
     }
   };
 
-  // Render a section of fields
+  // Render a section of fields - Simplified Tracc Style
   const renderSection = (section) => {
     const visibleFields = section.fields.filter(field => 
       !field.conditional || field.conditional(watch(field.name), watch, getValues)
@@ -271,19 +271,19 @@ function GenericForm({
     if (visibleFields.length === 0) return null;
 
     return (
-      <div key={section.title} className="space-y-2">
-        <h3 className="text-[10px] font-semibold text-gray-900 border-b pb-2">
+      <div key={section.title} className="space-y-4">
+        <h2 className="text-lg font-semibold text-foreground">
           {section.title}
-        </h3>
-        <div className={`grid gap-2 ${section.gridCols || 'grid-cols-2 md:grid-cols-4 lg:grid-cols-8'}`}>
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {visibleFields.map(field => (
             <div key={field.name} className="space-y-2">
-              <Label htmlFor={field.name}>
-                {field.label} {field.required && '*'}
+              <Label htmlFor={field.name} className="text-sm font-medium text-foreground">
+                {field.label} {field.required && <span className="text-destructive">*</span>}
               </Label>
               {renderField(field)}
               {field.helpText && (
-                <p className="text-[10px] text-gray-500">{field.helpText}</p>
+                <p className="text-xs text-muted-foreground">{field.helpText}</p>
               )}
             </div>
           ))}
@@ -301,8 +301,8 @@ function GenericForm({
   };
 
   return (
-    <div className={className}>
-      <form onSubmit={handleSubmit(handleFormSubmit)} noValidate className="space-y-2">
+    <div className="bg-card rounded-lg border border-border shadow-sm p-6">
+      <form onSubmit={handleSubmit(handleFormSubmit)} noValidate className="space-y-6">
         {config.sections.map(renderSection)}
         
         {/* Render custom sections */}
@@ -311,15 +311,14 @@ function GenericForm({
         )}
         
         {customActions && (
-          <div className="space-y-2">
+          <div className="space-y-4">
             {customActions}
           </div>
         )}
 
-        <div className="flex justify-end pt-4">
+        <div className="flex justify-end pt-6 border-t border-border">
           <Button 
             type="submit" 
-            size="sm" 
             disabled={isLoading || isSubmitting}
           >
             {isLoading || isSubmitting

@@ -243,19 +243,26 @@ function BacklogListPage() {
   }
 
   return (
-    <div className="p-1 bg-white rounded shadow-sm border min-w-0">
-      
-      <div className="overflow-x-auto">
-        <DataTable
-          columns={columns}
-          data={filteredOrders}
-          onEditRow={handleEditOrder}
-          onDeleteRow={handleDeleteOrder}
-          stickyColumns={['odp_number', 'article_code']}
-          enableFiltering={true}
-          filterableColumns={filterableColumns}
-        />
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold text-foreground">Lista Ordini</h1>
+        <Link 
+          to="/backlog/new" 
+          className="inline-flex items-center px-4 py-2 border border-border rounded-md text-sm font-medium text-foreground bg-background hover:bg-muted"
+        >
+          Aggiungi Ordine
+        </Link>
       </div>
+      
+      <DataTable
+        columns={columns}
+        data={filteredOrders}
+        onEditRow={handleEditOrder}
+        onDeleteRow={handleDeleteOrder}
+        stickyColumns={['odp_number', 'article_code']}
+        enableFiltering={true}
+        filterableColumns={filterableColumns}
+      />
     </div>
   );
 }

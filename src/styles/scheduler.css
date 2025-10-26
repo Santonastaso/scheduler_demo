@@ -153,11 +153,11 @@
     left: -1px !important;
     right: -1px !important;
     bottom: -1px !important;
-    border: 3px dashed var(--sap-accent) !important;
+    border: 3px dashed hsl(var(--accent)) !important;
     background: rgba(52, 152, 219, 0.1) !important;
     pointer-events: none !important;
     z-index: 1000 !important;
-    border-radius: var(--border-radius) !important;
+    border-radius: var(--radius) !important;
     animation: dropIndicatorPulse 1.5s ease-in-out infinite !important;
 }
 
@@ -196,11 +196,11 @@
 
 /* ===== SCHEDULER LAYOUT ===== */
 .section-controls {
-    background: var(--content-bg);
-    border-radius: var(--border-radius);
+    background: hsl(var(--background));
+    border-radius: var(--radius);
     padding: 1px;
     box-shadow: var(--shadow-sm);
-    border: 1px solid var(--sap-primary);
+    border: 1px solid hsl(var(--primary));
     margin-bottom: 10px;
     transition: box-shadow 0.2s ease;
     width: 100%;
@@ -214,7 +214,7 @@
 .section-title {
     font-size: 9px;
     font-weight: 400;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     margin-bottom: 2px;
     margin-top: 0;
 }
@@ -231,18 +231,18 @@
 
 /* ===== MACHINE NAME DISPLAY ===== */
 .machine-name-display {
-    background: var(--content-bg);
-    border-radius: var(--border-radius);
+    background: hsl(var(--background));
+    border-radius: var(--radius);
     padding: 4px 12px;
     margin-bottom: 4px;
-    border: 1px solid var(--sap-primary);
+    border: 1px solid hsl(var(--primary));
     box-shadow: var(--shadow-sm);
 }
 
 .machine-name-title {
     font-size: 10px;
     font-weight: 500;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     margin: 0;
     text-align: center;
 }
@@ -262,16 +262,16 @@
 .task-lookup-input {
     width: 100%;
     padding: 6px 10px;
-    border: 1px solid var(--sap-primary);
-    border-radius: var(--border-radius);
+    border: 1px solid hsl(var(--primary));
+    border-radius: var(--radius);
     font-size: 10px;
-    background: var(--sap-primary);
-    color: white;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
 }
 
 .task-lookup-input:focus {
     outline: none;
-    border-color: var(--sap-accent);
+    border-color: hsl(var(--accent));
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
@@ -280,9 +280,9 @@
     top: 100%;
     left: 0;
     right: 0;
-    background: var(--content-bg);
-    border: 1px solid var(--sap-primary);
-    border-radius: var(--border-radius);
+    background: hsl(var(--background));
+    border: 1px solid hsl(var(--primary));
+    border-radius: var(--radius);
     box-shadow: var(--shadow-md);
     z-index: 1000;
     max-height: 200px;
@@ -308,7 +308,7 @@
 .task-lookup-odp {
     display: block;
     font-weight: 500;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     font-size: 10px;
 }
 
@@ -322,7 +322,7 @@
 .task-lookup-workcenter {
     display: block;
     font-size: 10px;
-    color: var(--sap-accent);
+    color: hsl(var(--accent));
     font-weight: 500;
     margin-top: 2px;
     text-transform: uppercase;
@@ -365,8 +365,8 @@
 /* ===== CALENDAR SECTIONS ===== */
 .calendar-container,
 .calendar-section {
-    background: #f0f2f5;
-    border: 2px solid #d1d5db;
+    background: hsl(var(--background));
+    border: 2px solid hsl(var(--border));
     margin-bottom: var(--spacing-lg);
     width: 100%;
     min-width: 100%;
@@ -382,7 +382,7 @@
 .content-section .section-controls,
 .content-section .calendar-section {
     margin-top: 0;
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
 }
 
 .calendar-section {
@@ -395,18 +395,18 @@
 }
 
 .task-pool-section p {
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
     font-size: 10px;
     margin-bottom: 6px;
 }
 
 /* ===== TASK POOL SECTION ===== */
 .task-pool-section {
-    background: var(--content-bg);
-    border-radius: var(--border-radius);
+    background: hsl(var(--background));
+    border-radius: var(--radius);
     padding: 1px;
     box-shadow: var(--shadow-sm);
-    border: 1px solid var(--sap-primary);
+    border: 1px solid hsl(var(--primary));
     margin-bottom: 10px;
     transition: box-shadow 0.2s ease;
     width: 100%;
@@ -432,13 +432,13 @@
     flex: 1;
     padding: 6px;
     margin: 0;
-    background: #e8eaed;
+    background: hsl(var(--muted));
     border-radius: 6px;
-    border: 1px solid #cbd5e1;
+    border: 1px solid hsl(var(--border));
 }
 
 .task-pool-grid.drag-over {
-    border-color: var(--sap-accent);
+    border-color: hsl(var(--accent));
     background-color: rgba(52, 152, 219, 0.05);
     transform: scale(1.01);
 }
@@ -450,9 +450,10 @@
     flex: 1;
     padding: 0;
     margin: 0;
-    background: white;
-    border-radius: 0;
-    border: none;
+    background: hsl(var(--card));
+    border-radius: 0.5rem; /* Add rounded corners like forms */
+    border: 1px solid hsl(var(--border)); /* Add border like forms */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* Add subtle shadow like forms */
     min-height: 220px; /* Minimum height for 4 tasks + header */
     overflow-y: auto;
     overflow-x: visible; /* Allow horizontal overflow for dropdowns */
@@ -460,13 +461,13 @@
 }
 
 .task-pool-table-container.drag-over {
-    border-color: var(--sap-accent);
+    border-color: hsl(var(--accent));
     background-color: rgba(52, 152, 219, 0.05);
     transform: scale(1.01);
 }
 
 .task-pool-table-container .rounded-md {
-    background: var(--content-bg);
+    background: hsl(var(--card));
 }
 
 /* Ensure sticky headers work within task pool container */
@@ -474,13 +475,13 @@
     position: sticky;
     top: 0;
     z-index: 20;
-    background: #f9fafb;
+    background: hsl(var(--muted));
 }
 
 .task-pool-table-container th {
     position: sticky;
     top: 0;
-    background: #f9fafb;
+    background: hsl(var(--muted));
     z-index: 20;
 }
 
@@ -523,20 +524,20 @@
 .total-hours {
     font-size: 10px;
     font-weight: 600;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     background: rgba(52, 152, 219, 0.1);
     padding: 6px 10px;
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     border: 1px solid rgba(52, 152, 219, 0.2);
 }
 
 .edit-pool-btn {
-    background: var(--content-bg);
-    border: 1px solid var(--sap-primary);
-    border-radius: var(--border-radius);
+    background: hsl(var(--background));
+    border: 1px solid hsl(var(--primary));
+    border-radius: var(--radius);
     padding: 4px;
     cursor: pointer;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
@@ -545,7 +546,7 @@
 
 .edit-pool-btn:hover {
     background: var(--sap-accent-hover);
-    border-color: var(--sap-accent);
+    border-color: hsl(var(--accent));
     transform: translateY(-1px);
 }
 
@@ -585,7 +586,7 @@
 .current-period {
     font-size: 10px;
     font-weight: 400;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     margin: 0;
     min-width: 200px;
     text-align: center;
@@ -604,11 +605,11 @@
 }
 
 .view-dropdown-btn {
-    background: var(--content-bg);
+    background: hsl(var(--background));
     border: 1px solid var(--border-color);
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     padding: 10px 16px;
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     cursor: pointer;
     font-weight: 400;
     display: flex;
@@ -623,9 +624,9 @@
     position: absolute;
     top: 100%;
     right: 0;
-    background: var(--content-bg);
+    background: hsl(var(--background));
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     box-shadow: 0 4px 16px rgba(0,0,0,0.1);
     min-width: 120px;
     z-index: 1000;
@@ -657,13 +658,13 @@
     margin-top: 24px;
     padding: 20px;
     background: rgba(0,0,0,0.02);
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     border: 1px solid var(--border-color);
 }
 
 .off-time-section h3 {
     margin: 0 0 16px 0;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     font-size: 16px;
     font-weight: 400;
 }
@@ -678,16 +679,16 @@
 .input-group label {
     font-size: 12px;
     font-weight: 400;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
 }
 
 
 .set-off-time-btn {
     background: var(--primary-blue);
-    color: white;
+    color: hsl(var(--primary-foreground));
     border: none;
     padding: 6px 24px;
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     font-weight: 400;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -703,7 +704,7 @@
 .off-time-status {
     margin-bottom: 15px;
     padding: 6px;
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     font-size: 12px;
     line-height: 1.4;
 }
@@ -727,8 +728,8 @@
     height: 600px;
     overflow: auto;
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    background: var(--content-bg);
+    border-radius: var(--radius);
+    background: hsl(var(--background));
     contain: layout;
     position: relative;
 }
@@ -738,7 +739,7 @@
     overflow: visible;
     border: none;
     border-radius: 0;
-    background: var(--content-bg);
+    background: hsl(var(--background));
     contain: layout;
 }
 
@@ -752,7 +753,7 @@
 .machine-column-wrapper {
     width: 180px;
     min-width: 180px;
-    background: var(--content-bg);
+    background: hsl(var(--background));
     border-right: 2px solid var(--border-color);
     flex-shrink: 0;
     position: sticky;
@@ -766,7 +767,7 @@
     padding: 4px;
     font-weight: 400;
     background: var(--gray-light);
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -791,11 +792,11 @@
 .machine-label-only {
     width: 100%;
     padding: 2px;
-    border-bottom: 2px solid #d1d5db;
+    border-bottom: 2px solid hsl(var(--border));
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: var(--content-bg);
+    background: hsl(var(--background));
     min-height: 60px;
 }
 
@@ -841,7 +842,7 @@
 }
 
 .calendar-grid {
-    background: var(--content-bg);
+    background: hsl(var(--background));
     contain: layout;
     position: relative;
     width: 1140px; /* 180px (machine labels) + 960px (64 time slots × 15px) */
@@ -851,7 +852,7 @@
 .calendar-grid-container .empty-state {
     padding: 40px;
     text-align: center;
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
 }
 
 
@@ -864,7 +865,7 @@
     border-right: 2px solid var(--border-color);
     flex-shrink: 0;
     background: var(--gray-light);
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -882,7 +883,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: var(--content-bg);
+    background: hsl(var(--background));
     flex-shrink: 0;
     position: sticky;
     left: 0;
@@ -893,13 +894,13 @@
 .machine-name {
     font-weight: 400;
     font-size: 10px;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     margin-bottom: 2px;
     text-align: right;
 }
 
 .machine-city {
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
     font-size: 11px;
     font-weight: 400;
     text-transform: uppercase;
@@ -920,7 +921,7 @@
     min-width: 15px;
     text-align: center;
     font-weight: 400;
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
     font-size: 10px;
     border-right: 1px solid rgba(0, 0, 0, 0.2);
     border-left: 1px solid rgba(0, 0, 0, 0.1);
@@ -934,7 +935,7 @@
     width: 60px;
     min-width: 60px;
     font-size: 11px;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     background: rgba(0,0,0,0.02);
     border-right: 2px solid rgba(0, 0, 0, 0.3);
     border-left: 1px solid rgba(0, 0, 0, 0.1);
@@ -950,7 +951,7 @@
     transition: background-color 0.15s ease;
     cursor: pointer;
     flex-shrink: 0;
-    background: var(--content-bg);
+    background: hsl(var(--background));
     padding: 1px;
     display: flex;
     align-items: center;
@@ -970,7 +971,7 @@
 
 .time-slot.drag-over {
     background: rgba(52, 152, 219, 0.2);
-    border: 2px solid var(--sap-accent);
+    border: 2px solid hsl(var(--accent));
     transform: scale(1.02);
 }
 
@@ -1026,11 +1027,11 @@
 
 .machine-row {
     display: flex;
-    border-bottom: 2px solid #d1d5db;
+    border-bottom: 2px solid hsl(var(--border));
     min-height: 60px;
     width: 100%;
     min-width: 960px;
-    background: var(--content-bg);
+    background: hsl(var(--background));
     flex-shrink: 0;
 }
 
@@ -1059,10 +1060,10 @@
     top: 1px;
     bottom: 1px;
     left: 0;
-    background: var(--sap-primary);
-    color: var(--text-white);
-    border: 1px solid var(--sap-secondary);
-    border-radius: var(--border-radius);
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border: 1px solid hsl(var(--secondary));
+    border-radius: var(--radius);
     padding: 1px 2px;
     font-size: 10px;
     font-weight: 400;
@@ -1098,15 +1099,15 @@
     top: 0;
     left: 0;
     height: 100%;
-    background: #374151; /* dark grey */
+    background: hsl(var(--muted));
     background-image: repeating-linear-gradient(
         45deg,
-        #374151,
-        #374151 10px,
-        #4b5563 10px,
-        #4b5563 20px
+        hsl(var(--muted)),
+        hsl(var(--muted)) 10px,
+        hsl(var(--muted-foreground)) 10px,
+        hsl(var(--muted-foreground)) 20px
     );
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     z-index: 1;
     pointer-events: none;
 }
@@ -1118,12 +1119,12 @@
     z-index: 1001;
     pointer-events: none;
     transition: none;
-    background: var(--sap-primary) !important;
+    background: hsl(var(--primary)) !important;
     transform: rotate(3deg) scale(1.05) !important;
 }
 
 .scheduled-event.cross-day {
-    background: #7c3aed;
+    background: hsl(var(--accent));
     border: 2px dashed rgba(255, 255, 255, 0.3);
     opacity: 0.9;
 }
@@ -1174,17 +1175,17 @@
 
 /* ===== TASK ITEMS (CONSOLIDATED) ===== */
 .task-item {
-    background: var(--sap-primary);
-    color: var(--text-white);
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
     padding: 1px 2px;
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     font-weight: 400;
     user-select: none;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--sap-secondary);
+    border: 1px solid hsl(var(--secondary));
     position: relative;
     cursor: grab;
     min-height: 16px;
@@ -1200,10 +1201,10 @@
     opacity: 0.9;
     box-shadow: 0 8px 25px rgba(0,0,0,0.3) !important;
     transform: rotate(3deg) scale(1.05) !important;
-    background: var(--sap-primary) !important;
-    color: var(--text-white) !important;
-    border: 1px solid var(--sap-secondary) !important;
-    border-radius: var(--border-radius) !important;
+    background: hsl(var(--primary)) !important;
+    color: hsl(var(--primary-foreground)) !important;
+    border: 1px solid hsl(var(--secondary)) !important;
+    border-radius: var(--radius) !important;
     padding: 1px 2px !important;
     font-size: 10px !important;
     font-weight: 400 !important;
@@ -1220,7 +1221,7 @@
 .task-time {
     background: rgba(255,255,255,0.2);
     padding: 1px 3px;
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     font-size: 11px;
 }
 
@@ -1243,9 +1244,9 @@
 
 /* ===== WEEKLY GANTT VIEW ===== */
 .weekly-gantt-container {
-    background: var(--content-bg);
+    background: hsl(var(--background));
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     overflow: hidden;
     width: 100%;
 }
@@ -1262,7 +1263,7 @@
     padding: 4px 6px;
     text-align: center;
     font-weight: 400;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     border-right: 1px solid var(--border-color);
     background: var(--gray-light);
     font-size: 10px;
@@ -1294,10 +1295,10 @@
 .machine-week-row {
     display: grid;
     grid-template-columns: 250px repeat(7, 140px);
-    border-bottom: 2px solid #d1d5db;
+    border-bottom: 2px solid hsl(var(--border));
     min-height: 80px;
     width: 100%;
-    background: var(--content-bg);
+    background: hsl(var(--background));
 }
 
 .machine-week-row:last-child {
@@ -1315,7 +1316,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    background: var(--content-bg);
+    background: hsl(var(--background));
     transition: background-color 0.2s ease;
 }
 
@@ -1325,7 +1326,7 @@
 
 .day-cell.today {
     background: rgba(52, 152, 219, 0.1);
-    border-left: 4px solid var(--sap-accent);
+    border-left: 4px solid hsl(var(--accent));
 }
 
 .day-cell.has-tasks {
@@ -1341,7 +1342,7 @@
 
 .day-task-count {
     font-size: 11px;
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
     text-align: center;
     margin-bottom: 4px;
     font-weight: 500;
@@ -1350,13 +1351,13 @@
 }
 
 .day-task-item {
-    background: var(--sap-primary);
-    color: var(--text-white);
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
     padding: 3px 4px;
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     font-size: 10px;
     font-weight: 400;
-    border: 1px solid var(--sap-secondary);
+    border: 1px solid hsl(var(--secondary));
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -1384,7 +1385,7 @@
 
 .more-tasks-indicator {
     font-size: 11px;
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
     text-align: center;
     font-style: italic;
     padding: 2px;
@@ -1394,7 +1395,7 @@
 }
 
 .empty-day {
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
     font-size: 11px;
     text-align: center;
     display: flex;
@@ -1418,8 +1419,8 @@
     top: -4px;
     left: 50%;
     transform: translateX(-50%);
-    background: white;
-    border-radius: var(--border-radius);
+    background: hsl(var(--background));
+    border-radius: var(--radius);
     padding: 2px 3px;
     z-index: 20;
     flex-direction: row;
@@ -1455,8 +1456,8 @@
     width: var(--button-size);
     height: var(--button-size);
     border: none;
-    background: white;
-    border-radius: var(--border-radius);
+    background: hsl(var(--background));
+    border-radius: var(--radius);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1473,62 +1474,62 @@
 }
 
 .info-btn {
-    background: #f3f4f6;
-    color: #374151;
-    border: 1px solid #d1d5db;
+    background: hsl(var(--muted));
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border));
 }
 
 .info-btn:hover {
-    background: #e5e7eb;
-    color: #1f2937;
+    background: hsl(var(--accent));
+    color: hsl(var(--foreground));
 }
 
 .edit-btn {
-      background: #e2e8f0;
-  color: #1e293b;
+      background: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
 }
 
 .edit-btn:hover {
-      background: #cbd5e1;
-  color: #1e293b;
+      background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
 }
 
 .lock-btn.locked {
     background: var(--warning-orange);
-    color: white;
+    color: hsl(var(--primary-foreground));
 }
 
 .lock-btn.unlocked {
     background: var(--success-green);
-    color: white;
+    color: hsl(var(--primary-foreground));
 }
 
 .unschedule-btn {
     background: var(--status-inactive);
-    color: white;
+    color: hsl(var(--primary-foreground));
     font-weight: bold;
 }
 
 .unschedule-btn:hover {
     background: var(--status-inactive-dark);
-    color: white;
+    color: hsl(var(--primary-foreground));
     transform: scale(1.05);
 }
 
 .move-btn {
-    background: var(--sap-primary) !important;
-    color: var(--text-white) !important;
-    border: 1px solid var(--sap-secondary);
+    background: hsl(var(--primary)) !important;
+    color: hsl(var(--primary-foreground)) !important;
+    border: 1px solid hsl(var(--secondary));
 }
 
 .move-btn.move-left {
     background: var(--status-inactive) !important;
-    color: var(--text-white) !important;
+    color: hsl(var(--primary-foreground)) !important;
 }
 
 .move-btn.move-right {
     background: var(--status-active) !important;
-    color: var(--text-white) !important;
+    color: hsl(var(--primary-foreground)) !important;
 }
 
 .move-btn.moving {
@@ -1546,7 +1547,7 @@
     height: var(--button-size);
     background: var(--warning-orange);
     border: none;
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     cursor: grab;
     display: flex;
     align-items: center;
@@ -1554,7 +1555,7 @@
     font-size: 10px;
     transition: none;
     flex-shrink: 0;
-    color: white;
+    color: hsl(var(--primary-foreground));
     min-width: 10px;
     min-height: 10px;
     max-width: 14px;
@@ -1584,7 +1585,7 @@
     width: 100%;
     text-align: center;
     padding: 20px;
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
     font-size: 10px;
 }
 
@@ -1598,30 +1599,30 @@
     height: 48px;
     border: 4px solid var(--border-color);
     border-top: 4px solid var(--primary-blue);
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     animation: spin 1s linear infinite;
     margin: 0 auto 20px;
 }
 
 .loading-container h3 {
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     margin-bottom: 4px;
     font-size: 10px;
 }
 
 .loading-container p {
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
     font-size: 10px;
 }
 
 .empty-state {
     text-align: center;
     padding: 10px 20px;
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
 }
 
 .empty-state h3 {
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     margin-bottom: 3px;
     font-size: 9px;
 }
@@ -1741,7 +1742,7 @@
     padding: 8px 8px;
     text-align: center;
     font-weight: 500;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -1759,7 +1760,7 @@
     border-right: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
     position: relative;
-    background: var(--content-bg);
+    background: hsl(var(--background));
     transition: background-color 0.2s ease;
 }
 
@@ -1778,12 +1779,12 @@
 
 .calendar-day.other-month {
     background: rgba(0, 0, 0, 0.02);
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
 }
 
 .calendar-day.today {
     background: rgba(52, 152, 219, 0.1);
-    border-left: 4px solid var(--sap-accent);
+    border-left: 4px solid hsl(var(--accent));
 }
 
 .calendar-day.unavailable {
@@ -1803,7 +1804,7 @@
 .day-number {
     font-size: 16px;
     font-weight: 500;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     display: block;
     margin-bottom: 4px;
 }
@@ -1830,7 +1831,7 @@
     padding: 8px 8px;
     text-align: center;
     font-weight: 500;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -1841,7 +1842,7 @@
     padding: 8px 8px;
     text-align: center;
     font-weight: 500;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     font-size: 12px;
     border-right: 1px solid var(--border-color);
 }
@@ -1865,7 +1866,7 @@
     padding: 4px;
     text-align: center;
     font-weight: 500;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     font-size: 10px;
     background: rgba(0, 0, 0, 0.02);
     border-right: 1px solid var(--border-color);
@@ -1922,9 +1923,9 @@
 /* ===== YEAR VIEW STYLES ===== */
 
 .month-mini-calendar {
-    background: var(--content-bg);
+    background: hsl(var(--background));
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     padding: 8px;
     text-align: center;
 }
@@ -1933,7 +1934,7 @@
     margin: 0 0 16px 0;
     font-size: 16px;
     font-weight: 500;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -1948,7 +1949,7 @@
     padding: 4px;
     font-size: 10px;
     font-weight: 500;
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -1957,7 +1958,7 @@
     padding: 4px;
     font-size: 10px;
     font-weight: 400;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     border-radius: 2px;
     cursor: pointer;
     transition: background-color 0.2s ease;
@@ -1980,9 +1981,9 @@
 
 
 .mini-calendar {
-    background: var(--content-bg);
+    background: hsl(var(--background));
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     padding: 8px;
     margin-top: 16px;
 }
@@ -1993,7 +1994,7 @@
     min-width: 60px;
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     border: 2px dashed #cbd5e1;
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     margin-left: 0;
     border-left: none;
     border-top-left-radius: 0;
@@ -2019,7 +2020,7 @@
 
 .next-day-drop-zone.active {
     background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-    border-color: var(--sap-accent);
+    border-color: hsl(var(--accent));
     border-style: solid;
     transform: scale(1.02);
     box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
@@ -2044,13 +2045,13 @@
 }
 
 .next-day-icon {
-    color: var(--sap-accent);
+    color: hsl(var(--accent));
     margin-bottom: 8px;
     transition: all 0.3s ease;
 }
 
 .next-day-drop-zone.active .next-day-icon {
-    color: var(--sap-accent);
+    color: hsl(var(--accent));
     transform: scale(1.1);
 }
 
@@ -2061,7 +2062,7 @@
 .next-day-label {
     font-size: 10px;
     font-weight: 600;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     margin-bottom: 4px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -2070,7 +2071,7 @@
 .next-day-date {
     font-size: 9px;
     font-weight: 500;
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
     background: rgba(255, 255, 255, 0.8);
     padding: 2px 4px;
     border-radius: 4px;
@@ -2079,7 +2080,7 @@
 
 .next-day-hint {
     font-size: 8px;
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
     font-style: italic;
     line-height: 1.3;
     max-width: 50px;
@@ -2107,7 +2108,7 @@
     left: 50%;
     width: 100px;
     height: 100px;
-    border: 2px solid var(--sap-accent);
+    border: 2px solid hsl(var(--accent));
     border-radius: 50%;
     transform: translate(-50%, -50%);
     animation: nextDayPulse 1.5s ease-in-out infinite;
@@ -2131,7 +2132,7 @@
     min-width: 60px;
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     border: 2px dashed #cbd5e1;
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
     margin-right: 0;
     border-right: none;
     border-top-right-radius: 0;
@@ -2157,7 +2158,7 @@
 
 .previous-day-drop-zone.active {
     background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-    border-color: var(--sap-accent);
+    border-color: hsl(var(--accent));
     border-style: solid;
     transform: scale(1.02);
     box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
@@ -2182,13 +2183,13 @@
 }
 
 .previous-day-icon {
-    color: var(--sap-accent);
+    color: hsl(var(--accent));
     margin-bottom: 8px;
     transition: all 0.3s ease;
 }
 
 .previous-day-drop-zone.active .previous-day-icon {
-    color: var(--sap-accent);
+    color: hsl(var(--accent));
     transform: scale(1.1);
 }
 
@@ -2199,7 +2200,7 @@
 .previous-day-label {
     font-size: 10px;
     font-weight: 600;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     margin-bottom: 4px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -2208,7 +2209,7 @@
 .previous-day-date {
     font-size: 9px;
     font-weight: 500;
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
     background: rgba(255, 255, 255, 0.8);
     padding: 2px 4px;
     border-radius: 4px;
@@ -2217,7 +2218,7 @@
 
 .previous-day-hint {
     font-size: 8px;
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
     font-style: italic;
     line-height: 1.3;
     max-width: 50px;
@@ -2245,7 +2246,7 @@
     left: 50%;
     width: 100px;
     height: 100px;
-    border: 2px solid var(--sap-accent);
+    border: 2px solid hsl(var(--accent));
     border-radius: 50%;
     transform: translate(-50%, -50%);
     animation: previousDayPulse 1.5s ease-in-out infinite;

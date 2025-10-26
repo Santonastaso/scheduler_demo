@@ -3,7 +3,7 @@ import { useMachineStore, useOrderStore, useUIStore, useMainStore } from '../sto
 import { useMachines, useOrders } from '../hooks';
 import { format } from 'date-fns';
 import { MACHINE_STATUSES } from '../constants';
-import StickyHeader from '../components/StickyHeader';
+import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card';
 import { Line, Pie } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -227,48 +227,81 @@ function HomePage() {
                   {
                     label: 'Lavori Iniziati',
                     data: allDates.map(date => metrics.tasksPerDay[date] || 0),
-                    borderColor: 'rgb(30, 58, 138)',
-                    backgroundColor: 'rgba(30, 58, 138, 0.1)',
+                    borderColor: 'rgb(37, 99, 235)',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
                     tension: 0.4,
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgb(37, 99, 235)',
+                    pointBorderColor: 'rgb(37, 99, 235)',
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    fill: true,
                   },
                 ],
     };
   }, [metrics.tasksPerDay]);
 
-  // Chart options for line chart
+  // Chart options for line chart - Tracc Style
   const lineChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
+    interaction: {
+      intersect: false,
+      mode: 'index',
+    },
     plugins: {
       legend: {
-        position: 'top',
-        labels: {
-          font: {
-            size: 10
-          }
-        }
+        display: false, // Hide legend as we have custom legend in header
       },
       title: {
         display: false,
+      },
+      tooltip: {
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        titleColor: 'white',
+        bodyColor: 'white',
+        borderColor: 'rgba(255, 255, 255, 0.1)',
+        borderWidth: 1,
+        cornerRadius: 8,
+        displayColors: false,
       },
     },
     scales: {
       y: {
         beginAtZero: true,
+        grid: {
+          color: 'rgba(156, 163, 175, 0.2)',
+          drawBorder: false,
+        },
         ticks: {
           stepSize: 1,
+          color: 'rgba(156, 163, 175, 0.8)',
           font: {
-            size: 10
-          }
+            size: 12,
+            family: 'Inter, sans-serif',
+          },
+          padding: 8,
         },
       },
       x: {
+        grid: {
+          color: 'rgba(156, 163, 175, 0.2)',
+          drawBorder: false,
+        },
         ticks: {
+          color: 'rgba(156, 163, 175, 0.8)',
           font: {
-            size: 10
-          }
+            size: 12,
+            family: 'Inter, sans-serif',
+          },
+          padding: 8,
         }
       }
+    },
+    elements: {
+      point: {
+        hoverBorderWidth: 3,
+      },
     },
   };
 
@@ -292,16 +325,16 @@ function HomePage() {
 
   if (isLoading) {
     return (
-      <div className="p-1 bg-white rounded shadow-sm border">
-        <div className="text-center py-1 text-gray-500 text-[10px]">Caricamento dashboard...</div>
+      <div className="p-1 bg-card rounded shadow-sm border">
+        <div className="text-center py-1 text-muted-foreground text-[10px]">Caricamento dashboard...</div>
       </div>
     );
   }
 
   if (machinesError || ordersError) {
     return (
-      <div className="p-1 bg-white rounded shadow-sm border">
-        <div className="text-center py-1 text-red-600 text-[10px]">
+      <div className="p-1 bg-card rounded shadow-sm border">
+        <div className="text-center py-1 text-destructive text-[10px]">
           Errore nel caricamento dei dati: {machinesError?.message || ordersError?.message}
         </div>
       </div>
@@ -309,197 +342,253 @@ function HomePage() {
   }
 
   return (
-    <div className="p-1 bg-white rounded shadow-sm border">
-      {/* Main Title */}
-      <StickyHeader title="Dashboard Produzione" />
-      
-      {/* Key Metrics - Horizontal Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 mb-2">
-                <div className="bg-navy-50 p-1 rounded border border-navy-200">
-          <h3 className="text-[10px] font-medium text-navy-800 mb-1">Macchine Totali</h3>
-          <div className="text-[10px] font-bold text-navy-800">{metrics.totalMachines}</div>
-          <div className="text-[10px] text-navy-600">Attive: {metrics.activeMachines}</div>
-        </div>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h1 className="text-3xl font-bold text-foreground">Dashboard Produzione</h1>
+      </div>
+
+      {/* Key Metrics Cards - Using Tracc UI with Original Metrics */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+        <Card className="p-6">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Macchine Totali</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-foreground">{metrics.totalMachines}</div>
+            <p className="text-xs text-muted-foreground mt-1">Attive: {metrics.activeMachines}</p>
+          </CardContent>
+        </Card>
         
-        <div className="bg-gray-50 p-1 rounded border border-gray-200">
-          <h3 className="text-[10px] font-medium text-gray-700 mb-1">Ordini Totali</h3>
-                          <div className="text-[10px] font-bold text-gray-900">{metrics.totalOrders}</div>
-        </div>
+        <Card className="p-6">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Ordini Totali</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-foreground">{metrics.totalOrders}</div>
+            <p className="text-xs text-muted-foreground mt-1">Totali nel sistema</p>
+          </CardContent>
+        </Card>
         
-                <div className="bg-navy-50 p-1 rounded border border-navy-200">
-          <h3 className="text-[10px] font-medium text-navy-800 mb-1">Completati Questa Settimana</h3>
-          <div className="text-[10px] font-bold text-navy-800">{metrics.completedThisWeek}</div>
-        </div>
+        <Card className="p-6">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Completati Questa Settimana</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-foreground">{metrics.completedThisWeek}</div>
+            <p className="text-xs text-muted-foreground mt-1">Lavori completati</p>
+          </CardContent>
+        </Card>
         
-        <div className="bg-gray-50 p-1 rounded border border-gray-200">
-          <h3 className="text-[10px] font-medium text-gray-700 mb-1">Lavori in Corso</h3>
-                          <div className="text-[10px] font-bold text-gray-900">{metrics.tasksInWip}</div>
-        </div>
+        <Card className="p-6">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Lavori in Corso</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-foreground">{metrics.tasksInWip}</div>
+            <p className="text-xs text-muted-foreground mt-1">In progress/scheduled</p>
+          </CardContent>
+        </Card>
         
-        <div className="bg-red-50 p-1 rounded border border-red-200">
-          <h3 className="text-[10px] font-medium text-red-800 mb-1">Lavori Ritardati</h3>
-                          <div className="text-[10px] font-bold text-red-900">{metrics.delayedTasks}</div>
-        </div>
+        <Card className="p-6 border-destructive/20 bg-destructive/5">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-destructive">Lavori Ritardati</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-destructive">{metrics.delayedTasks}</div>
+            <p className="text-xs text-muted-foreground mt-1">Oltre la scadenza</p>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Weekly Metrics Row */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-2">
-        <div className="bg-gray-50 p-1 rounded border border-gray-200">
-          <h3 className="text-[10px] font-medium text-gray-700 mb-1">Ordini Settimanali</h3>
-                          <div className="text-[10px] font-bold text-gray-900">{metrics.weeklyOrdersCount}</div>
-          <div className="text-[10px] text-gray-600">Questa Settimana</div>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Card className="p-6">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Ordini Settimanali</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-foreground">{metrics.weeklyOrdersCount}</div>
+            <p className="text-xs text-muted-foreground mt-1">Questa Settimana</p>
+          </CardContent>
+        </Card>
         
-                <div className="bg-navy-50 p-1 rounded border border-navy-200">
-          <h3 className="text-[10px] font-medium text-navy-800 mb-1">Costo Medio</h3>
-          <div className="text-[10px] font-bold text-navy-800">€{metrics.avgWeeklyCost.toFixed(2)}</div>
-          <div className="text-[10px] text-navy-600">Per Lavoro Questa Settimana</div>
-        </div>
+        <Card className="p-6">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Costo Medio</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-foreground">€{metrics.avgWeeklyCost.toFixed(2)}</div>
+            <p className="text-xs text-muted-foreground mt-1">Per Lavoro Questa Settimana</p>
+          </CardContent>
+        </Card>
         
-        <div className="bg-gray-50 p-1 rounded border border-gray-200">
-          <h3 className="text-[10px] font-medium text-gray-700 mb-1">Durata Media</h3>
-                          <div className="text-[10px] font-bold text-gray-900">{metrics.avgWeeklyDuration.toFixed(1)}h</div>
-          <div className="text-[10px] text-gray-600">Per Lavoro Questa Settimana</div>
-        </div>
+        <Card className="p-6">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Durata Media</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-foreground">{metrics.avgWeeklyDuration.toFixed(1)}h</div>
+            <p className="text-xs text-muted-foreground mt-1">Per Lavoro Questa Settimana</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Charts Section - Tracc Style */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle>Lavori Iniziati per Giorno (14 giorni)</CardTitle>
+              <div className="flex items-center gap-3 text-xs">
+                <div className="flex items-center gap-1"><span className="inline-block w-3 h-1 bg-primary" /> Lavori</div>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="h-64">
+              {tasksPerDayChartData && (
+                <Line data={tasksPerDayChartData} options={lineChartOptions} height={256} />
+              )}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Macchine per Centro di Lavoro e Stato</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {Object.entries(metrics.machinesByWorkCenter || {}).map(([center, statuses]) => {
+                const pieData = {
+                  labels: Object.keys(statuses).map(status => 
+                    status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()
+                  ),
+                  datasets: [
+                    {
+                      data: Object.values(statuses),
+                      backgroundColor: [
+                        'rgba(37, 99, 235, 0.8)',   // Blue for Active
+                        'rgba(107, 114, 128, 0.8)', // Grey for Inactive
+                        'rgba(156, 163, 175, 0.8)', // Light grey for Maintenance
+                      ],
+                      borderColor: [
+                        'rgba(37, 99, 235, 1)',
+                        'rgba(107, 114, 128, 1)',
+                        'rgba(156, 163, 175, 1)',
+                      ],
+                      borderWidth: 2,
+                    },
+                  ],
+                };
+
+                return (
+                  <div key={center} className="text-center">
+                    <h4 className="text-sm font-medium text-foreground mb-2">{center}</h4>
+                    <div className="h-32">
+                      <Pie data={pieData} options={pieChartOptions} height={150} />
+                    </div>
+                    <div className="text-xs text-muted-foreground mt-2">
+                      {Object.entries(statuses).map(([status, count]) => (
+                        <div key={status} className="flex items-center justify-center gap-1 mb-1">
+                          <span className="w-2 h-2 rounded-full" style={{
+                            backgroundColor: status === 'ACTIVE' ? 'rgba(37, 99, 235, 0.8)' :
+                                           status === 'INACTIVE' ? 'rgba(107, 114, 128, 0.8)' :
+                                           'rgba(156, 163, 175, 0.8)'
+                          }}></span>
+                          <span>{status}: {count}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Matrix Tables for Cost and Duration by Work Center and Department */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Cost Matrix Table */}
-        <div className="bg-gray-50 p-1 rounded border border-gray-200">
-          <h3 className="text-[10px] font-semibold text-gray-900 mb-1">Costo Medio per Centro di Lavoro e Reparto</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-gray-300">
-                  <th className="text-left py-1 px-1 text-[10px] font-medium text-gray-700"></th>
-                  <th className="text-left py-1 px-1 text-[10px] font-medium text-gray-700">ZANICA</th>
-                  <th className="text-left py-1 px-1 text-[10px] font-medium text-gray-700">BUSTO GAROLFO</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b border-gray-200">
-                  <td className="py-1 px-1 text-[10px] font-medium text-gray-700">STAMPA</td>
-                  <td className="py-1 px-1 text-[10px] text-gray-900">
-                    €{metrics.costMatrix?.stampa?.zanica?.toFixed(2) || '0.00'}
-                  </td>
-                  <td className="py-1 px-1 text-[10px] text-gray-900">
-                    €{metrics.costMatrix?.stampa?.busto_garolfo?.toFixed(2) || '0.00'}
-                  </td>
-                </tr>
-                <tr>
-                  <td className="py-1 px-1 text-[10px] font-medium text-gray-700">CONFEZIONAMENTO</td>
-                  <td className="py-1 px-1 text-[10px] text-gray-900">
-                    €{metrics.costMatrix?.confezionamento?.zanica?.toFixed(2) || '0.00'}
-                  </td>
-                  <td className="py-1 px-1 text-[10px] text-gray-900">
-                    €{metrics.costMatrix?.confezionamento?.busto_garolfo?.toFixed(2) || '0.00'}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Costo Medio per Centro di Lavoro e Reparto</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-border">
+                    <th className="text-left py-2 px-2 text-sm font-medium text-muted-foreground"></th>
+                    <th className="text-left py-2 px-2 text-sm font-medium text-muted-foreground">ZANICA</th>
+                    <th className="text-left py-2 px-2 text-sm font-medium text-muted-foreground">BUSTO GAROLFO</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-border">
+                    <td className="py-2 px-2 text-sm font-medium text-muted-foreground">STAMPA</td>
+                    <td className="py-2 px-2 text-sm text-foreground">
+                      €{metrics.costMatrix?.stampa?.zanica?.toFixed(2) || '0.00'}
+                    </td>
+                    <td className="py-2 px-2 text-sm text-foreground">
+                      €{metrics.costMatrix?.stampa?.busto_garolfo?.toFixed(2) || '0.00'}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 px-2 text-sm font-medium text-muted-foreground">CONFEZIONAMENTO</td>
+                    <td className="py-2 px-2 text-sm text-foreground">
+                      €{metrics.costMatrix?.confezionamento?.zanica?.toFixed(2) || '0.00'}
+                    </td>
+                    <td className="py-2 px-2 text-sm text-foreground">
+                      €{metrics.costMatrix?.confezionamento?.busto_garolfo?.toFixed(2) || '0.00'}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Duration Matrix Table */}
-        <div className="bg-gray-50 p-1 rounded border border-gray-200">
-          <h3 className="text-[10px] font-semibold text-gray-900 mb-1">Durata Media per Centro di Lavoro e Reparto</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-gray-300">
-                  <th className="text-left py-1 px-1 text-[10px] font-medium text-gray-700"></th>
-                  <th className="text-left py-1 px-1 text-[10px] font-medium text-gray-700">ZANICA</th>
-                  <th className="text-left py-1 px-1 text-[10px] font-medium text-gray-700">BUSTO GAROLFO</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b border-gray-200">
-                  <td className="py-1 px-1 text-[10px] font-medium text-gray-700">STAMPA</td>
-                  <td className="py-1 px-1 text-[10px] text-gray-900">
-                    {metrics.durationMatrix?.stampa?.zanica?.toFixed(1) || '0.0'}h
-                  </td>
-                  <td className="py-1 px-1 text-[10px] text-gray-900">
-                    {metrics.durationMatrix?.stampa?.busto_garolfo?.toFixed(1) || '0.0'}h
-                  </td>
-                </tr>
-                <tr>
-                  <td className="py-1 px-1 text-[10px] font-medium text-gray-700">CONFEZIONAMENTO</td>
-                  <td className="py-1 px-1 text-[10px] text-gray-900">
-                    {metrics.durationMatrix?.confezionamento?.zanica?.toFixed(1) || '0.0'}h
-                  </td>
-                  <td className="py-1 px-1 text-[10px] text-gray-900">
-                    {metrics.durationMatrix?.confezionamento?.busto_garolfo?.toFixed(1) || '0.0'}h
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      {/* Charts Section */}
-      <div className="space-y-4 mt-4">
-        {/* Tasks per Day Line Chart */}
-        <div className="bg-gray-50 p-3 rounded border border-gray-200">
-          <h3 className="text-[10px] font-semibold text-gray-900 mb-1">Lavori Iniziati per Giorno (Ultimi 7 Giorni + Prossimi 7 Giorni)</h3>
-          <div className="h-48">
-            {tasksPerDayChartData && (
-              <Line data={tasksPerDayChartData} options={lineChartOptions} height={200} />
-            )}
-          </div>
-        </div>
-
-        {/* Machines by Work Center - Pie Charts */}
-        <div className="bg-gray-50 p-3 rounded border border-gray-200">
-          <h3 className="text-[10px] font-semibold text-gray-900 mb-1">Macchine per Centro di Lavoro e Stato</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-            {Object.entries(metrics.machinesByWorkCenter || {}).map(([center, statuses]) => {
-              const pieData = {
-                labels: Object.keys(statuses).map(status => 
-                  status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()
-                ),
-                datasets: [
-                  {
-                    data: Object.values(statuses),
-                    backgroundColor: [
-                      'rgba(30, 58, 138, 0.8)',   // Navy blue for Active
-                      'rgba(107, 114, 128, 0.8)', // Grey for Inactive
-                      'rgba(156, 163, 175, 0.8)', // Light grey for Maintenance
-                    ],
-                    borderColor: [
-                      'rgba(30, 58, 138, 1)',
-                      'rgba(107, 114, 128, 1)',
-                      'rgba(156, 163, 175, 1)',
-                    ],
-                    borderWidth: 2,
-                  },
-                ],
-              };
-
-              return (
-                <div key={center} className="text-center">
-                  <h4 className="text-[10px] font-medium text-gray-700 mb-1">{center}</h4>
-                  <div className="h-32">
-                    <Pie data={pieData} options={pieChartOptions} height={150} />
-                  </div>
-                  <div className="text-[10px] text-gray-600 mt-2">
-                    {Object.entries(statuses).map(([status, count]) => (
-                      <div key={status} className="flex items-center justify-center gap-1 mb-1">
-                        <span className="w-2 h-2 rounded-full" style={{
-                          backgroundColor: status === 'ACTIVE' ? 'rgba(30, 58, 138, 0.8)' :
-                                         status === 'INACTIVE' ? 'rgba(107, 114, 128, 0.8)' :
-                                         'rgba(156, 163, 175, 0.8)'
-                        }}></span>
-                        <span>{status}: {count}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Durata Media per Centro di Lavoro e Reparto</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-border">
+                    <th className="text-left py-2 px-2 text-sm font-medium text-muted-foreground"></th>
+                    <th className="text-left py-2 px-2 text-sm font-medium text-muted-foreground">ZANICA</th>
+                    <th className="text-left py-2 px-2 text-sm font-medium text-muted-foreground">BUSTO GAROLFO</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-border">
+                    <td className="py-2 px-2 text-sm font-medium text-muted-foreground">STAMPA</td>
+                    <td className="py-2 px-2 text-sm text-foreground">
+                      {metrics.durationMatrix?.stampa?.zanica?.toFixed(1) || '0.0'}h
+                    </td>
+                    <td className="py-2 px-2 text-sm text-foreground">
+                      {metrics.durationMatrix?.stampa?.busto_garolfo?.toFixed(1) || '0.0'}h
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 px-2 text-sm font-medium text-muted-foreground">CONFEZIONAMENTO</td>
+                    <td className="py-2 px-2 text-sm text-foreground">
+                      {metrics.durationMatrix?.confezionamento?.zanica?.toFixed(1) || '0.0'}h
+                    </td>
+                    <td className="py-2 px-2 text-sm text-foreground">
+                      {metrics.durationMatrix?.confezionamento?.busto_garolfo?.toFixed(1) || '0.0'}h
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

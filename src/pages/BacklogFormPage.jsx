@@ -53,22 +53,21 @@ function BacklogFormPage() {
   }
 
   return (
-    <div className="p-1 bg-white rounded shadow-sm border">
-      <StickyHeader title={isEditMode ? `Modifica Ordine: ${order?.odp_number}` : 'Aggiungi Nuovo Ordine'} />
-      
-      {/* Back to Scheduler Button - only show in edit mode */}
-      {isEditMode && (
-        <div className="mb-4 flex justify-start">
+    <div className="space-y-6">
+      {/* Simple page header */}
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold text-foreground">
+          {isEditMode ? `Modifica Ordine: ${order?.odp_number}` : 'Aggiungi Nuovo Ordine'}
+        </h1>
+        {isEditMode && (
           <Button 
             variant="outline" 
-            size="sm"
             onClick={() => navigate('/scheduler')}
-            className="text-[10px]"
           >
             ← Torna al Programmatore
           </Button>
-        </div>
-      )}
+        )}
+      </div>
       
       <BacklogForm 
         onSuccess={isEditMode ? () => navigate('/scheduler') : undefined} 
