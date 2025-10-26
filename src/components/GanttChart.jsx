@@ -8,7 +8,7 @@ import NextDayDropZone from './NextDayDropZone';
 import PreviousDayDropZone from './PreviousDayDropZone';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMachineAvailabilityForDateAllMachines } from '../hooks/useQueries';
-import { Button } from '@santonastaso/crm-ui';
+import { Button } from '@santonastaso/shared';
 // Using native HTML select instead of complex Select component
 
 

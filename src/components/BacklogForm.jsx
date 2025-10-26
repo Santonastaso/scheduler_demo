@@ -7,7 +7,7 @@ import { DEPARTMENT_TYPES, WORK_CENTERS, DEFAULT_VALUES } from '../constants';
 import { useErrorHandler } from '../hooks';
 import { backlogFormConfig } from './formConfigs';
 import GenericForm from './GenericForm';
-import { Button, Input, Label } from '@santonastaso/crm-ui';
+import { Button, Input, Label } from '@santonastaso/shared';
 import { useQueryClient } from '@tanstack/react-query';
 
 const BacklogForm = ({ onSuccess, orderToEdit }) => {

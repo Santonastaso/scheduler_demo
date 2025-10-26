@@ -1,4 +1,4 @@
-import { createSupabaseClient, handleSupabaseError as sharedHandleSupabaseError, checkSupabaseConnection as sharedCheckSupabaseConnection } from '@santonastaso/shared-utils';
+import { createSupabaseClient, handleSupabaseError as sharedHandleSupabaseError, checkSupabaseConnection as sharedCheckSupabaseConnection } from '@santonastaso/shared';
 
 // Supabase configuration from environment variables
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;

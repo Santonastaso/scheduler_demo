@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import { useErrorHandler } from '../hooks';
-import { Input, Label } from '@santonastaso/crm-ui';
+import { Input, Label } from '@santonastaso/shared';
 
 /**
  * SignupPage component for user registration

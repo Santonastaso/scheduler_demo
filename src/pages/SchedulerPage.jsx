@@ -8,7 +8,7 @@ import { MACHINE_STATUSES, WORK_CENTERS } from '../constants';
 import { showError } from '../utils';
 import SearchableDropdown from '../components/SearchableDropdown';
 import { useQueryClient } from '@tanstack/react-query';
-import { Button } from '@santonastaso/crm-ui';
+import { Button } from '@santonastaso/shared';
 
 import TaskLookupInput from '../components/TaskLookupInput';
 

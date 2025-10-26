@@ -13,7 +13,7 @@ export {
   showInfo, 
   dismissAll, 
   dismiss 
-} from '@santonastaso/shared-utils';
+} from '@santonastaso/shared';
 export {
   AppError,
   ERROR_TYPES,
