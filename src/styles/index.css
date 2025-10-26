@@ -10,28 +10,31 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
+    
+    /* Light grey containers like dark mode - using light grey instead of white */
+    --card: 0 0% 96%;         /* Light grey for cards/components instead of white */
     --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
+    --popover: 0 0% 96%;      /* Same light grey for popovers */
     --popover-foreground: 240 10% 3.9%;
+    
     --primary: 240 9% 10%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
+    --secondary: 240 4.8% 92%;    /* Slightly darker grey for secondary */
     --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
+    --muted: 240 4.8% 92%;        /* Slightly darker grey for muted backgrounds */
     --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
+    --accent: 240 4.8% 92%;       /* Same as secondary/muted */
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
+    --border: 240 5.9% 85%;       /* Slightly darker border for better contrast */
+    --input: 240 5.9% 85%;        /* Same for inputs */
     --ring: 240 10% 3.9%;
     --radius: 0.625rem;  /* Tracc uses 0.625rem instead of 0.5rem */
     
     /* Scheduler-specific light theme variables */
-    --gray-light: #f8fafc;
-    --border-color: #e2e8f0;
+    --gray-light: 0 0% 92%;     /* Match muted color for consistency */
+    --border-color: 0 0% 85%;   /* Match border color for consistency */
     --primary-blue: #3b82f6;
     --primary-blue-hover: #2563eb;
     
