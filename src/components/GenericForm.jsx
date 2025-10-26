@@ -89,31 +89,13 @@ function GenericForm({
     reset,
     clearErrors
   } = useForm({
-    defaultValues: initialFormData
+    defaultValues: initialFormData,
+    mode: 'onChange' // Enable real-time validation
   });
 
   // Handle form submission with validation
   const handleFormSubmit = async (data) => {
-    // Validate data if validation schema is provided
-    if (config.validationSchema) {
-      const validation = validate(data, config.validationSchema);
-      
-      if (!validation.isValid) {
-        showValidationError(Object.values(validation.errors));
-        return;
-      }
-    }
-    
-    // Call custom validation if provided
-    if (config.customValidation) {
-      const validation = config.customValidation(data);
-      if (!validation.isValid) {
-        showValidationError(Object.values(validation.errors));
-        return;
-      }
-    }
-    
-    // Submit the form
+    // Submit the form - React Hook Form validation is handled automatically
     await handleAsync(
       async () => {
         await onSubmit(data);
@@ -162,7 +144,7 @@ function GenericForm({
           <div>
             <Select 
               onValueChange={(value) => {
-                setValue(field.name, value);
+                setValue(field.name, value, { shouldValidate: true });
                 clearErrors(field.name);
               }} 
               value={getValues(field.name) || ''}
@@ -212,9 +194,9 @@ function GenericForm({
                   onChange={(e) => {
                     const currentValues = getValues(field.name) || [];
                     if (e.target.checked) {
-                      setValue(field.name, [...currentValues, option.value].sort());
+                      setValue(field.name, [...currentValues, option.value].sort(), { shouldValidate: true });
                     } else {
-                      setValue(field.name, currentValues.filter(v => v !== option.value));
+                      setValue(field.name, currentValues.filter(v => v !== option.value), { shouldValidate: true });
                     }
                   }}
                   className="h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary"
