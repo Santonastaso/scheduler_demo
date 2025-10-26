@@ -61,94 +61,52 @@ const AppLayout = () => {
         closeButton
         duration={4000}
       />
-      <ConfirmDialog 
-        isOpen={confirmDialog.isOpen}
-        title={confirmDialog.title}
-        message={confirmDialog.message}
-        onConfirm={() => {
+      {/* Confirm Dialog - using native confirm() */}
+      {confirmDialog.isOpen && (() => {
+        const result = confirm(`${confirmDialog.title}\n\n${confirmDialog.message}`);
+        if (result) {
           confirmDialog.onConfirm?.();
-          hideConfirmDialog();
-        }}
-        onCancel={hideConfirmDialog}
-        type={confirmDialog.type}
-      />
-      {/* Conflict Resolution Dialog */}
-      <ConfirmDialog 
-        isOpen={conflictDialog.isOpen}
-        title="Risoluzione Conflitto"
-        message={conflictDialog.details ? 
-          `Il lavoro "${conflictDialog.details.draggedTask?.odp_number}" si sovrappone con "${conflictDialog.details.conflictingTask?.odp_number}". Come vuoi procedere?` : 
-          ''
         }
-        type="warning"
-        customButtons={[
-          {
-            text: 'Annulla',
-            variant: 'secondary',
-            onClick: hideConflictDialog
-          },
-          {
-            text: schedulingLoading.isShunting ? 'Spostamento...' : 'Sposta a Sinistra ←',
-            variant: 'primary',
-            disabled: schedulingLoading.isShunting,
-            onClick: async () => {
-              if (!conflictDialog.details) return;
+        hideConfirmDialog();
+        return null;
+      })()}
+      
+      {/* Conflict Resolution Dialog - using native confirm() */}
+      {conflictDialog.isOpen && (() => {
+        const message = conflictDialog.details ? 
+          `Il lavoro "${conflictDialog.details.draggedTask?.odp_number}" si sovrappone con "${conflictDialog.details.conflictingTask?.odp_number}". Vuoi spostarlo a sinistra?` : 
+          'Conflitto rilevato. Vuoi spostare il task?';
+        
+        const moveLeft = confirm(`${message}\n\nOK = Sposta a Sinistra\nAnnulla = Sposta a Destra`);
+        
+        if (moveLeft !== null) { // User made a choice
+          (async () => {
+            if (!conflictDialog.details) return;
+            
+            try {
+              const conflictData = conflictDialog.details.schedulingParams 
+                ? conflictDialog.details.schedulingParams.originalConflict 
+                : conflictDialog.details;
               
-              try {
-                const conflictData = conflictDialog.details.schedulingParams 
-                  ? conflictDialog.details.schedulingParams.originalConflict 
-                  : conflictDialog.details;
-                
-                console.log('🔄 CONFLICT: Using resolveConflictByShunting (left)');
-                const result = await resolveConflictByShunting(conflictData, 'left', queryClient);
-                
-                if (result.error) {
-                  // showError imported at top
-                  showError(result.error);
-                } else {
-                  // showSuccess imported at top
-                  showSuccess('Task spostato con successo');
-                  hideConflictDialog();
-                }
-              } catch (error) {
-                console.error('❌ SHUNTING ERROR:', error);
-                // showError imported at top
-                showError('Errore durante lo spostamento del task');
-              }
-            }
-          },
-          {
-            text: schedulingLoading.isShunting ? 'Spostamento...' : 'Sposta a Destra →',
-            variant: 'primary',
-            disabled: schedulingLoading.isShunting,
-            onClick: async () => {
-              if (!conflictDialog.details) return;
+              console.log('🔄 CONFLICT: Using resolveConflictByShunting', moveLeft ? 'left' : 'right');
+              const result = await resolveConflictByShunting(conflictData, moveLeft ? 'left' : 'right', queryClient);
               
-              try {
-                const conflictData = conflictDialog.details.schedulingParams 
-                  ? conflictDialog.details.schedulingParams.originalConflict 
-                  : conflictDialog.details;
-                
-                console.log('🔄 CONFLICT: Using resolveConflictByShunting (right)');
-                const result = await resolveConflictByShunting(conflictData, 'right', queryClient);
-                
-                if (result.error) {
-                  // showError imported at top
-                  showError(result.error);
-                } else {
-                  // showSuccess imported at top
-                  showSuccess('Task spostato con successo');
-                  hideConflictDialog();
-                }
-              } catch (error) {
-                console.error('❌ SHUNTING ERROR:', error);
-                // showError imported at top
-                showError('Errore durante lo spostamento del task');
+              if (result.error) {
+                showError(result.error);
+              } else {
+                showSuccess('Task spostato con successo');
               }
+            } catch (error) {
+              console.error('❌ SHUNTING ERROR:', error);
+              showError('Errore durante lo spostamento del task');
             }
-          }
-        ]}
-      />
+            hideConflictDialog();
+          })();
+        } else {
+          hideConflictDialog();
+        }
+        return null;
+      })()}
     </div>
   );
 };
