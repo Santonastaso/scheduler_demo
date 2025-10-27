@@ -8,11 +8,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@santonastaso/shared';
+} from 'santonastaso-shared';
 import { useOrderStore, useUIStore } from '../store';
 import { useErrorHandler, useOrders, useRemoveOrder } from '../hooks';
 import { format } from 'date-fns';
-import { DataTable } from '@santonastaso/shared';
+import { DataTable } from 'santonastaso-shared';
 
 // Gantt Actions Cell Component
 const GanttActionsCell = ({ task, isEditMode, schedulingLoading, conflictDialog }) => {

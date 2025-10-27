@@ -1,5 +1,5 @@
 import { supabase, handleSupabaseError } from './supabase/client';
-import { safeAsync, handleApiError } from '@santonastaso/shared';
+import { safeAsync, handleApiError } from 'santonastaso-shared';
 import { AppError, ERROR_TYPES } from '../utils/errorHandling';
 import { format, addDays } from 'date-fns';
 import { AppConfig } from './config';

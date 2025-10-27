@@ -1,4 +1,4 @@
-import { BaseService } from '@santonastaso/shared';
+import { BaseService } from 'santonastaso-shared';
 import { supabase } from './supabase/client';
 
 /**

@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { DataTable } from '@santonastaso/shared';
+import { DataTable } from 'santonastaso-shared';
 
 import { useUIStore } from '../store';
 import { useErrorHandler, useOrders, useMachines, usePhases, useRemoveOrder } from '../hooks';
-import { showSuccess } from '@santonastaso/shared';
+import { showSuccess } from 'santonastaso-shared';
 import { WORK_CENTERS } from '../constants';
 import { format } from 'date-fns';
 

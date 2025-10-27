@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { apiService } from '../services';
-import { handleApiError } from '@santonastaso/shared';
+import { handleApiError } from 'santonastaso-shared';
 import { AppError } from '../utils/errorHandling';
 import { useMachineStore } from './useMachineStore';
 import { useOrderStore } from './useOrderStore';

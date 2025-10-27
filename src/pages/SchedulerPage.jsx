@@ -5,10 +5,10 @@ import { useOrders, useMachines } from '../hooks';
 import { format, startOfWeek, addWeeks, subWeeks } from 'date-fns';
 
 import { MACHINE_STATUSES, WORK_CENTERS } from '../constants';
-import { showError } from '@santonastaso/shared';
+import { showError } from 'santonastaso-shared';
 import SearchableDropdown from '../components/SearchableDropdown';
 import { useQueryClient } from '@tanstack/react-query';
-import { Button } from '@santonastaso/shared';
+import { Button } from 'santonastaso-shared';
 
 import TaskLookupInput from '../components/TaskLookupInput';
 

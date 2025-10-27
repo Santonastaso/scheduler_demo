@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { DataTable } from '@santonastaso/shared';
+import { DataTable } from 'santonastaso-shared';
 
 import { useUIStore } from '../store';
 import { useErrorHandler, useMachinesByWorkCenter, useRemoveMachine } from '../hooks';
-import { showError, showSuccess } from '@santonastaso/shared';
+import { showError, showSuccess } from 'santonastaso-shared';
 import { WORK_CENTERS } from '../constants';
 
 function MachineryListPage() {
