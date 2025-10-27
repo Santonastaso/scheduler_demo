@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { useSchedulerStore, useUIStore } from '../store';
 import { format, addDays } from 'date-fns';
-import GenericForm from './GenericForm';
+import { GenericForm } from '@santonastaso/shared';
 import { offTimeFormConfig } from './formConfigs';
 
 function OffTimeForm({ machineId, currentDate, onSuccess }) {

@@ -3,7 +3,7 @@ import { useUIStore } from '../store';
 import { useErrorHandler, useAddPhase, useUpdatePhase } from '../hooks';
 import { showSuccess } from '@santonastaso/shared';
 import { WORK_CENTERS, DEPARTMENT_TYPES } from '../constants';
-import GenericForm from './GenericForm';
+import { GenericForm } from '@santonastaso/shared';
 import { phaseFormConfig } from './formConfigs';
 
 function PhasesForm({ phaseToEdit, onSuccess }) {

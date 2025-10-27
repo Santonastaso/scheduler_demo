@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 import { useUIStore } from '../store';
 import { useProductionCalculations, useAddMachine, useUpdateMachine } from '../hooks';
 import { WORK_CENTERS } from '../constants';
-import GenericForm from './GenericForm';
+import { GenericForm } from '@santonastaso/shared';
 import { machineFormConfig } from './formConfigs';
 
 function MachineForm({ machineToEdit, onSuccess }) {

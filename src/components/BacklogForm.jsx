@@ -6,7 +6,7 @@ import { showValidationError, showSuccess, showWarning, showError } from '@santo
 import { DEPARTMENT_TYPES, WORK_CENTERS, DEFAULT_VALUES } from '../constants';
 import { useErrorHandler } from '../hooks';
 import { backlogFormConfig } from './formConfigs';
-import GenericForm from './GenericForm';
+import { GenericForm } from '@santonastaso/shared';
 import { Button, Input, Label } from '@santonastaso/shared';
 import { useQueryClient } from '@tanstack/react-query';
 
