@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiService } from '../services';
-import { showSuccess, showWarning } from 'santonastaso-shared';
+import { showSuccess, showWarning } from '@santonastaso/shared';
 import { generateCalendarForYear } from '../utils/calendarPopulationUtils';
 import { WORK_CENTERS } from '../constants';
 

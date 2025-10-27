@@ -13,7 +13,7 @@ import {
   CONFIRMATION_TYPES,
   TIME_CONSTANTS,
   ERROR_TYPES
-} from 'santonastaso-shared';
+} from '@santonastaso/shared';
 
 // Re-export shared constants
 export {

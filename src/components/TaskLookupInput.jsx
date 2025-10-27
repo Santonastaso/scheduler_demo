@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from 'santonastaso-shared';
+import { Input } from '@santonastaso/shared';
 
 const TaskLookupInput = ({
   placeholder,

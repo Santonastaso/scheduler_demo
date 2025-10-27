@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { WORK_CENTERS } from '../constants';
-import { showToast } from 'santonastaso-shared';
+import { showToast } from '@santonastaso/shared';
 
 export const useUIStore = create((set, get) => ({
   // State

@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { apiService } from '../services';
 import { format, addHours } from 'date-fns';
-import { handleApiError } from 'santonastaso-shared';
+import { handleApiError } from '@santonastaso/shared';
 import { useOrderStore } from './useOrderStore';
 import { useMachineStore } from './useMachineStore';
 import { useUIStore } from './useUIStore';
