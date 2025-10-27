@@ -1,14 +1,22 @@
 import React from 'react';
 import { useAuth } from '../../auth/AuthContext';
-import { AppHeader, useSidebar } from '@santonastaso/shared';
+import { ExactHeader } from '@santonastaso/shared';
 
 export function Header() {
   const { user, signOut } = useAuth();
-  const { toggle } = useSidebar();
+
+  const navigationItems = [
+    { label: 'Dashboard', to: '/', isActive: true },
+    { label: 'Schedule', to: '/schedule' },
+    { label: 'Phases', to: '/phases' },
+    { label: 'Machines', to: '/machines' },
+    { label: 'Backlog', to: '/backlog' },
+  ];
 
   return (
-    <AppHeader
+    <ExactHeader
       title="Scheduler Demo"
+      navigationItems={navigationItems}
       user={{
         name: user?.email?.split('@')[0] || 'User',
         email: user?.email,
@@ -16,7 +24,6 @@ export function Header() {
       }}
       onLogout={() => signOut()}
       onRefresh={() => window.location.reload()}
-      onToggleSidebar={toggle}
     />
   );
 }
