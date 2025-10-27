@@ -15,7 +15,7 @@ export * from './useQueries';
 export { useStoreSync } from './useStoreSync';
 
 // Theme and UI hooks
-export { useTheme } from './useTheme';
+export { useTheme } from '@santonastaso/shared';
 export { useSidebar } from '@santonastaso/shared';
 
 // Export all custom hooks
