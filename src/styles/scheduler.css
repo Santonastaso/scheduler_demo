@@ -432,7 +432,7 @@
     flex: 1;
     padding: 6px;
     margin: 0;
-    background: hsl(var(--muted));
+    background: hsl(var(--secondary));
     border-radius: 6px;
     border: 1px solid hsl(var(--border));
 }
@@ -475,13 +475,13 @@
     position: sticky;
     top: 0;
     z-index: 20;
-    background: hsl(var(--muted));
+    background: hsl(var(--secondary));
 }
 
 .task-pool-table-container th {
     position: sticky;
     top: 0;
-    background: hsl(var(--muted));
+    background: hsl(var(--secondary));
     z-index: 20;
 }
 
@@ -650,16 +650,16 @@
 }
 
 .view-option:hover {
-    background-color: rgba(0,0,0,0.04);
+    background-color: hsl(var(--accent));
 }
 
 /* ===== OFF-TIME CONTROLS ===== */
 .off-time-controls {
     margin-top: 24px;
     padding: 20px;
-    background: rgba(0,0,0,0.02);
+    background: hsl(var(--secondary));
     border-radius: var(--radius);
-    border: 1px solid var(--border-color);
+    border: 1px solid hsl(var(--border));
 }
 
 .off-time-section h3 {
@@ -727,7 +727,7 @@
 .gantt-scroll-container {
     height: 600px;
     overflow: auto;
-    border: 1px solid var(--border-color);
+    border: 1px solid hsl(var(--border));
     border-radius: var(--radius);
     background: hsl(var(--background));
     contain: layout;
@@ -754,7 +754,7 @@
     width: 180px;
     min-width: 180px;
     background: hsl(var(--background));
-    border-right: 2px solid var(--border-color);
+    border-right: 2px solid hsl(var(--border));
     flex-shrink: 0;
     position: sticky;
     left: 0;
@@ -766,13 +766,13 @@
     width: 100%;
     padding: 4px;
     font-weight: 400;
-    background: var(--gray-light);
+    background: hsl(var(--muted));
     color: hsl(var(--foreground));
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     text-align: center;
-    border-bottom: 2px solid var(--border-color);
+    border-bottom: 2px solid hsl(var(--border));
 }
 
 .machine-label-header.sticky-header {
@@ -780,7 +780,7 @@
     top: 0;
     z-index: 100;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background: var(--gray-light);
+    background: hsl(var(--muted));
 }
 
 .machine-labels-body {
@@ -801,7 +801,7 @@
 }
 
 .machine-label-only:nth-child(even) {
-    background: rgba(0,0,0,0.02);
+    background: hsl(var(--secondary));
 }
 
 .machine-label-only:last-child {
@@ -820,8 +820,8 @@
     display: grid;
     grid-template-columns: repeat(64, 15px);
     min-width: 960px;
-    background: var(--gray-light);
-    border-bottom: 2px solid var(--border-color);
+    background: hsl(var(--muted));
+    border-bottom: 2px solid hsl(var(--border));
     flex-shrink: 0;
 }
 
@@ -830,7 +830,7 @@
     top: 0;
     z-index: 90;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background: var(--gray-light);
+    background: hsl(var(--muted));
 }
 
 .time-grid-body {
@@ -862,9 +862,9 @@
     min-width: 180px;
     padding: 4px;
     font-weight: 400;
-    border-right: 2px solid var(--border-color);
+    border-right: 2px solid hsl(var(--border));
     flex-shrink: 0;
-    background: var(--gray-light);
+    background: hsl(var(--muted));
     color: hsl(var(--foreground));
     font-size: 10px;
     text-transform: uppercase;
@@ -879,7 +879,7 @@
     width: 180px;
     min-width: 180px;
     padding: 2px;
-    border-right: 2px solid var(--border-color);
+    border-right: 2px solid hsl(var(--border));
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -923,11 +923,11 @@
     font-weight: 400;
     color: hsl(var(--muted-foreground));
     font-size: 10px;
-    border-right: 1px solid rgba(0, 0, 0, 0.2);
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 1px solid hsl(var(--border));
+    border-left: 1px solid hsl(var(--border));
     flex-shrink: 0;
     padding: 1px 1px;
-    background: var(--gray-light);
+    background: hsl(var(--muted));
 }
 
 .time-slot-header.hour-header {
@@ -936,17 +936,17 @@
     min-width: 60px;
     font-size: 11px;
     color: hsl(var(--foreground));
-    background: rgba(0,0,0,0.02);
-    border-right: 2px solid rgba(0, 0, 0, 0.3);
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    background: hsl(var(--secondary));
+    border-right: 2px solid hsl(var(--border));
+    border-left: 1px solid hsl(var(--border));
 }
 
 /* Base time slot styles */
 .time-slot {
     width: 15px;
     min-width: 15px;
-    border-right: 1px solid rgba(0, 0, 0, 0.2);
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 1px solid hsl(var(--border));
+    border-left: 1px solid hsl(var(--border));
     position: relative;
     transition: background-color 0.15s ease;
     cursor: pointer;
@@ -961,12 +961,12 @@
 }
 
 .time-slot:nth-child(4n+1) {
-    border-right: 2px solid rgba(0, 0, 0, 0.3);
-    background: rgba(0,0,0,0.02);
+    border-right: 2px solid hsl(var(--border));
+    background: hsl(var(--secondary));
 }
 
 .time-slot:hover {
-    background: rgba(52, 152, 219, 0.05);
+    background: rgba(52, 152, 219, 0.08);
 }
 
 .time-slot.drag-over {
@@ -1040,7 +1040,7 @@
 }
 
 .machine-row:nth-child(even) {
-    background: rgba(0,0,0,0.02);
+    background: hsl(var(--secondary));
 }
 
 .machine-slots {
@@ -1254,8 +1254,8 @@
 .weekly-gantt-header {
     display: grid;
     grid-template-columns: 250px repeat(7, 140px);
-    background: var(--gray-light);
-    border-bottom: 2px solid var(--border-color);
+    background: hsl(var(--muted));
+    border-bottom: 2px solid hsl(var(--border));
     width: 100%;
 }
 
@@ -1264,8 +1264,8 @@
     text-align: center;
     font-weight: 400;
     color: hsl(var(--foreground));
-    border-right: 1px solid var(--border-color);
-    background: var(--gray-light);
+    border-right: 1px solid hsl(var(--border));
+    background: hsl(var(--muted));
     font-size: 10px;
     display: flex;
     flex-direction: column;
@@ -1306,12 +1306,12 @@
 }
 
 .machine-week-row:nth-child(even) {
-    background: rgba(0,0,0,0.02);
+    background: hsl(var(--secondary));
 }
 
 .day-cell {
     padding: 6px;
-    border-right: 1px solid var(--border-color);
+    border-right: 1px solid hsl(var(--border));
     min-height: 80px;
     display: flex;
     flex-direction: column;
@@ -1389,7 +1389,7 @@
     text-align: center;
     font-style: italic;
     padding: 2px;
-    background: rgba(0,0,0,0.05);
+    background: hsl(var(--secondary));
     border-radius: 2px;
     margin-top: 2px;
 }
@@ -1734,8 +1734,8 @@
 .calendar-week-header {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    background: var(--gray-light);
-    border-bottom: 1px solid var(--border-color);
+    background: hsl(var(--muted));
+    border-bottom: 1px solid hsl(var(--border));
 }
 
 .week-day-header {
@@ -1746,7 +1746,7 @@
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border-right: 1px solid var(--border-color);
+    border-right: 1px solid hsl(var(--border));
 }
 
 .week-day-header:last-child {
@@ -1757,8 +1757,8 @@
 .calendar-day {
     min-height: 120px;
     padding: 4px;
-    border-right: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
+    border-right: 1px solid hsl(var(--border));
+    border-bottom: 1px solid hsl(var(--border));
     position: relative;
     background: hsl(var(--background));
     transition: background-color 0.2s ease;
@@ -1769,16 +1769,16 @@
 }
 
 .calendar-day:hover {
-    background: rgba(52, 152, 219, 0.05);
+    background: rgba(52, 152, 219, 0.08);
 }
 
 .calendar-day.empty {
-    background: rgba(0, 0, 0, 0.02);
+    background: hsl(var(--secondary));
     cursor: default;
 }
 
 .calendar-day.other-month {
-    background: rgba(0, 0, 0, 0.02);
+    background: hsl(var(--secondary));
     color: hsl(var(--muted-foreground));
 }
 
@@ -1823,8 +1823,8 @@
 .time-column-header {
     display: grid;
     grid-template-columns: 80px repeat(7, 1fr);
-    background: var(--gray-light);
-    border-bottom: 1px solid var(--border-color);
+    background: hsl(var(--muted));
+    border-bottom: 1px solid hsl(var(--border));
 }
 
 .time-header-cell {
@@ -1835,7 +1835,7 @@
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border-right: 1px solid var(--border-color);
+    border-right: 1px solid hsl(var(--border));
 }
 
 .day-header-cell {
@@ -1844,7 +1844,7 @@
     font-weight: 500;
     color: hsl(var(--foreground));
     font-size: 12px;
-    border-right: 1px solid var(--border-color);
+    border-right: 1px solid hsl(var(--border));
 }
 
 .time-column-header .day-header-cell:last-child {
@@ -1854,7 +1854,7 @@
 .time-row {
     display: grid;
     grid-template-columns: 80px repeat(7, 1fr);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid hsl(var(--border));
     min-height: 60px;
 }
 
@@ -1868,15 +1868,15 @@
     font-weight: 500;
     color: hsl(var(--foreground));
     font-size: 10px;
-    background: rgba(0, 0, 0, 0.02);
-    border-right: 1px solid var(--border-color);
+    background: hsl(var(--secondary));
+    border-right: 1px solid hsl(var(--border));
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .time-slot {
-    border-right: 1px solid var(--border-color);
+    border-right: 1px solid hsl(var(--border));
     position: relative;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -1893,7 +1893,7 @@
 }
 
 .time-slot:hover {
-    background: rgba(52, 152, 219, 0.05);
+    background: rgba(52, 152, 219, 0.08);
     transform: scale(1.02);
 }
 
@@ -1924,7 +1924,7 @@
 
 .month-mini-calendar {
     background: hsl(var(--background));
-    border: 1px solid var(--border-color);
+    border: 1px solid hsl(var(--border));
     border-radius: var(--radius);
     padding: 8px;
     text-align: center;
@@ -1965,7 +1965,7 @@
 }
 
 .mini-day:hover {
-    background: rgba(52, 152, 219, 0.1);
+    background: rgba(52, 152, 219, 0.12);
 }
 
 .mini-day.empty {
@@ -1982,7 +1982,7 @@
 
 .mini-calendar {
     background: hsl(var(--background));
-    border: 1px solid var(--border-color);
+    border: 1px solid hsl(var(--border));
     border-radius: var(--radius);
     padding: 8px;
     margin-top: 16px;

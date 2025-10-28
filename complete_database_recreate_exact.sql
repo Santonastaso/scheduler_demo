@@ -525,3 +525,4 @@ GRANT INSERT ON public.profiles TO anon;
 -- The database has been completely recreated with the EXACT specifications
 -- All tables, indexes, constraints, triggers, and permissions are configured
 -- =====================================================
+

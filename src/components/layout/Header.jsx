@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../../auth/AuthContext';
-import { SimpleHeader, useSidebar } from '@santonastaso/shared';
+import { SimpleHeader, useSidebar, ThemeSwitch } from '@santonastaso/shared';
 
 export function Header() {
   const { user, signOut } = useAuth();
@@ -17,6 +17,7 @@ export function Header() {
       onLogout={() => signOut()}
       onRefresh={() => window.location.reload()}
       onToggleSidebar={toggle}
+      rightContent={<ThemeSwitch />}
     />
   );
 }

@@ -8,47 +8,59 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    /* Light mode - much darker gray tones */
+    --background: 0 0% 85%;        /* Much darker gray background */
+    --foreground: 0 0% 3.9%;       /* Almost black text for high contrast */
     
-    /* Light grey containers like dark mode - using light grey instead of white */
-    --card: 0 0% 96%;         /* Light grey for cards/components instead of white */
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 96%;      /* Same light grey for popovers */
-    --popover-foreground: 240 10% 3.9%;
+    /* Component backgrounds - darker gray shades */
+    --card: 0 0% 80%;              /* Darker gray cards */
+    --card-foreground: 0 0% 3.9%;  /* Dark text on cards */
+    --popover: 0 0% 80%;           /* Darker gray popover */
+    --popover-foreground: 0 0% 3.9%;
     
-    --primary: 240 9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 92%;    /* Slightly darker grey for secondary */
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 92%;        /* Slightly darker grey for muted backgrounds */
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 92%;       /* Same as secondary/muted */
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 85%;       /* Slightly darker border for better contrast */
-    --input: 240 5.9% 85%;        /* Same for inputs */
-    --ring: 240 10% 3.9%;
-    --radius: 0.625rem;  /* Tracc uses 0.625rem instead of 0.5rem */
+    /* Primary elements - dark on light */
+    --primary: 0 0% 9%;            /* Dark primary */
+    --primary-foreground: 0 0% 98%; /* Light text on dark primary */
     
-    /* Scheduler-specific light theme variables */
-    --gray-light: 0 0% 92%;     /* Match muted color for consistency */
-    --border-color: 0 0% 85%;   /* Match border color for consistency */
-    --primary-blue: #3b82f6;
-    --primary-blue-hover: #2563eb;
+    /* Secondary elements - darker grays */
+    --secondary: 0 0% 75%;         /* Much darker gray */
+    --secondary-foreground: 0 0% 9%; /* Dark text on light secondary */
     
-    /* Additional color variables */
+    /* Muted elements - even darker grays for headers */
+    --muted: 0 0% 70%;             /* Dark gray for muted backgrounds */
+    --muted-foreground: 0 0% 45.1%; /* Medium gray text */
+    
+    /* Accent - darker blue-gray */
+    --accent: 0 0% 75%;            /* Darker accent background */
+    --accent-foreground: 0 0% 9%;   /* Dark text on accent */
+    
+    /* Destructive - red for errors */
+    --destructive: 0 84.2% 60.2%;  /* Bright red */
+    --destructive-foreground: 0 0% 98%; /* White text on red */
+    
+    /* Borders - darker grays */
+    --border: 0 0% 65%;            /* Darker gray borders */
+    --input: 0 0% 65%;             /* Darker gray input borders */
+    --ring: 0 0% 3.9%;             /* Dark focus rings */
+    --radius: 0.625rem;
+    
+    /* Scheduler-specific variables - darker gray tones */
+    --gray-light: 0 0% 68%;        /* Darker gray for headers */
+    --border-color: 0 0% 65%;      /* Darker gray borders */
+    --primary-blue: #3b82f6;       /* Blue accent */
+    --primary-blue-hover: #2563eb; /* Darker blue on hover */
+    
+    /* Additional color variables - darker gray tones */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --hover-bg: rgba(0, 0, 0, 0.05);
-    --text-muted: #6b7280;
-    --warning-orange: #f59e0b;
-    --success-green: #10b981;
-    --status-inactive: #6b7280;
-    --status-inactive-dark: #4b5563;
-    --status-active: #10b981;
-    --danger-red: #ef4444;
+    --hover-bg: rgba(0, 0, 0, 0.08); /* Darker hover overlay */
+    --text-muted: #6b7280;         /* Medium gray for muted text */
+    --warning-orange: #f59e0b;     /* Orange for warnings */
+    --success-green: #10b981;      /* Green for success */
+    --status-inactive: #9ca3af;    /* Gray for inactive status */
+    --status-inactive-dark: #6b7280; /* Darker gray */
+    --status-active: #10b981;      /* Green for active status */
+    --danger-red: #ef4444;         /* Red for danger */
   }
 
   .dark {
@@ -272,6 +284,78 @@ input[type="time"] {
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
   font-family: monospace;
+}
+
+/* ===== EXTERNAL COMPONENT OVERRIDES ===== */
+/* These overrides ensure external components (like DataTable from @santonastaso/shared) 
+   respect our color scheme variables */
+
+/* Table Headers */
+table thead,
+table thead tr,
+table thead th,
+.table thead,
+.table thead tr,
+.table thead th,
+[data-table] thead,
+[data-table] thead tr,
+[data-table] thead th {
+  background: hsl(var(--muted)) !important;
+  color: hsl(var(--foreground)) !important;
+  font-weight: 600 !important;
+}
+
+/* Table Rows */
+table tbody tr:nth-child(even),
+.table tbody tr:nth-child(even),
+[data-table] tbody tr:nth-child(even) {
+  background: hsl(var(--secondary)) !important;
+}
+
+table tbody tr,
+.table tbody tr,
+[data-table] tbody tr {
+  background: hsl(var(--background)) !important;
+}
+
+/* Ensure text readability in dark mode */
+.dark table tbody tr,
+.dark .table tbody tr,
+.dark [data-table] tbody tr,
+.dark table tbody td,
+.dark .table tbody td,
+.dark [data-table] tbody td,
+.dark table thead th,
+.dark .table thead th,
+.dark [data-table] thead th {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Form Inputs */
+input,
+textarea,
+select,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
+.form-input,
+.form-control {
+  background: hsl(var(--card)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-color: hsl(var(--border)) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+.form-input:focus,
+.form-control:focus {
+  background: hsl(var(--card)) !important;
+  border-color: hsl(var(--ring)) !important;
 }
 
 /* Print styles */

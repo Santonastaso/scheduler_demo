@@ -12,7 +12,10 @@ export const initSentry = () => {
   
   // Only initialize Sentry if DSN is provided
   if (!dsn) {
-    console.log('Sentry not initialized: VITE_SENTRY_DSN not provided');
+    // Silently skip Sentry initialization in production builds without DSN
+    if (import.meta.env.MODE !== 'production') {
+      console.log('Sentry not initialized: VITE_SENTRY_DSN not provided');
+    }
     return;
   }
   
