@@ -14,8 +14,8 @@ function FullCalendarGrid({ machineId, refreshTrigger }) {
   const [updatingSlots, setUpdatingSlots] = useState({});
   const calendarRef = React.useRef(null);
   
-  const { machines } = useMachineStore();
-  const { odpOrders } = useOrderStore();
+  const { entities: machines } = useMachineStore();
+  const { entities: odpOrders } = useOrderStore();
   const { machineAvailability, loadMachineAvailabilityForDateRange, toggleMachineHourAvailability, getTaskOccupiedSegments } = useSchedulerStore();
   const { showAlert } = useUIStore();
   

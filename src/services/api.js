@@ -1,5 +1,5 @@
 import { supabase, handleSupabaseError } from './supabase/client';
-import { safeAsync, handleApiError } from '@santonastaso/shared';
+import { handleApiError } from '@santonastaso/shared';
 import { AppError, ERROR_TYPES } from '../utils/errorHandling';
 import { format, addDays } from 'date-fns';
 import { AppConfig } from './config';
@@ -36,7 +36,7 @@ class ApiService {
   // ===== MACHINES =====
   
   async getMachines() {
-    return safeAsync(async () => {
+    try {
       const { data, error } = await supabase
         .from('machines')
         .select('*')
@@ -44,7 +44,9 @@ class ApiService {
         
       if (error) throw error;
       return data || [];
-    }, 'getMachines');
+    } catch (error) {
+      throw new AppError(`Failed to get machines: ${error.message}`, ERROR_TYPES.SERVER_ERROR, 500, error, 'API.getMachines');
+    }
   }
 
   async addMachine(machineData) {

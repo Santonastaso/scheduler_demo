@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import { useErrorHandler } from '../hooks';
-import { Input, Label } from '@santonastaso/shared';
+import { Button, Input, Label } from '@santonastaso/shared';
 
 /**
  * SignupPage component for user registration
@@ -87,7 +87,7 @@ function SignupPage() {
 
         const result = await signUp(formData.email, formData.password, userData);
         
-        if (result.success) {
+        if (!result.error) {
           navigate('/', { replace: true });
         } else {
           // Handle signup failure silently

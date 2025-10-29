@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import { useErrorHandler } from '../hooks';
-import { Input, Label } from '@santonastaso/shared';
+import { Button, Input, Label } from '@santonastaso/shared';
 
 /**
  * ForgotPasswordPage component for password reset
@@ -39,7 +39,7 @@ function ForgotPasswordPage() {
       async () => {
         const result = await resetPassword(email);
         
-        if (result.success) {
+        if (!result.error) {
           setIsSuccess(true);
         } else {
           setError(result.error || 'Invio email di reset fallito');

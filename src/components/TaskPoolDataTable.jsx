@@ -8,16 +8,17 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+  DataTable,
+  formatDisplayDate
 } from '@santonastaso/shared';
-import { useOrderStore, useUIStore } from '../store';
-import { useErrorHandler, useOrders, useRemoveOrder } from '../hooks';
-import { format } from 'date-fns';
-import { DataTable } from '@santonastaso/shared';
+import { useOrdersStore, useSchedulerUIStore } from '../store/modernStores';
+import { useOrders, useRemoveOrder } from '../hooks/useModernQueries';
+import { useErrorHandler } from '../hooks';
 
 // Gantt Actions Cell Component
 const GanttActionsCell = ({ task, isEditMode, schedulingLoading, conflictDialog }) => {
   const navigate = useNavigate();
-  const { updateOdpOrder: _updateOdpOrder } = useOrderStore();
+  const { updateEntity: _updateOdpOrder } = useOrdersStore();
   const { handleAsync: _handleAsync } = useErrorHandler('TaskPoolDataTable');
 
   const { attributes, listeners, setNodeRef } = useDraggable({
@@ -50,13 +51,13 @@ const GanttActionsCell = ({ task, isEditMode, schedulingLoading, conflictDialog 
         title={`Codice Articolo: ${task.article_code || 'Non specificato'}
 Codice Articolo Esterno: ${task.external_article_code || 'Non specificato'}
 Nome Cliente: ${task.nome_cliente || 'Non specificato'}
-Data Consegna: ${task.delivery_date ? format(new Date(task.delivery_date), 'yyyy-MM-dd') : 'Non impostata'}
+Data Consegna: ${task.delivery_date ? formatDisplayDate(task.delivery_date) : 'Non impostata'}
 Quantità: ${task.quantity || 'Non specificata'}
 Note Libere: ${task.user_notes || 'Nessuna nota'}
 Note ASD: ${task.asd_notes || 'Nessuna nota'}
 Material Global: ${task.material_availability_global || 'N/A'}%
-${task.scheduled_start_time ? `Inizio Programmato: ${task.scheduled_start_time.replace('+00:00', '')}` : 'Non programmato'}
-${task.scheduled_end_time ? `Fine Programmata: ${task.scheduled_end_time.replace('+00:00', '')}` : 'Non programmato'}`}
+${task.scheduled_start_time ? `Inizio Programmato: ${formatDisplayDate(task.scheduled_start_time)}` : 'Non programmato'}
+${task.scheduled_end_time ? `Fine Programmata: ${formatDisplayDate(task.scheduled_end_time)}` : 'Non programmato'}`}
       >
         i
       </button>
@@ -115,14 +116,20 @@ ${task.scheduled_end_time ? `Fine Programmata: ${task.scheduled_end_time.replace
 // Main Task Pool Data Table Component
 function TaskPoolDataTable() {
   const navigate = useNavigate();
-  const { selectedWorkCenter, isEditMode, conflictDialog, schedulingLoading, showConfirmDialog } = useUIStore();
-  const { odpOrders: storeTasks, setOdpOrders } = useOrderStore();
+  const { 
+    selectedWorkCenter, 
+    isEditMode, 
+    conflictDialog, 
+    schedulingLoading, 
+    showConfirmDialog 
+  } = useSchedulerUIStore();
+  const { entities: storeTasks, setEntities: setOdpOrders } = useOrdersStore();
   const { setNodeRef } = useDroppable({
     id: 'task-pool',
     data: { type: 'pool' },
   });
 
-  // Use React Query to fetch orders data
+  // Use modern React Query hooks
   const { data: queryTasks = [], isLoading, error, refetch } = useOrders();
   const removeOrderMutation = useRemoveOrder();
   

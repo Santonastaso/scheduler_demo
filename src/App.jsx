@@ -28,7 +28,22 @@ import { ThemeProvider } from '@santonastaso/shared';
 
 // This component creates the main layout with the sidebar
 const AppLayout = () => {
-  const { confirmDialog, hideConfirmDialog, conflictDialog, hideConflictDialog, showConflictDialog, schedulingLoading, selectedWorkCenter } = useUIStore();
+  const { 
+    forms, 
+    modals, 
+    hideConfirmDialog, 
+    conflictDialog, 
+    hideConflictDialog, 
+    showConflictDialog, 
+    schedulingLoading, 
+    selectedWorkCenter 
+  } = useUIStore();
+  
+  // Extract confirmDialog from forms and modals
+  const confirmDialog = {
+    ...(forms.confirmDialog || {}),
+    isOpen: modals.confirmDialog || false
+  };
   const { cleanup } = useMainStore();
   const { resolveConflictByShunting, scheduleTaskFromSlot } = useSchedulerStore();
   const { user, signOut } = useAuth();

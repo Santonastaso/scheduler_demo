@@ -658,9 +658,9 @@ const GanttChart = React.memo(({ machines, currentDate, dropTargetId, dragPrevie
   const [currentView, setCurrentView] = useState('Daily'); // Add view state
   const [currentTimePosition, setCurrentTimePosition] = useState(null);
   
-  const { odpOrders: tasks } = useOrderStore();
+  const { entities: tasks } = useOrderStore();
   const scheduledTasks = useMemo(() =>
-    tasks.filter(task => task.status === 'SCHEDULED'),
+    tasks?.filter(task => task.status === 'SCHEDULED') || [],
     [tasks]
   );
 

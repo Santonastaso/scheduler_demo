@@ -4,7 +4,7 @@ import { useAuth } from '../auth/AuthContext';
 import { useUIStore } from '../store';
 import { WORK_CENTERS } from '../constants';
 import { useErrorHandler } from '../hooks';
-import {  Input, Label } from '@santonastaso/shared';
+import { Button, Input, Label } from '@santonastaso/shared';
 // Using native HTML select instead of complex Select component
 
 /**
@@ -73,7 +73,7 @@ function LoginPage() {
       async () => {
         const result = await signIn(formData.email, formData.password);
         
-        if (result.success) {
+        if (!result.error) {
           // Set the selected work center
           setSelectedWorkCenter(formData.workCenter);
           navigate('/', { replace: true });

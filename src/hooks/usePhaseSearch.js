@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { usePhaseStore } from '../store';
 
 export const usePhaseSearch = (department, workCenter, initialPhaseId = null) => {
-  const { phases } = usePhaseStore();
+  const { entities: phases } = usePhaseStore();
   const [phaseSearch, setPhaseSearch] = useState('');
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [selectedPhase, setSelectedPhase] = useState(null);

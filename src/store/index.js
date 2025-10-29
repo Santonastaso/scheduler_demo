@@ -1,10 +1,21 @@
-// Export all store slices
-export { useMachineStore } from './useMachineStore';
-export { useOrderStore } from './useOrderStore';
-export { usePhaseStore } from './usePhaseStore';
-export { useSchedulerStore } from './useSchedulerStore';
-export { useUIStore } from './useUIStore';
-export { useMainStore } from './useMainStore';
+// Modern store exports (replace legacy ones)
+export { 
+  useMachinesStore as useMachineStore,
+  useOrdersStore as useOrderStore,
+  usePhasesStore as usePhaseStore,
+  useSchedulerUIStore as useUIStore,
+  useMainStore
+} from './modernStores';
 
-// Export store factory for creating new entity stores
-export { createEntityStore, createMachineStore, createOrderStore, createPhaseStore } from './storeFactory';
+// Export modern stores with new names
+export {
+  useMachinesStore,
+  useOrdersStore,
+  usePhasesStore,
+  useSchedulerUIStore
+} from './modernStores';
+
+// Legacy exports that don't conflict
+export { useSchedulerStore } from './useSchedulerStore';
+
+// Store factory functions are now imported from @santonastaso/shared
