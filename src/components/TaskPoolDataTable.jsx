@@ -8,7 +8,6 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-  DataTable,
   formatDisplayDate
 } from '@santonastaso/shared';
 import { useOrdersStore, useSchedulerUIStore } from '../store/modernStores';
