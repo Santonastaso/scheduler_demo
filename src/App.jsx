@@ -45,7 +45,8 @@ const AppLayout = () => {
     isOpen: modals.confirmDialog || false
   };
   const { cleanup } = useMainStore();
-  const { resolveConflictByShunting, scheduleTaskFromSlot } = useSchedulerStore();
+  const schedulerStore = useSchedulerStore();
+  const { resolveConflictByShunting, scheduleTaskFromSlot } = schedulerStore;
   const { user, signOut } = useAuth();
   const queryClient = useQueryClient();
   
@@ -57,14 +58,30 @@ const AppLayout = () => {
     if (!conflictDialog.details) return;
     
     try {
+      // Defensive check for resolveConflictByShunting function
+      if (!resolveConflictByShunting || typeof resolveConflictByShunting !== 'function') {
+        console.error('❌ CONFLICT ERROR: resolveConflictByShunting is not available', {
+          resolveConflictByShunting,
+          schedulerStore,
+          storeKeys: Object.keys(schedulerStore || {})
+        });
+        showError('Funzione di risoluzione conflitti non disponibile');
+        hideConflictDialog();
+        return;
+      }
+
       const conflictData = conflictDialog.details.schedulingParams 
         ? conflictDialog.details.schedulingParams.originalConflict 
         : conflictDialog.details;
       
-      console.log('🔄 CONFLICT: Using resolveConflictByShunting', direction);
+      console.log('🔄 CONFLICT: Using resolveConflictByShunting', direction, {
+        conflictData,
+        functionAvailable: typeof resolveConflictByShunting
+      });
+      
       const result = await resolveConflictByShunting(conflictData, direction, queryClient);
       
-      if (result.error) {
+      if (result && result.error) {
         showError(result.error);
       } else {
         showSuccess(`Task spostato con successo verso ${direction === 'left' ? 'sinistra' : 'destra'}`);
@@ -132,19 +149,41 @@ const AppLayout = () => {
               </p>
               <div className="flex space-x-2">
                 <button
-                  onClick={() => handleConflictResolution('left')}
+                  onClick={() => {
+                    try {
+                      handleConflictResolution('left');
+                    } catch (error) {
+                      console.error('❌ BUTTON ERROR (left):', error);
+                      showError('Errore nel pulsante sinistra');
+                      hideConflictDialog();
+                    }
+                  }}
                   className="px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition-colors"
                 >
                   ← Sposta a Sinistra
                 </button>
                 <button
-                  onClick={() => handleConflictResolution('right')}
+                  onClick={() => {
+                    try {
+                      handleConflictResolution('right');
+                    } catch (error) {
+                      console.error('❌ BUTTON ERROR (right):', error);
+                      showError('Errore nel pulsante destra');
+                      hideConflictDialog();
+                    }
+                  }}
                   className="px-3 py-1.5 bg-green-600 text-white text-sm rounded-md hover:bg-green-700 transition-colors"
                 >
                   Sposta a Destra →
                 </button>
                 <button
-                  onClick={() => hideConflictDialog()}
+                  onClick={() => {
+                    try {
+                      hideConflictDialog();
+                    } catch (error) {
+                      console.error('❌ BUTTON ERROR (cancel):', error);
+                    }
+                  }}
                   className="px-3 py-1.5 bg-gray-300 text-gray-700 text-sm rounded-md hover:bg-gray-400 transition-colors"
                 >
                   Annulla
