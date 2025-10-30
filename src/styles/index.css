@@ -376,4 +376,36 @@ select:focus,
 /* ===== SCHEDULER SPECIFIC STYLES ===== */
 /* These are complex enough to keep for now, will migrate later */
 
+/* ===== SHARED PACKAGE COMPATIBILITY STYLES ===== */
+/* Professional interaction states */
+a,
+button {
+  cursor: pointer;
+}
+
+input {
+  cursor: text;
+}
+
+a[aria-disabled="true"],
+button[aria-disabled="true"],
+button:disabled,
+input[aria-disabled="true"],
+input:disabled {
+  cursor: not-allowed;
+}
+
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="time"] {
+  position: relative;
+}
+
+.dark ::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  position: absolute;
+  right: 0.75rem;
+}
+
 /* ===== FULLCALENDAR STYLES ===== */
