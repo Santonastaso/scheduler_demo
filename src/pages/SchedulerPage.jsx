@@ -668,7 +668,7 @@ function SchedulerPage() {
               size="sm"
               onClick={toggleEditMode}
               title={isEditMode ? "Disabilita modalità modifica" : "Abilita modalità modifica"}
-              style={isEditMode ? { color: '#ffffff' } : {}}
+              className={isEditMode ? 'text-white' : 'text-white'}
             >
               {isEditMode ? 'Disabilita Modalità Modifica' : 'Abilita Modalità Modifica'}
             </Button>

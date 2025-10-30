@@ -175,7 +175,7 @@ function LoginPage() {
           <Button
             type="submit"
             size="sm"
-            className="w-full"
+            className="w-full text-white"
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Accesso in corso...' : 'Accedi'}

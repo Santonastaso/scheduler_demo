@@ -223,7 +223,7 @@ function SignupPage() {
           <Button
             type="submit"
             size="sm"
-            className="w-full"
+            className="w-full text-white"
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Creazione Account...' : 'Crea Account'}
@@ -241,7 +241,7 @@ function SignupPage() {
             </div>
           </div>
           <Link to="/login">
-                         <Button variant="outline" size="sm" className="w-full">
+                         <Button variant="outline" size="sm" className="w-full text-gray-900">
                Accedi
              </Button>
           </Link>
