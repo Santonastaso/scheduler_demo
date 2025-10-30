@@ -5,7 +5,7 @@ import { useOrders, useMachines } from '../hooks';
 import { format, startOfWeek, addWeeks, subWeeks } from 'date-fns';
 
 import { MACHINE_STATUSES, WORK_CENTERS } from '../constants';
-import { showError } from '@santonastaso/shared';
+import { showError, showToast } from '@santonastaso/shared';
 import SearchableDropdown from '../components/SearchableDropdown';
 import { useQueryClient } from '@tanstack/react-query';
 import { Button } from '@santonastaso/shared';
@@ -132,7 +132,7 @@ function SchedulerPage() {
   
   // Use Zustand store for selectors and client state
   const { getOdpOrdersByWorkCenter, getScheduledOrders } = useOrderStore();
-  const { selectedWorkCenter, isLoading, isInitialized, showAlert, isEditMode, toggleEditMode, showConflictDialog, schedulingLoading, setDragPreview, clearDragPreview, dragPreview } = useUIStore();
+  const { selectedWorkCenter, isLoading, isInitialized, isEditMode, toggleEditMode, showConflictDialog, schedulingLoading, setDragPreview, clearDragPreview, dragPreview } = useUIStore();
   const { scheduleTask, unscheduleTask, scheduleTaskFromSlot, rescheduleTaskToSlot, validateSlotAvailability } = useSchedulerStore();
   const { init, cleanup } = useMainStore();
   const queryClient = useQueryClient();
@@ -380,20 +380,20 @@ function SchedulerPage() {
     }
     
     if (!task) {
-      showAlert(`Lavoro non trovato per ${fieldLabel}: ${value}`, 'warning');
+      showToast(`Lavoro non trovato per ${fieldLabel}: ${value}`, 'warning');
       return;
     }
     
     // Execute the lookup using the helper function
     executeLookupFromDropdown(task, field, fieldLabel, value);
-  }, [scheduledOrders, machines, showAlert]);
+  }, [scheduledOrders, machines]);
 
   // Helper function to execute lookup from dropdown selection
   const executeLookupFromDropdown = useCallback((task, field, fieldLabel, searchValue) => {
     // Find the machine
     const machine = machines.find(m => m.id === task.scheduled_machine_id);
     if (!machine) {
-      showAlert('Macchina non trovata per questo lavoro', 'error');
+      showToast('Macchina non trovata per questo lavoro', 'error');
       return;
     }
     
@@ -423,8 +423,8 @@ function SchedulerPage() {
     
     // Show success message
     const fieldValue = task[field];
-    showAlert(`Lavoro trovato per ${fieldLabel} "${fieldValue}" su ${machine.machine_name}`, 'success');
-  }, [machines, showAlert, setTaskLookup, setArticleCodeLookup, setCustomerNameLookup, setCurrentDate]);
+    showToast(`Lavoro trovato per ${fieldLabel} "${fieldValue}" su ${machine.machine_name}`, 'success');
+  }, [machines, setTaskLookup, setArticleCodeLookup, setCustomerNameLookup, setCurrentDate]);
 
   // Debounce ref to prevent rapid drag operations
   const dragTimeoutRef = useRef(null);
@@ -535,17 +535,21 @@ function SchedulerPage() {
             // The scheduling logic will handle splitting automatically
 
             if (hasScheduledTask) {
-              showAlert('Impossibile pianificare il lavoro su uno slot temporale occupato', 'error');
+              showToast('Impossibile pianificare il lavoro su uno slot temporale occupato', 'error');
               return resolve();
             }
 
             // Use consolidated method from store
             const result = await scheduleTaskFromSlot(task.id, machine, currentDate, hour, minute, null, queryClient);
+            console.log('🎯 SCHEDULE RESULT:', result);
             if (result?.error) {
-              showAlert(result.error, 'error');
+              showToast(result.error, 'error');
             } else if (result?.conflict) {
               // Show conflict resolution dialog
+              console.log('🚨 CONFLICT DETECTED - SHOWING DIALOG:', result);
               showConflictDialog(result);
+            } else {
+              console.log('✅ SCHEDULING SUCCESS:', result);
             }
           }
 
@@ -558,14 +562,14 @@ function SchedulerPage() {
             // The rescheduling logic will handle splitting automatically
 
             if (hasScheduledTask) {
-              showAlert('Impossibile riprogrammare il lavoro su uno slot temporale occupato', 'error');
+              showToast('Impossibile riprogrammare il lavoro su uno slot temporale occupato', 'error');
               return resolve();
             }
 
             // Use consolidated method from store
             const result = await rescheduleTaskToSlot(eventItem.id, machine, currentDate, hour, minute, queryClient);
             if (result?.error) {
-              showAlert(result.error, 'error');
+              showToast(result.error, 'error');
             } else if (result?.conflict) {
               // Show conflict resolution dialog
               showConflictDialog(result);
@@ -582,25 +586,25 @@ function SchedulerPage() {
           else if ((draggedItem.type === 'task' || draggedItem.type === 'event') && dropZone.type === 'next-day') {
             // Navigation is handled by the NextDayDropZone component with timer
             // This case is now handled automatically by the drag over effect
-            showAlert('Navigazione al giorno successivo completata', 'success');
+            showToast('Navigazione al giorno successivo completata', 'success');
           }
 
           // Case 5: Dragging a task or event to the previous day zone
           else if ((draggedItem.type === 'task' || draggedItem.type === 'event') && dropZone.type === 'previous-day') {
             // Navigation is handled by the PreviousDayDropZone component with timer
             // This case is now handled automatically by the drag over effect
-            showAlert('Navigazione al giorno precedente completata', 'success');
+            showToast('Navigazione al giorno precedente completata', 'success');
           }
 
           resolve();
         });
       });
     } catch (error) {
-      showAlert('Si è verificato un errore durante l\'operazione di trascinamento', 'error');
+      showToast('Si è verificato un errore durante l\'operazione di trascinamento', 'error');
     } finally {
       isDragOperationRef.current = false;
     }
-  }, [currentDate, scheduleTaskFromSlot, rescheduleTaskToSlot, unscheduleTask, showAlert, showConflictDialog]);
+  }, [currentDate, scheduleTaskFromSlot, rescheduleTaskToSlot, unscheduleTask, showConflictDialog]);
 
 
   // Show loading state during initial load
@@ -664,6 +668,7 @@ function SchedulerPage() {
               size="sm"
               onClick={toggleEditMode}
               title={isEditMode ? "Disabilita modalità modifica" : "Abilita modalità modifica"}
+              style={isEditMode ? { color: '#ffffff' } : {}}
             >
               {isEditMode ? 'Disabilita Modalità Modifica' : 'Abilita Modalità Modifica'}
             </Button>
