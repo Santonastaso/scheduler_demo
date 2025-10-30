@@ -12,8 +12,8 @@ import { Button } from '@santonastaso/shared';
 
 import TaskLookupInput from '../components/TaskLookupInput';
 
-// Lazy load heavy components to improve initial load time
-const TaskPoolDataTable = lazy(() => import('../components/TaskPoolDataTable'));
+// Import components directly to avoid QueryClient context issues
+import TaskPoolDataTable from '../components/TaskPoolDataTable';
 const GanttChart = lazy(() => import('../components/GanttChart'));
 
 // Loading fallback component
@@ -673,9 +673,7 @@ function SchedulerPage() {
               {isEditMode ? 'Disabilita Modalità Modifica' : 'Abilita Modalità Modifica'}
             </Button>
           </div>
-          <Suspense fallback={<LoadingFallback />}>
-            <TaskPoolDataTable />
-          </Suspense>
+          <TaskPoolDataTable />
         </div>
 
         {/* Filters Section */}
