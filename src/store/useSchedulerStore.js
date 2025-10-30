@@ -5,6 +5,7 @@ import { handleApiError } from '@santonastaso/shared';
 import { useOrderStore } from './useOrderStore';
 import { useMachineStore } from './useMachineStore';
 import { useUIStore } from './useUIStore';
+import { useOrdersStore, useMachinesStore } from './modernStores';
 import { SplitTaskManager } from './scheduling/splitTaskManager';
 import { SchedulingLogic } from './scheduling/schedulingLogic';
 import { ConflictResolution } from './scheduling/conflictResolution';
@@ -61,9 +62,9 @@ export const useSchedulerStore = create((set, get) => {
       try {
         startSchedulingOperation('schedule', taskId);
         
-        // Get task and machine data from stores
-        const { getOrderById, getOdpOrders } = useOrderStore.getState();
-        const { getMachineById } = useMachineStore.getState();
+        // Get task and machine data from modern stores
+        const { getOrderById, getEntities: getOdpOrders } = useOrdersStore.getState();
+        const { getMachineById } = useMachinesStore.getState();
         const task = getOrderById(taskId);
         const machineData = getMachineById(machine.id);
         const tasks = getOdpOrders();
@@ -111,9 +112,9 @@ export const useSchedulerStore = create((set, get) => {
       try {
         startSchedulingOperation('reschedule', eventId);
         
-        // Get event data from stores
-        const { getOrderById, getOdpOrders } = useOrderStore.getState();
-        const { getMachineById } = useMachineStore.getState();
+        // Get event data from modern stores
+        const { getOrderById, getEntities: getOdpOrders } = useOrdersStore.getState();
+        const { getMachineById } = useMachinesStore.getState();
         const eventItem = getOrderById(eventId);
         const machineData = getMachineById(machine.id);
         const tasks = getOdpOrders();
@@ -155,15 +156,20 @@ export const useSchedulerStore = create((set, get) => {
       try {
         console.log('🎯 SCHEDULER: scheduleTask called with:', { taskId, eventData, overrideDuration });
         
-        // Get data from stores if not provided
-        const { getOrderById, getOdpOrders } = useOrderStore.getState();
-        const { getMachineById } = useMachineStore.getState();
+        // Get data from modern stores if not provided
+        const { getOrderById, getEntities: getOdpOrders } = useOrdersStore.getState();
+        const { getMachineById } = useMachinesStore.getState();
         
         const task = getOrderById(taskId);
         const machine = getMachineById(eventData.machine);
         const tasksData = tasks || getOdpOrders();
         
-        console.log('🎯 SCHEDULER: Task found:', task?.odp_number, 'Machine found:', machine?.name);
+        console.log('🎯 SCHEDULER: Task found:', task?.odp_number, 'Machine found:', machine?.machine_name || machine?.name);
+        console.log('🎯 SCHEDULER: Machine lookup debug:', { 
+          machineId: eventData.machine, 
+          machine: machine, 
+          machineKeys: machine ? Object.keys(machine) : 'null' 
+        });
         
         if (task && machine && task.work_center && machine.work_center && task.work_center !== machine.work_center) {
           return { error: `Work center mismatch: task requires '${task.work_center}' but machine is '${machine.work_center}'` };
@@ -182,6 +188,10 @@ export const useSchedulerStore = create((set, get) => {
           eventData.machine
         );
         console.log('🎯 SCHEDULER: scheduleTaskWithSplitting result:', schedulingResult);
+        console.log('🎯 SCHEDULER: Checking for conflict...', {
+          hasConflict: !!schedulingResult?.conflict,
+          conflictDetails: schedulingResult?.conflict ? schedulingResult : 'No conflict detected'
+        });
 
         if (!schedulingResult) {
           return { error: 'No available time slots found for this task' };
@@ -314,7 +324,7 @@ export const useSchedulerStore = create((set, get) => {
       try {
         startSchedulingOperation('shunt', conflictDetails.draggedTask?.id);
         
-        const { getOdpOrders } = useOrderStore.getState();
+        const { getEntities: getOdpOrders } = useOrdersStore.getState();
         const tasks = getOdpOrders();
         const result = await conflictResolution.resolveConflictByShunting(conflictDetails, direction, tasks, conflictDetails.draggedTask);
         

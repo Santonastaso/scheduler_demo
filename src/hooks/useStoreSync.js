@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import { useMachines, useOrders, usePhases } from './useQueries';
-import { useMachineStore } from '../store/useMachineStore';
-import { useOrderStore } from '../store/useOrderStore';
-import { usePhaseStore } from '../store/usePhaseStore';
+import { useMachinesStore, useOrdersStore, usePhasesStore } from '../store';
 
 /**
  * Hook to sync React Query data with Zustand stores
@@ -14,9 +12,9 @@ export const useStoreSync = () => {
   const { data: orders, isLoading: ordersLoading, error: ordersError } = useOrders();
   const { data: phases, isLoading: phasesLoading, error: phasesError } = usePhases();
 
-  const { setMachines } = useMachineStore();
-  const { setOdpOrders } = useOrderStore();
-  const { setPhases } = usePhaseStore();
+  const { setEntities: setMachines } = useMachinesStore();
+  const { setEntities: setOrders } = useOrdersStore();
+  const { setEntities: setPhases } = usePhasesStore();
 
   // Sync machines data
   useEffect(() => {
@@ -28,9 +26,9 @@ export const useStoreSync = () => {
   // Sync orders data
   useEffect(() => {
     if (orders && !ordersLoading && !ordersError) {
-      setOdpOrders(orders);
+      setOrders(orders);
     }
-  }, [orders, ordersLoading, ordersError, setOdpOrders]);
+  }, [orders, ordersLoading, ordersError, setOrders]);
 
   // Sync phases data
   useEffect(() => {

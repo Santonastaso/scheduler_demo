@@ -52,6 +52,30 @@ const AppLayout = () => {
   // Sync React Query data with Zustand stores
   useStoreSync();
   
+  // Handle conflict resolution with custom toast
+  const handleConflictResolution = async (direction) => {
+    if (!conflictDialog.details) return;
+    
+    try {
+      const conflictData = conflictDialog.details.schedulingParams 
+        ? conflictDialog.details.schedulingParams.originalConflict 
+        : conflictDialog.details;
+      
+      console.log('🔄 CONFLICT: Using resolveConflictByShunting', direction);
+      const result = await resolveConflictByShunting(conflictData, direction, queryClient);
+      
+      if (result.error) {
+        showError(result.error);
+      } else {
+        showSuccess(`Task spostato con successo verso ${direction === 'left' ? 'sinistra' : 'destra'}`);
+      }
+    } catch (error) {
+      console.error('❌ SHUNTING ERROR:', error);
+      showError('Errore durante lo spostamento del task');
+    }
+    hideConflictDialog();
+  };
+  
   // Cleanup store when app unmounts
   useEffect(() => {
     return () => {
@@ -86,42 +110,50 @@ const AppLayout = () => {
         return null;
       })()}
       
-      {/* Conflict Resolution Dialog - using native confirm() */}
-      {conflictDialog.isOpen && (() => {
-        const message = conflictDialog.details ? 
-          `Il lavoro "${conflictDialog.details.draggedTask?.odp_number}" si sovrappone con "${conflictDialog.details.conflictingTask?.odp_number}". Vuoi spostarlo a sinistra?` : 
-          'Conflitto rilevato. Vuoi spostare il task?';
-        
-        const moveLeft = confirm(`${message}\n\nOK = Sposta a Sinistra\nAnnulla = Sposta a Destra`);
-        
-        if (moveLeft !== null) { // User made a choice
-          (async () => {
-            if (!conflictDialog.details) return;
-            
-            try {
-              const conflictData = conflictDialog.details.schedulingParams 
-                ? conflictDialog.details.schedulingParams.originalConflict 
-                : conflictDialog.details;
-              
-              console.log('🔄 CONFLICT: Using resolveConflictByShunting', moveLeft ? 'left' : 'right');
-              const result = await resolveConflictByShunting(conflictData, moveLeft ? 'left' : 'right', queryClient);
-              
-              if (result.error) {
-                showError(result.error);
-              } else {
-                showSuccess('Task spostato con successo');
-              }
-            } catch (error) {
-              console.error('❌ SHUNTING ERROR:', error);
-              showError('Errore durante lo spostamento del task');
-            }
-            hideConflictDialog();
-          })();
-        } else {
-          hideConflictDialog();
-        }
-        return null;
-      })()}
+      {/* Conflict Resolution Toast Dialog */}
+      {conflictDialog.isOpen && conflictDialog.details && (
+        <div className="fixed top-4 right-4 z-50 bg-white border border-orange-200 rounded-lg shadow-xl p-4 max-w-md transform transition-all duration-300 ease-in-out">
+          <div className="flex items-start space-x-3">
+            <div className="flex-shrink-0">
+              <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
+                <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 19.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+              </div>
+            </div>
+            <div className="flex-1">
+              <h3 className="text-sm font-medium text-gray-900 mb-1">
+                Conflitto Rilevato
+              </h3>
+              <p className="text-sm text-gray-600 mb-3">
+                Il lavoro <span className="font-semibold text-orange-600">{conflictDialog.details.draggedTask?.odp_number}</span> si sovrappone con <span className="font-semibold text-orange-600">{conflictDialog.details.conflictingTask?.odp_number}</span>.
+                <br />
+                Dove vuoi spostarlo?
+              </p>
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => handleConflictResolution('left')}
+                  className="px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition-colors"
+                >
+                  ← Sposta a Sinistra
+                </button>
+                <button
+                  onClick={() => handleConflictResolution('right')}
+                  className="px-3 py-1.5 bg-green-600 text-white text-sm rounded-md hover:bg-green-700 transition-colors"
+                >
+                  Sposta a Destra →
+                </button>
+                <button
+                  onClick={() => hideConflictDialog()}
+                  className="px-3 py-1.5 bg-gray-300 text-gray-700 text-sm rounded-md hover:bg-gray-400 transition-colors"
+                >
+                  Annulla
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -300,6 +300,8 @@ export const useSchedulerUIStore = createUIStore(
     
     setEditMode: (isEditMode) => set({ isEditMode }),
     
+    toggleEditMode: () => set((state) => ({ isEditMode: !state.isEditMode })),
+    
     setSchedulingLoading: (loading) => {
       const state = get();
       set({ 
@@ -378,6 +380,25 @@ export const useSchedulerUIStore = createUIStore(
           isOpen: false,
           conflictingTasks: [],
           newTask: null
+        }
+      });
+    },
+
+    // Legacy compatibility methods
+    showConflictDialog: (details) => {
+      set({ 
+        conflictDialog: {
+          isOpen: true,
+          details: details
+        }
+      });
+    },
+
+    hideConflictDialog: () => {
+      set({ 
+        conflictDialog: {
+          isOpen: false,
+          details: null
         }
       });
     },

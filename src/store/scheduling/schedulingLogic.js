@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import { useOrderStore } from '../useOrderStore';
 import { useMachineStore } from '../useMachineStore';
+import { useOrdersStore, useMachinesStore } from '../modernStores';
 import { SCHEDULING } from '../../constants';
 import { apiService } from '../../services/api';
 
@@ -302,6 +303,12 @@ export class SchedulingLogic {
   checkSegmentsForOverlaps = (segments, machineId, excludeTaskId, additionalExcludeIds = []) => {
     const _allExcludeIds = [excludeTaskId, ...additionalExcludeIds].filter(id => id);
     
+    console.log('🔍 CHECKING SEGMENTS FOR OVERLAPS:', {
+      segmentsCount: segments.length,
+      machineId,
+      excludeTaskId,
+      additionalExcludeIds
+    });
     
     for (const segment of segments) {
       
@@ -314,7 +321,11 @@ export class SchedulingLogic {
       );
       
       if (overlapResult.hasOverlap) {
-        
+        console.log('💥 OVERLAP FOUND!', {
+          segment: segment,
+          conflictingTask: overlapResult.conflictingTask?.odp_number,
+          conflictingSegment: overlapResult.conflictingSegment
+        });
         return {
           hasOverlap: true,
           conflictingSegment: segment,
@@ -350,6 +361,11 @@ export class SchedulingLogic {
         
         if (segmentOverlapResult.hasOverlap) {
           // Return conflict info to trigger shunting
+          console.log('🚨 SCHEDULING LOGIC: Conflict detected in split segments!', {
+            conflictingTask: segmentOverlapResult.conflictingTask?.odp_number,
+            conflictingSegment: segmentOverlapResult.conflictingExistingSegment,
+            proposedSegments: taskSegments
+          });
           return {
             conflict: true,
             conflictingTask: segmentOverlapResult.conflictingTask,
@@ -392,6 +408,11 @@ export class SchedulingLogic {
       
       if (segmentOverlapResult.hasOverlap) {
         // Return conflict info to trigger shunting
+        console.log('🚨 SCHEDULING LOGIC: Conflict detected in simple scheduling!', {
+          conflictingTask: segmentOverlapResult.conflictingTask?.odp_number,
+          conflictingSegment: segmentOverlapResult.conflictingExistingSegment,
+          proposedSegments: singleSegment
+        });
         return {
           conflict: true,
           conflictingTask: segmentOverlapResult.conflictingTask,
@@ -469,9 +490,9 @@ export class SchedulingLogic {
       console.log('🔄 DURATION SHRINKING: Starting cascading rescheduling for task', taskId);
       console.log('📊 DURATION SHRINKING: New duration:', newDuration, 'hours');
       
-      // Get the task and machine data
-      const { getOrderById, getOdpOrders } = useOrderStore.getState();
-      const { getMachineById } = useMachineStore.getState();
+      // Get the task and machine data from modern stores
+      const { getOrderById, getEntities: getOdpOrders } = useOrdersStore.getState();
+      const { getMachineById } = useMachinesStore.getState();
       
       const task = getOrderById(taskId);
       const machine = getMachineById(machineId);
@@ -645,7 +666,7 @@ export class SchedulingLogic {
       console.log('✅ DURATION SHRINKING: Successfully rescheduled', rescheduledTasks.length, 'tasks');
       
       // Get the final updated task with description field
-      const finalUpdatedTask = getOrderById(taskId);
+      const finalUpdatedTask = useOrdersStore.getState().getOrderById(taskId);
       
       return { 
         success: true, 

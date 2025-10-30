@@ -9,7 +9,7 @@
 import React from 'react';
 import { useMachines, useAddMachine, useUpdateMachine, useRemoveMachine } from '../hooks/useQueries';
 import { useStoreSync } from '../hooks/useStoreSync';
-import { useMachineStore } from '../store/useMachineStore';
+import { useMachinesStore } from '../store';
 
 const DataUsageExample = () => {
   // 1. Sync React Query data with Zustand stores
@@ -25,7 +25,7 @@ const DataUsageExample = () => {
   const removeMachineMutation = useRemoveMachine();
 
   // 4. Use Zustand store for client-side state and selectors
-  const { getMachinesByWorkCenter } = useMachineStore();
+  const { getMachinesByWorkCenter } = useMachinesStore();
 
   const handleAddMachine = async (machineData) => {
     try {

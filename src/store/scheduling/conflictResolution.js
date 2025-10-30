@@ -1,4 +1,5 @@
 import { useOrderStore } from '../useOrderStore';
+import { useOrdersStore } from '../modernStores';
 import { useUIStore } from '../useUIStore';
 import { AppError, ERROR_TYPES } from '../../utils/errorHandling';
 import { TIME_CONSTANTS } from '../../constants';

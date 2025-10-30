@@ -1,4 +1,5 @@
 import { useOrderStore } from '../useOrderStore';
+import { useOrdersStore } from '../modernStores';
 
 /**
  * Split Task Manager
@@ -22,7 +23,7 @@ export class SplitTaskManager {
       return memoryInfo;
     }
     
-    const { getOrderById } = useOrderStore.getState();
+    const { getOrderById } = useOrdersStore.getState();
     const task = getOrderById(taskId);
     
     if (task && task.description && task.status === 'SCHEDULED') {
@@ -74,7 +75,7 @@ export class SplitTaskManager {
         delete updateData.scheduled_machine_id;
         updateData.status = 'NOT SCHEDULED';
       } else {
-        const { getOrderById } = useOrderStore.getState();
+        const { getOrderById } = useOrdersStore.getState();
         const currentTask = getOrderById(taskId);
         
         if (currentTask) {
@@ -265,8 +266,16 @@ export class SplitTaskManager {
   };
 
   checkMachineOverlaps = (newTaskStart, newTaskEnd, machineId, excludeTaskId = null, additionalExcludeIds = []) => {
-    const { getOdpOrders } = useOrderStore.getState();
+    const { getEntities: getOdpOrders } = useOrdersStore.getState();
     const allExcludeIds = [excludeTaskId, ...additionalExcludeIds].filter(id => id);
+    
+    console.log('🔍 SPLIT TASK MANAGER: Checking machine overlaps', {
+      machineId,
+      excludeTaskId,
+      additionalExcludeIds,
+      newTaskStart: newTaskStart.toISOString(),
+      newTaskEnd: newTaskEnd.toISOString()
+    });
     
     
     const existingTasks = getOdpOrders().filter(o => 
@@ -277,6 +286,17 @@ export class SplitTaskManager {
       o.scheduled_end_time && // Must have end time
       o.scheduled_machine_id // Must have machine ID
     );
+    
+    console.log('🔍 SPLIT TASK MANAGER: Found existing tasks on machine:', {
+      machineId,
+      existingTasksCount: existingTasks.length,
+      existingTasks: existingTasks.map(t => ({
+        id: t.id,
+        odp_number: t.odp_number,
+        start: t.scheduled_start_time,
+        end: t.scheduled_end_time
+      }))
+    });
 
 
     const sortedTasks = existingTasks.sort((a, b) => {
