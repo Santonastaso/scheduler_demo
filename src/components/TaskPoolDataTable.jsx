@@ -2,12 +2,7 @@ import React, { useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+  DataTable,
   formatDisplayDate
 } from '@santonastaso/shared';
 import { useOrdersStore, useSchedulerUIStore } from '../store/modernStores';
