@@ -312,7 +312,7 @@ function TaskPoolDataTable() {
             <h3>Errore nel caricamento</h3>
             <p>Impossibile caricare i dati. Riprova più tardi.</p>
           </div>
-        ) : unscheduledTasks.length > 0 ? (
+        ) : (
           <DataTable
             data={unscheduledTasks}
             columns={columns}
@@ -332,7 +332,8 @@ function TaskPoolDataTable() {
               // TODO: Implement export functionality
             }}
           />
-        ) : (
+        )}
+        {false && (
           <div className="empty-state">
             <h3>Nessun lavoro non programmato disponibile</h3>
             <p>I lavori devono avere durata e costo maggiori di 0 per essere visualizzati qui.</p>
