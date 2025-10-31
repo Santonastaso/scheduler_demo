@@ -85,6 +85,9 @@ function LoginPage() {
     </div>
   );
 
+  // Debug: Log to console to verify this component is being used
+  console.log('🔍 LoginPage: Using SharedLoginPage component', { SharedLoginPage });
+
   return (
     <SharedLoginPage
       title="Scheduler Demo"

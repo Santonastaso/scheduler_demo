@@ -318,8 +318,19 @@ function TaskPoolDataTable() {
             columns={columns}
             onEditRow={handleEditRow}
             onDeleteRow={handleDeleteRow}
-            enableGlobalSearch={false}
-            enableFiltering={false}
+            enableGlobalSearch={true}
+            enableColumnVisibility={true}
+            enableRowSelection={true}
+            loading={isLoading}
+            emptyMessage="No unscheduled tasks available. Tasks must have duration and cost greater than 0 to appear here."
+            onBulkDelete={(ids) => {
+              console.log('Bulk deleting tasks:', ids);
+              // TODO: Implement bulk delete for tasks
+            }}
+            onBulkExport={(ids) => {
+              console.log('Exporting tasks:', ids);
+              // TODO: Implement export functionality
+            }}
           />
         ) : (
           <div className="empty-state">
