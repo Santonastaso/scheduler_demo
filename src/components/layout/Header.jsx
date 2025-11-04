@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
-import { SimpleHeader, useSidebar, ThemeSwitch } from '@santonastaso/shared';
+import { UnifiedHeader } from '@santonastaso/shared';
 
 export function Header() {
   const { user, signOut } = useAuth();
-  const { toggle } = useSidebar();
 
   return (
-    <SimpleHeader
-      title="Scheduler Demo"
+    <UnifiedHeader
+      title="Scheduler"
+      darkModeLogo="/scheduler-logo.png"
+      lightModeLogo="/scheduler-logo.png"
       user={{
         name: user?.email?.split('@')[0] || 'User',
         email: user?.email,
@@ -17,9 +18,7 @@ export function Header() {
       }}
       onLogout={() => signOut()}
       onRefresh={() => window.location.reload()}
-      onToggleSidebar={toggle}
       LinkComponent={Link}
-      rightContent={<ThemeSwitch />}
     />
   );
 }
