@@ -18,13 +18,15 @@ export default defineConfig(({ command }) => {
     },
     resolve: {
       // Ensure single React instance to prevent hook conflicts
-      dedupe: ['react', 'react-dom', '@tanstack/react-query'],
+      dedupe: ['react', 'react-dom', '@tanstack/react-query', 'react-router-dom'],
       alias: {
         // Force all React imports to use the same instance
         'react': path.resolve(__dirname, 'node_modules/react'),
         'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
         // Ensure React Query uses the same instance
         '@tanstack/react-query': path.resolve(__dirname, 'node_modules/@tanstack/react-query'),
+        // Ensure React Router uses the same instance
+        'react-router-dom': path.resolve(__dirname, 'node_modules/react-router-dom'),
       }
     },
     build: {
