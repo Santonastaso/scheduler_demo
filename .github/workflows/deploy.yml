@@ -37,17 +37,28 @@ jobs:
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
           # Update package.json to use published version
           npm pkg set dependencies.@santonastaso/shared="1.3.3"
-          # Install all dependencies including the published shared package
-          npm install --prefer-offline --no-audit --no-fund --legacy-peer-deps
+          # Install all dependencies except the shared package first
+          npm install --prefer-offline --no-audit --no-fund --legacy-peer-deps --ignore-scripts
+          # Explicitly install the shared package from GitHub Packages
+          echo "Installing @santonastaso/shared@1.3.3 from GitHub Packages..."
+          npm install @santonastaso/shared@1.3.3 --registry=https://npm.pkg.github.com
           # Verify the shared package is properly installed
           echo "Verifying shared package installation..."
-          ls -la node_modules/@santonastaso/shared/
-          ls -la node_modules/@santonastaso/shared/dist/
-          echo "Checking for ListPageLayout in installed package..."
-          if [ -f "node_modules/@santonastaso/shared/dist/index.js" ]; then
-            grep -q "ListPageLayout" node_modules/@santonastaso/shared/dist/index.js && echo "✓ ListPageLayout available in installed package" || echo "✗ ListPageLayout NOT available in installed package"
+          ls -la node_modules/@santonastaso/ || echo "No @santonastaso directory found"
+          if [ -d "node_modules/@santonastaso/shared" ]; then
+            ls -la node_modules/@santonastaso/shared/
+            ls -la node_modules/@santonastaso/shared/dist/ || echo "No dist directory found"
+            echo "Checking for ListPageLayout in installed package..."
+            if [ -f "node_modules/@santonastaso/shared/dist/index.js" ]; then
+              grep -q "ListPageLayout" node_modules/@santonastaso/shared/dist/index.js && echo "✓ ListPageLayout available in installed package" || echo "✗ ListPageLayout NOT available in installed package"
+            else
+              echo "✗ dist/index.js not found in installed package"
+              exit 1
+            fi
           else
-            echo "✗ dist/index.js not found in installed package"
+            echo "✗ @santonastaso/shared package not found"
+            echo "Checking what packages were installed:"
+            ls -la node_modules/ | grep santonastaso || echo "No santonastaso packages found"
             exit 1
           fi
         working-directory: ./scheduler_demo
