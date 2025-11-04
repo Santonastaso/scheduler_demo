@@ -54,16 +54,24 @@ jobs:
 
       - name: Install scheduler_demo dependencies
         run: |
-          # Install dependencies first
+          # Remove any existing shared package references
+          npm uninstall @santonastaso/shared || true
+          # Install all other dependencies first
           npm install --prefer-offline --no-audit --no-fund --legacy-peer-deps
-          # Force reinstall the shared package to ensure it's properly linked
-          npm uninstall @santonastaso/shared
-          npm install ../shared
-          # Verify the shared package is properly installed
+          # Create a proper symlink to the built shared package
+          mkdir -p node_modules/@santonastaso
+          ln -sf ../../../shared node_modules/@santonastaso/shared
+          # Verify the shared package is properly linked and built
           echo "Verifying shared package installation..."
           ls -la node_modules/@santonastaso/shared/
-          echo "Checking for ListPageLayout in installed package..."
-          grep -q "ListPageLayout" node_modules/@santonastaso/shared/dist/index.js && echo "✓ ListPageLayout available in installed package" || echo "✗ ListPageLayout NOT available in installed package"
+          ls -la node_modules/@santonastaso/shared/dist/
+          echo "Checking for ListPageLayout in linked package..."
+          if [ -f "node_modules/@santonastaso/shared/dist/index.js" ]; then
+            grep -q "ListPageLayout" node_modules/@santonastaso/shared/dist/index.js && echo "✓ ListPageLayout available in linked package" || echo "✗ ListPageLayout NOT available in linked package"
+          else
+            echo "✗ dist/index.js not found in linked package"
+            exit 1
+          fi
         working-directory: ./scheduler_demo
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
