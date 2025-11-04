@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { DataTable } from '@santonastaso/shared';
+import { DataTable, Button } from '@santonastaso/shared';
 
 import { useUIStore } from '../store';
 import { useErrorHandler, useOrders, useMachines, usePhases, useRemoveOrder } from '../hooks';
@@ -246,12 +246,14 @@ function BacklogListPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold text-foreground">Lista Ordini</h1>
-        <Link 
-          to="/backlog/new" 
-          className="inline-flex items-center px-4 py-2 border border-border rounded-md text-sm font-medium text-foreground bg-background hover:bg-muted"
+        <Button 
+          asChild
+          variant="outline"
         >
-          Aggiungi Ordine
-        </Link>
+          <Link to="/backlog/new">
+            Aggiungi Ordine
+          </Link>
+        </Button>
       </div>
       
       <DataTable
