@@ -24,52 +24,30 @@ jobs:
         with:
           path: scheduler_demo
 
-      - name: Checkout shared repository
-        uses: actions/checkout@v4
-        with:
-          repository: Santonastaso/shared
-          path: shared
-          token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           registry-url: 'https://npm.pkg.github.com'
 
-      - name: Install shared dependencies
-        run: npm install --prefer-offline --no-audit --no-fund
-        working-directory: ./shared
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build shared package
-        run: |
-          npm run build
-          # Verify the build output exists and contains our exports
-          ls -la dist/
-          echo "Checking for ListPageLayout export..."
-          grep -q "ListPageLayout" dist/index.js && echo "✓ ListPageLayout found in exports" || echo "✗ ListPageLayout NOT found in exports"
-        working-directory: ./shared
-
       - name: Install scheduler_demo dependencies
         run: |
-          # Remove any existing shared package references
-          npm uninstall @santonastaso/shared || true
-          # Install all other dependencies first
+          # Configure npm to use GitHub Packages for @santonastaso scope
+          echo "@santonastaso:registry=https://npm.pkg.github.com" >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
+          # Update package.json to use published version
+          npm pkg set dependencies.@santonastaso/shared="1.3.3"
+          # Install all dependencies including the published shared package
           npm install --prefer-offline --no-audit --no-fund --legacy-peer-deps
-          # Create a proper symlink to the built shared package
-          mkdir -p node_modules/@santonastaso
-          ln -sf ../../../shared node_modules/@santonastaso/shared
-          # Verify the shared package is properly linked and built
+          # Verify the shared package is properly installed
           echo "Verifying shared package installation..."
           ls -la node_modules/@santonastaso/shared/
           ls -la node_modules/@santonastaso/shared/dist/
-          echo "Checking for ListPageLayout in linked package..."
+          echo "Checking for ListPageLayout in installed package..."
           if [ -f "node_modules/@santonastaso/shared/dist/index.js" ]; then
-            grep -q "ListPageLayout" node_modules/@santonastaso/shared/dist/index.js && echo "✓ ListPageLayout available in linked package" || echo "✗ ListPageLayout NOT available in linked package"
+            grep -q "ListPageLayout" node_modules/@santonastaso/shared/dist/index.js && echo "✓ ListPageLayout available in installed package" || echo "✗ ListPageLayout NOT available in installed package"
           else
-            echo "✗ dist/index.js not found in linked package"
+            echo "✗ dist/index.js not found in installed package"
             exit 1
           fi
         working-directory: ./scheduler_demo
