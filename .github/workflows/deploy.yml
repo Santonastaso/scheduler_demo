@@ -44,11 +44,26 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build shared package
-        run: npm run build
+        run: |
+          npm run build
+          # Verify the build output exists and contains our exports
+          ls -la dist/
+          echo "Checking for ListPageLayout export..."
+          grep -q "ListPageLayout" dist/index.js && echo "✓ ListPageLayout found in exports" || echo "✗ ListPageLayout NOT found in exports"
         working-directory: ./shared
 
       - name: Install scheduler_demo dependencies
-        run: npm install --prefer-offline --no-audit --no-fund --legacy-peer-deps
+        run: |
+          # Install dependencies first
+          npm install --prefer-offline --no-audit --no-fund --legacy-peer-deps
+          # Force reinstall the shared package to ensure it's properly linked
+          npm uninstall @santonastaso/shared
+          npm install ../shared
+          # Verify the shared package is properly installed
+          echo "Verifying shared package installation..."
+          ls -la node_modules/@santonastaso/shared/
+          echo "Checking for ListPageLayout in installed package..."
+          grep -q "ListPageLayout" node_modules/@santonastaso/shared/dist/index.js && echo "✓ ListPageLayout available in installed package" || echo "✗ ListPageLayout NOT available in installed package"
         working-directory: ./scheduler_demo
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
