@@ -37,11 +37,11 @@ jobs:
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
           # Update package.json to use published version
           npm pkg set dependencies.@santonastaso/shared="1.3.3"
-          # Install all dependencies except the shared package first
-          npm install --prefer-offline --no-audit --no-fund --legacy-peer-deps --ignore-scripts
-          # Explicitly install the shared package from GitHub Packages
-          echo "Installing @santonastaso/shared@1.3.3 from GitHub Packages..."
-          npm install @santonastaso/shared@1.3.3 --registry=https://npm.pkg.github.com
+          # Clean install to avoid conflicts
+          rm -rf node_modules package-lock.json
+          # Install all dependencies including the shared package from GitHub Packages
+          echo "Installing all dependencies including @santonastaso/shared@1.3.3..."
+          npm install --prefer-offline --no-audit --no-fund --legacy-peer-deps
           # Verify the shared package is properly installed
           echo "Verifying shared package installation..."
           ls -la node_modules/@santonastaso/ || echo "No @santonastaso directory found"
@@ -59,7 +59,15 @@ jobs:
             echo "✗ @santonastaso/shared package not found"
             echo "Checking what packages were installed:"
             ls -la node_modules/ | grep santonastaso || echo "No santonastaso packages found"
-            exit 1
+            # Try to install it explicitly as fallback
+            echo "Attempting explicit installation as fallback..."
+            npm install @santonastaso/shared@1.3.3 --registry=https://npm.pkg.github.com --legacy-peer-deps --force
+            if [ -d "node_modules/@santonastaso/shared" ]; then
+              echo "✓ Fallback installation succeeded"
+            else
+              echo "✗ Fallback installation failed"
+              exit 1
+            fi
           fi
         working-directory: ./scheduler_demo
         env:
