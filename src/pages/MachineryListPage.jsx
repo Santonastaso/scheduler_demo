@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { DataTable } from '@santonastaso/shared';
+import { ListPageLayout, Button } from '@santonastaso/shared';
 
 import { useUIStore } from '../store';
 import { useErrorHandler, useMachinesByWorkCenter, useRemoveMachine } from '../hooks';
@@ -50,12 +50,11 @@ function MachineryListPage() {
       header: 'Calendario',
       accessorKey: 'id',
       cell: info => (
-        <Link 
-          to={`/machinery/${info.getValue()}/calendar`}
-          className="inline-flex items-center px-1 py-1 border border-gray-300 rounded shadow-sm text-[10px] font-medium text-gray-700 bg-white hover:bg-gray-50"
-        >
-          Visualizza Calendario
-        </Link>
+        <Button asChild variant="outline" size="sm">
+          <Link to={`/machinery/${info.getValue()}/calendar`}>
+            Visualizza Calendario
+          </Link>
+        </Button>
       )
     }
   ], []);
@@ -92,25 +91,16 @@ function MachineryListPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-foreground">Lista Macchine</h1>
-        <Link 
-          to="/machinery/new" 
-          className="inline-flex items-center px-4 py-2 border border-border rounded-md text-sm font-medium text-foreground bg-background hover:bg-muted"
-        >
-          Aggiungi Macchina
-        </Link>
-      </div>
-      
-      <DataTable
-        columns={columns}
-        data={machines}
-        onEditRow={handleEditMachine}
-        onDeleteRow={handleDeleteMachine}
-        enableGlobalSearch={false}
-      />
-    </div>
+        <ListPageLayout
+          title="Lista Macchine"
+          entityName="Machine"
+          createButtonHref="/machinery/add"
+      data={machines}
+      columns={columns}
+      onEditRow={handleEditMachine}
+      onDeleteRow={handleDeleteMachine}
+      enableGlobalSearch={false}
+    />
   );
 }
 

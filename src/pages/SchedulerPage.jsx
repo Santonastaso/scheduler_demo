@@ -660,27 +660,25 @@ function SchedulerPage() {
 
         
         {/* Task Pool Section */}
-        <div className="task-pool-section">
-          <div className="task-pool-header">
-            <h2 className="text-[10px] font-semibold text-gray-900">Pool Lavori</h2>
-            <Button
-              variant={isEditMode ? 'destructive' : 'default'}
-              size="sm"
-              onClick={toggleEditMode}
-              title={isEditMode ? "Disabilita modalità modifica" : "Abilita modalità modifica"}
-              className={isEditMode ? 'text-white' : 'text-white'}
-            >
-              {isEditMode ? 'Disabilita Modalità Modifica' : 'Abilita Modalità Modifica'}
-            </Button>
-          </div>
-          <TaskPoolDataTable />
+        <div className="task-pool-header">
+          <h2 className="text-lg font-semibold text-foreground">Pool Lavori</h2>
+          <Button
+            variant={isEditMode ? 'destructive' : 'default'}
+            size="sm"
+            onClick={toggleEditMode}
+            title={isEditMode ? "Disabilita modalità modifica" : "Abilita modalità modifica"}
+            className={isEditMode ? 'text-white' : 'text-white'}
+          >
+            {isEditMode ? 'Disabilita Modalità Modifica' : 'Abilita Modalità Modifica'}
+          </Button>
         </div>
+        <TaskPoolDataTable />
 
         {/* Filters Section */}
+        <div className="task-pool-header">
+          <h2 className="text-lg font-semibold text-foreground">Filtri</h2>
+        </div>
         <div className="section-controls">
-          <div className="task-pool-header">
-            <h2 className="text-[10px] font-semibold text-gray-900">Filtri</h2>
-          </div>
           <div className="filters-grid">
             {/* Action Buttons - Moved to far left */}
             <div className="filters-actions-left">

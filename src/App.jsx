@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
-import { showError, showSuccess } from '@santonastaso/shared';
+import { showError, showSuccess, Button } from '@santonastaso/shared';
 import SideNav from './components/layout/SideNav';
 import { Header } from './components/layout/Header';
 import MachineryListPage from './pages/MachineryListPage';
@@ -105,8 +105,8 @@ const AppLayout = () => {
       <SideNav />
       <div className="flex-1 flex flex-col min-w-0">
         <Header />
-        <main className="flex-1 overflow-auto bg-background min-w-0">
-          <div className="p-4">
+        <main className="flex-1 overflow-auto bg-background min-w-0 p-4" id="main-content">
+          <div className="max-w-full">
             <Outlet />
           </div>
         </main>
@@ -148,46 +148,27 @@ const AppLayout = () => {
                 Dove vuoi spostarlo?
               </p>
               <div className="flex space-x-2">
-                <button
-                  onClick={() => {
-                    try {
-                      handleConflictResolution('left');
-                    } catch (error) {
-                      console.error('❌ BUTTON ERROR (left):', error);
-                      showError('Errore nel pulsante sinistra');
-                      hideConflictDialog();
-                    }
-                  }}
-                  className="px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition-colors"
+                <Button
+                  onClick={() => handleConflictResolution('left')}
+                  variant="default"
+                  size="sm"
                 >
                   ← Sposta a Sinistra
-                </button>
-                <button
-                  onClick={() => {
-                    try {
-                      handleConflictResolution('right');
-                    } catch (error) {
-                      console.error('❌ BUTTON ERROR (right):', error);
-                      showError('Errore nel pulsante destra');
-                      hideConflictDialog();
-                    }
-                  }}
-                  className="px-3 py-1.5 bg-green-600 text-white text-sm rounded-md hover:bg-green-700 transition-colors"
+                </Button>
+                <Button
+                  onClick={() => handleConflictResolution('right')}
+                  variant="default"
+                  size="sm"
                 >
                   Sposta a Destra →
-                </button>
-                <button
-                  onClick={() => {
-                    try {
-                      hideConflictDialog();
-                    } catch (error) {
-                      console.error('❌ BUTTON ERROR (cancel):', error);
-                    }
-                  }}
-                  className="px-3 py-1.5 bg-gray-300 text-gray-700 text-sm rounded-md hover:bg-gray-400 transition-colors"
+                </Button>
+                <Button
+                  onClick={() => hideConflictDialog()}
+                  variant="outline"
+                  size="sm"
                 >
                   Annulla
-                </button>
+                </Button>
               </div>
             </div>
           </div>

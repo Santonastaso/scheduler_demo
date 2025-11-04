@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import './scheduler.css';
 @import './fullcalendar.css';
 
@@ -6,131 +5,20 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    /* Professional Blue/Grey Palette - Light Mode */
-    --background: 210 20% 98%;        /* Very light blue-grey background */
-    --foreground: 215 25% 15%;        /* Dark blue-grey text */
-    
-    /* Component backgrounds - clean blue-grey tones */
-    --card: 210 15% 96%;              /* Light blue-grey cards */
-    --card-foreground: 215 25% 15%;   /* Dark blue-grey text on cards */
-    --popover: 210 15% 96%;           /* Light blue-grey popover */
-    --popover-foreground: 215 25% 15%;
-    
-    /* Primary elements - professional blue */
-    --primary: 217 91% 60%;           /* Professional blue primary */
-    --primary-foreground: 210 20% 98%; /* Light text on blue primary */
-    
-    /* Secondary elements - medium blue-grey */
-    --secondary: 215 15% 88%;         /* Medium blue-grey */
-    --secondary-foreground: 215 25% 25%; /* Dark blue-grey text */
-    
-    /* Muted elements - subtle blue-grey for headers */
-    --muted: 215 12% 92%;             /* Subtle blue-grey for muted backgrounds */
-    --muted-foreground: 215 15% 45%;  /* Medium blue-grey text */
-    
-    /* Accent - vibrant blue accent */
-    --accent: 217 91% 60%;            /* Blue accent background */
-    --accent-foreground: 210 20% 98%; /* Light text on blue accent */
-    
-    /* Destructive - professional red */
-    --destructive: 0 72% 51%;         /* Professional red */
-    --destructive-foreground: 210 20% 98%; /* Light text on red */
-    
-    /* Borders - subtle blue-grey */
-    --border: 215 12% 85%;            /* Subtle blue-grey borders */
-    --input: 215 12% 85%;             /* Subtle blue-grey input borders */
-    --ring: 217 91% 60%;              /* Blue focus rings */
-    --radius: 0.625rem;
-    
-    /* Scheduler-specific variables - professional blue-grey tones */
-    --gray-light: 215 12% 92%;        /* Light blue-grey for headers */
-    --border-color: 215 12% 85%;      /* Blue-grey borders */
-    --primary-blue: hsl(217, 91%, 60%); /* Professional blue accent */
-    --primary-blue-hover: #2563eb; /* Darker blue on hover */
-    
-    /* Additional color variables - darker gray tones */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --hover-bg: rgba(0, 0, 0, 0.08); /* Darker hover overlay */
-    --text-muted: #6b7280;         /* Medium gray for muted text */
-    --warning-orange: 38 92% 50%;   /* Orange for warnings */
-    --success-green: 160 84% 39%;   /* Green for success */
-    --status-inactive: 210 10% 65%; /* Blue-grey for inactive status */
-    --status-inactive-dark: 215 10% 45%; /* Darker blue-grey */
-    --status-active: 160 84% 39%;   /* Green for active status */
-    --danger-red: 0 72% 51%;        /* Red for danger */
-  }
-
-  .dark {
-    /* Professional Blue/Grey Dark Mode Palette */
-    --background: 215 25% 8%;         /* Very dark blue-grey background */
-    --foreground: 210 15% 95%;        /* Light blue-grey text */
-    
-    /* Component backgrounds - dark blue-grey tones */
-    --card: 215 20% 12%;              /* Dark blue-grey cards */
-    --card-foreground: 210 15% 95%;   /* Light text on dark cards */
-    --popover: 215 20% 12%;           /* Dark blue-grey popover */
-    --popover-foreground: 210 15% 95%;
-    
-    /* Primary elements - bright blue for dark mode */
-    --primary: 217 91% 65%;           /* Brighter blue for dark mode */
-    --primary-foreground: 215 25% 8%; /* Dark text on bright blue */
-    
-    /* Secondary elements - medium dark blue-grey */
-    --secondary: 215 15% 18%;         /* Medium dark blue-grey */
-    --secondary-foreground: 210 15% 85%; /* Light blue-grey text */
-    
-    /* Muted elements - subtle dark blue-grey */
-    --muted: 215 12% 15%;             /* Subtle dark blue-grey for muted backgrounds */
-    --muted-foreground: 215 10% 65%;  /* Medium light blue-grey text */
-    
-    /* Accent - bright blue accent */
-    --accent: 217 91% 65%;            /* Bright blue accent */
-    --accent-foreground: 215 25% 8%;  /* Dark text on bright blue */
-    
-    /* Destructive - bright red for dark mode */
-    --destructive: 0 72% 55%;         /* Brighter red for dark mode */
-    --destructive-foreground: 210 15% 95%;
-    
-    /* Borders - subtle blue-grey borders */
-    --border: 215 12% 22%;            /* Subtle blue-grey borders */
-    --input: 215 12% 22%;             /* Subtle blue-grey input borders */
-    --ring: 217 91% 65%;              /* Blue focus rings */
-    
-    /* Scheduler-specific variables - dark blue-grey tones */
-    --gray-light: 215 12% 15%;        /* Dark blue-grey for headers */
-    --border-color: 215 12% 22%;      /* Blue-grey borders */
-    --primary-blue: hsl(217, 91%, 65%); /* Bright blue for dark mode */
-    --primary-blue: #3b82f6;    /* Keep blue accent */
-    --primary-blue-hover: #2563eb;  /* Keep blue hover */
-    
-    /* Additional variables using Tracc color system */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
-    --hover-bg: rgba(255, 255, 255, 0.05);  /* 5% white overlay for hover */
-    --text-muted: 0 0% 64%;     /* Same as muted-foreground */
-    --warning-orange: #f59e0b;
-    --success-green: #10b981;
-    --status-inactive: 0 0% 64%;
-    --status-inactive-dark: 0 0% 56%;
-    --status-active: #10b981;
-    --danger-red: 0 72% 51%;    /* Same as destructive */
-  }
-
-}
-
+/* Enhanced base layer for better integration with @santonastaso/shared styles */
 @layer base {
   * {
-    @apply border-border;
+    border-color: var(--border);
+    outline-color: var(--ring);
+    outline-offset: 2px;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    background-color: var(--background);
+    color: var(--foreground);
   }
-  
 }
 
+/* Professional interaction states */
 a,
 button {
   cursor: pointer;
@@ -161,220 +49,49 @@ input[type="time"] {
   right: 0.75rem;
 }
 
-/* Custom styles for the mill tracing system - using design system colors */
-
-/* Error Boundary Styles */
-.error-boundary {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--background);
-  padding: 2rem;
-}
-
-.error-boundary__container {
-  max-width: 600px;
-  text-align: center;
-  background: var(--card);
-  color: var(--card-foreground);
-  padding: 3rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--border);
-}
-
-.error-boundary__icon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-}
-
-.error-boundary__title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--foreground);
-  margin-bottom: 1rem;
-}
-
-.error-boundary__message {
-  color: var(--muted-foreground);
-  margin-bottom: 2rem;
-  line-height: 1.6;
-}
-
-.error-boundary__details {
-  text-align: left;
-  margin: 2rem 0;
-  padding: 1rem;
-  background: var(--muted);
-  border-radius: 0.25rem;
-}
-
-.error-boundary__error-info {
-  margin-top: 1rem;
-}
-
-.error-boundary__stack-trace {
-  background: var(--muted);
-  color: var(--muted-foreground);
-  padding: 1rem;
-  border-radius: 0.25rem;
-  overflow-x: auto;
+/* Enhanced support for file input styling (used by ThemeSwitch) */
+input[type="file"]::file-selector-button {
+  display: inline-flex;
+  height: 1.75rem;
+  border: 0;
+  background: transparent;
   font-size: 0.875rem;
-  margin-top: 0.5rem;
-}
-
-.error-boundary__actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-}
-
-.error-boundary__button {
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  border: 1px solid var(--border);
-  background: var(--background);
+  font-weight: 500;
   color: var(--foreground);
-  cursor: pointer;
-  transition: all 0.2s;
 }
 
-.error-boundary__button:hover {
-  background: var(--muted);
+/* Support for focus-visible states */
+.focus-visible\:border-ring:focus-visible {
+  border-color: var(--ring);
 }
 
-.error-boundary__button--secondary {
-  background: var(--secondary);
-  color: var(--secondary-foreground);
-  border-color: var(--border);
+.focus-visible\:ring-ring\/50:focus-visible {
+  --tw-ring-color: var(--ring);
+  --tw-ring-opacity: 0.5;
+  box-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
 }
 
-.error-boundary__button--secondary:hover {
-  background: var(--secondary);
-  opacity: 0.8;
+/* Support for dark mode background opacity */
+.dark .dark\:bg-input\/30 {
+  background-color: rgb(from var(--input) r g b / 0.3);
 }
 
-.error-boundary__recommendations {
-  margin: 2rem 0;
-  padding: 1rem;
-  background: var(--accent);
-  border-radius: 0.25rem;
-  border-left: 4px solid var(--primary);
-}
-
-.error-boundary__recommendation {
-  text-align: left;
-}
-
-.error-boundary__footer {
-  border-top: 1px solid var(--border);
-  padding-top: 1rem;
-  color: var(--muted-foreground);
-  font-size: 0.875rem;
-}
-
-.error-boundary__error-id {
-  margin-bottom: 0.5rem;
-}
-
-.error-boundary__error-id code {
-  background: var(--muted);
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  font-family: monospace;
-}
-
-/* ===== EXTERNAL COMPONENT OVERRIDES ===== */
-/* These overrides ensure external components (like DataTable from @santonastaso/shared) 
-   respect our color scheme variables */
-
-/* Table Headers */
-table thead,
-table thead tr,
-table thead th,
-.table thead,
-.table thead tr,
-.table thead th,
-[data-table] thead,
-[data-table] thead tr,
-[data-table] thead th {
-  background: hsl(var(--muted)) !important;
-  color: hsl(var(--foreground)) !important;
-  font-weight: 600 !important;
-}
-
-/* Table Rows */
-table tbody tr:nth-child(even),
-.table tbody tr:nth-child(even),
-[data-table] tbody tr:nth-child(even) {
-  background: hsl(var(--secondary)) !important;
-}
-
-table tbody tr,
-.table tbody tr,
-[data-table] tbody tr {
-  background: hsl(var(--background)) !important;
-}
-
-/* Ensure text readability in dark mode */
-.dark table tbody tr,
-.dark .table tbody tr,
-.dark [data-table] tbody tr,
-.dark table tbody td,
-.dark .table tbody td,
-.dark [data-table] tbody td,
-.dark table thead th,
-.dark .table thead th,
-.dark [data-table] thead th {
-  color: hsl(var(--foreground)) !important;
-}
-
-/* Form Inputs */
-input,
-textarea,
-select,
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="number"],
-input[type="date"],
-input[type="datetime-local"],
-input[type="time"],
-.form-input,
-.form-control {
-  background: hsl(var(--card)) !important;
-  color: hsl(var(--foreground)) !important;
-  border-color: hsl(var(--border)) !important;
-}
-
-input:focus,
-textarea:focus,
-select:focus,
-.form-input:focus,
-.form-control:focus {
-  background: hsl(var(--card)) !important;
-  border-color: hsl(var(--ring)) !important;
-}
-
-/* Print styles */
-@media print {
-  .no-print {
-    display: none !important;
-  }
-  
-  body {
-    font-size: 12px;
-  }
-  
-  .page-break {
-    page-break-before: always;
+/* Fallback for browsers that don't support rgb(from) syntax */
+@supports not (background-color: rgb(from var(--input) r g b / 0.3)) {
+  .dark .dark\:bg-input\/30 {
+    background-color: var(--input);
+    opacity: 0.3;
   }
 }
 
-/* ===== SCHEDULER SPECIFIC STYLES ===== */
-/* These are complex enough to keep for now, will migrate later */
+/* Ensure ThemeSwitch select styling matches crm_demo */
+select[aria-label="Theme"] {
+  background-color: transparent;
+  border-color: var(--input);
+  color: var(--foreground);
+}
 
-/* ===== FULLCALENDAR STYLES ===== */
+.dark select[aria-label="Theme"] {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}

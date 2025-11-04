@@ -38,9 +38,11 @@ function SearchableDropdown({
   }, []);
 
   // Filter options based on search value
-  const filteredOptions = options.filter(option => 
-    option.toLowerCase().includes(searchValue.toLowerCase())
-  );
+  const filteredOptions = options.filter(option => {
+    // Handle both string options and object options with label property
+    const optionText = typeof option === 'string' ? option : (option.label || option.value || '');
+    return optionText.toLowerCase().includes(searchValue.toLowerCase());
+  });
 
   // Check if all visible options are selected
   const allVisibleSelected = filteredOptions.length > 0 && 
@@ -112,15 +114,19 @@ function SearchableDropdown({
           </div>
           
           {/* Individual options */}
-          {filteredOptions.map(option => (
-            <div 
-              key={option} 
-              className={`px-3 py-1 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0 ${selectedOptions.includes(option) ? 'bg-navy-50 text-navy-800' : ''}`}
-              onMouseDown={(e) => handleOptionClick(e, option)}
-            >
-              <div className="text-xs font-normal">{option}</div>
-            </div>
-          ))}
+          {filteredOptions.map(option => {
+            const optionKey = typeof option === 'string' ? option : (option.value || option.label);
+            const optionLabel = typeof option === 'string' ? option : (option.label || option.value);
+            return (
+              <div 
+                key={optionKey} 
+                className={`px-3 py-1 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0 ${selectedOptions.includes(option) ? 'bg-navy-50 text-navy-800' : ''}`}
+                onMouseDown={(e) => handleOptionClick(e, option)}
+              >
+                <div className="text-xs font-normal">{optionLabel}</div>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

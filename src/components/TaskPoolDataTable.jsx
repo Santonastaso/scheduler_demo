@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
 import {
   DataTable,
-  formatDisplayDate
+  Button,
+  formatDisplayDate,
+  confirmAction
 } from '@santonastaso/shared';
 import { useOrdersStore, useSchedulerUIStore } from '../store/modernStores';
 import { useOrders, useRemoveOrder } from '../hooks/useModernQueries';
@@ -28,8 +30,10 @@ const GanttActionsCell = ({ task, isEditMode, schedulingLoading, conflictDialog 
   return (
     <div className="flex items-center gap-2">
       {/* Info Button */}
-      <button 
-        className="inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-gray-600 bg-gray-100 rounded hover:bg-gray-200 transition-colors" 
+      <Button 
+        variant="outline"
+        size="sm"
+        className="w-6 h-6 p-0"
         onClick={(e) => {
           e.stopPropagation();
           e.preventDefault();
@@ -54,7 +58,7 @@ ${task.scheduled_start_time ? `Inizio Programmato: ${formatDisplayDate(task.sche
 ${task.scheduled_end_time ? `Fine Programmata: ${formatDisplayDate(task.scheduled_end_time)}` : 'Non programmato'}`}
       >
         i
-      </button>
+      </Button>
 
       {/* Drag Handle - only visible when edit mode is enabled */}
       {isEditMode && (
@@ -114,8 +118,7 @@ function TaskPoolDataTable() {
     selectedWorkCenter, 
     isEditMode, 
     conflictDialog, 
-    schedulingLoading, 
-    showConfirmDialog 
+    schedulingLoading
   } = useSchedulerUIStore();
   const { entities: storeTasks, setEntities: setOdpOrders } = useOrdersStore();
   const { setNodeRef } = useDroppable({
@@ -277,22 +280,21 @@ function TaskPoolDataTable() {
   };
 
   const handleDeleteRow = async (taskToDelete) => {
-    showConfirmDialog(
-      'Elimina Ordine',
-      `Sei sicuro di voler eliminare "${taskToDelete.odp_number}"? Questa azione non può essere annullata.`,
-      async () => {
-        await handleAsync(
-          async () => {
-            await removeOrderMutation.mutateAsync(taskToDelete.id);
-          },
-          { 
-            context: 'Delete Order', 
-            fallbackMessage: 'Eliminazione ordine fallita'
-          }
-        );
-      },
-      'danger'
+    const confirmed = confirmAction(
+      `Sei sicuro di voler eliminare "${taskToDelete.odp_number}"? Questa azione non può essere annullata.`
     );
+    
+    if (confirmed) {
+      await handleAsync(
+        async () => {
+          await removeOrderMutation.mutateAsync(taskToDelete.id);
+        },
+        { 
+          context: 'Delete Order', 
+          fallbackMessage: 'Eliminazione ordine fallita'
+        }
+      );
+    }
   };
 
   return (

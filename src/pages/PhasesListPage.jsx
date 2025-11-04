@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { DataTable } from '@santonastaso/shared';
+import { useNavigate } from 'react-router-dom';
+import { ListPageLayout } from '@santonastaso/shared';
 
 import { usePhaseStore, useUIStore, useMainStore } from '../store';
 import { useErrorHandler, usePhases, useRemovePhase } from '../hooks';
@@ -90,25 +90,16 @@ function PhasesListPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-foreground">Lista Fasi</h1>
-        <Link 
-          to="/phases/new" 
-          className="inline-flex items-center px-4 py-2 border border-border rounded-md text-sm font-medium text-foreground bg-background hover:bg-muted"
-        >
-          Aggiungi Fase
-        </Link>
-      </div>
-      
-      <DataTable
-        columns={columns}
-        data={filteredPhases}
-        onEditRow={handleEditPhase}
-        onDeleteRow={handleDeletePhase}
-        enableGlobalSearch={false}
-      />
-    </div>
+        <ListPageLayout
+          title="Lista Fasi"
+          entityName="Phase"
+          createButtonHref="/phases/add"
+      data={filteredPhases}
+      columns={columns}
+      onEditRow={handleEditPhase}
+      onDeleteRow={handleDeletePhase}
+      enableGlobalSearch={false}
+    />
   );
 }
 
