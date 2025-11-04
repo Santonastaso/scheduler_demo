@@ -69,8 +69,8 @@ function SideNav() {
     return (
       <nav className="w-64 bg-secondary shadow-sm border-r border-border h-screen flex flex-col">
         <div className="p-4 border-b border-border">
-          <Link to="/login" className="flex items-center justify-center">
-            <span className="text-xl font-bold text-primary">SCHEDULER</span>
+          <Link to="/" className="flex items-center justify-center">
+            <img className="h-6" src="/scheduler-logo.png" alt="Scheduler" />
           </Link>
         </div>
         
@@ -121,7 +121,7 @@ function SideNav() {
       {/* Logo */}
       <div className="p-4 border-b border-border">
         <Link to="/" className="flex items-center justify-center">
-          <span className="text-xl font-bold text-primary">SCHEDULER</span>
+          <img className="h-6" src="/scheduler-logo.png" alt="Scheduler" />
         </Link>
       </div>
 
