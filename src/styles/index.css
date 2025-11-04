@@ -1,11 +1,362 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import './scheduler.css';
+@import './fullcalendar.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Only scheduler-specific styles - NO color palettes, NO fonts */
-/* All colors and fonts come from @santonastaso/shared/styles.css */
-@import './scheduler.css';
-@import './fullcalendar.css';
+@layer base {
+  :root {
+    /* Light mode - much darker gray tones */
+    --background: 0 0% 85%;        /* Much darker gray background */
+    --foreground: 0 0% 3.9%;       /* Almost black text for high contrast */
+    
+    /* Component backgrounds - darker gray shades */
+    --card: 0 0% 80%;              /* Darker gray cards */
+    --card-foreground: 0 0% 3.9%;  /* Dark text on cards */
+    --popover: 0 0% 80%;           /* Darker gray popover */
+    --popover-foreground: 0 0% 3.9%;
+    
+    /* Primary elements - dark on light */
+    --primary: 0 0% 9%;            /* Dark primary */
+    --primary-foreground: 0 0% 98%; /* Light text on dark primary */
+    
+    /* Secondary elements - darker grays */
+    --secondary: 0 0% 75%;         /* Much darker gray */
+    --secondary-foreground: 0 0% 9%; /* Dark text on light secondary */
+    
+    /* Muted elements - even darker grays for headers */
+    --muted: 0 0% 70%;             /* Dark gray for muted backgrounds */
+    --muted-foreground: 0 0% 45.1%; /* Medium gray text */
+    
+    /* Accent - darker blue-gray */
+    --accent: 0 0% 75%;            /* Darker accent background */
+    --accent-foreground: 0 0% 9%;   /* Dark text on accent */
+    
+    /* Destructive - red for errors */
+    --destructive: 0 84.2% 60.2%;  /* Bright red */
+    --destructive-foreground: 0 0% 98%; /* White text on red */
+    
+    /* Borders - darker grays */
+    --border: 0 0% 65%;            /* Darker gray borders */
+    --input: 0 0% 65%;             /* Darker gray input borders */
+    --ring: 0 0% 3.9%;             /* Dark focus rings */
+    --radius: 0.625rem;
+    
+    /* Scheduler-specific variables - darker gray tones */
+    --gray-light: 0 0% 68%;        /* Darker gray for headers */
+    --border-color: 0 0% 65%;      /* Darker gray borders */
+    --primary-blue: #3b82f6;       /* Blue accent */
+    --primary-blue-hover: #2563eb; /* Darker blue on hover */
+    
+    /* Additional color variables - darker gray tones */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --hover-bg: rgba(0, 0, 0, 0.08); /* Darker hover overlay */
+    --text-muted: #6b7280;         /* Medium gray for muted text */
+    --warning-orange: #f59e0b;     /* Orange for warnings */
+    --success-green: #10b981;      /* Green for success */
+    --status-inactive: #9ca3af;    /* Gray for inactive status */
+    --status-inactive-dark: #6b7280; /* Darker gray */
+    --status-active: #10b981;      /* Green for active status */
+    --danger-red: #ef4444;         /* Red for danger */
+  }
+
+  .dark {
+    /* Tracc Dark Mode Color Palette - HSL Format for Compatibility */
+    --background: 0 0% 9%;    /* Very dark black background - equivalent to oklch(0.145 0 0) */
+    --foreground: 0 0% 98%;   /* Almost white text - equivalent to oklch(0.985 0 0) */
+    
+    /* Component backgrounds - Tracc grey for cards, tables, navbar */
+    --card: 0 0% 14%;         /* Dark grey for cards/components - equivalent to oklch(0.205 0 0) */
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 14%;      /* Same as cards */
+    --popover-foreground: 0 0% 98%;
+    
+    /* Primary elements */
+    --primary: 0 0% 90%;      /* Light grey for primary elements - equivalent to oklch(0.922 0 0) */
+    --primary-foreground: 0 0% 14%;  /* Dark text on light */
+    
+    /* Secondary elements - medium grey */
+    --secondary: 0 0% 20%;    /* Medium grey for secondary elements - equivalent to oklch(0.269 0 0) */
+    --secondary-foreground: 0 0% 98%;
+    
+    /* Muted elements - same medium grey as secondary */
+    --muted: 0 0% 20%;        /* Medium grey for muted backgrounds */
+    --muted-foreground: 0 0% 64%;  /* Medium grey text - equivalent to oklch(0.708 0 0) */
+    
+    /* Accent - same as secondary/muted */
+    --accent: 0 0% 20%;
+    --accent-foreground: 0 0% 98%;
+    
+    /* Destructive - Tracc red */
+    --destructive: 0 72% 51%;  /* Red color */
+    --destructive-foreground: 0 0% 98%;
+    
+    /* Borders - semi-transparent white like Tracc */
+    --border: 0 0% 25%;         /* Light grey borders for better compatibility */
+    --input: 0 0% 25%;          /* Same for inputs */
+    --ring: 0 0% 56%;           /* Medium grey for focus rings */
+    
+    /* Scheduler-specific variables using Tracc colors */
+    --gray-light: 0 0% 20%;     /* Medium grey for headers - matches muted */
+    --border-color: 0 0% 25%;         /* Light grey borders */
+    --primary-blue: #3b82f6;    /* Keep blue accent */
+    --primary-blue-hover: #2563eb;  /* Keep blue hover */
+    
+    /* Additional variables using Tracc color system */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --hover-bg: rgba(255, 255, 255, 0.05);  /* 5% white overlay for hover */
+    --text-muted: 0 0% 64%;     /* Same as muted-foreground */
+    --warning-orange: #f59e0b;
+    --success-green: #10b981;
+    --status-inactive: 0 0% 64%;
+    --status-inactive-dark: 0 0% 56%;
+    --status-active: #10b981;
+    --danger-red: 0 72% 51%;    /* Same as destructive */
+  }
+
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+input {
+  cursor: text;
+}
+
+a[aria-disabled="true"],
+button[aria-disabled="true"],
+button:disabled,
+input[aria-disabled="true"],
+input:disabled {
+  cursor: not-allowed;
+}
+
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="time"] {
+  position: relative;
+}
+
+.dark ::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  position: absolute;
+  right: 0.75rem;
+}
+
+/* Custom styles for the mill tracing system - using design system colors */
+
+/* Error Boundary Styles */
+.error-boundary {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+  padding: 2rem;
+}
+
+.error-boundary__container {
+  max-width: 600px;
+  text-align: center;
+  background: var(--card);
+  color: var(--card-foreground);
+  padding: 3rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border);
+}
+
+.error-boundary__icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.error-boundary__title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--foreground);
+  margin-bottom: 1rem;
+}
+
+.error-boundary__message {
+  color: var(--muted-foreground);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.error-boundary__details {
+  text-align: left;
+  margin: 2rem 0;
+  padding: 1rem;
+  background: var(--muted);
+  border-radius: 0.25rem;
+}
+
+.error-boundary__error-info {
+  margin-top: 1rem;
+}
+
+.error-boundary__stack-trace {
+  background: var(--muted);
+  color: var(--muted-foreground);
+  padding: 1rem;
+  border-radius: 0.25rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.error-boundary__actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.error-boundary__button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--border);
+  background: var(--background);
+  color: var(--foreground);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.error-boundary__button:hover {
+  background: var(--muted);
+}
+
+.error-boundary__button--secondary {
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  border-color: var(--border);
+}
+
+.error-boundary__button--secondary:hover {
+  background: var(--secondary);
+  opacity: 0.8;
+}
+
+.error-boundary__recommendations {
+  margin: 2rem 0;
+  padding: 1rem;
+  background: var(--accent);
+  border-radius: 0.25rem;
+  border-left: 4px solid var(--primary);
+}
+
+.error-boundary__recommendation {
+  text-align: left;
+}
+
+.error-boundary__footer {
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+
+.error-boundary__error-id {
+  margin-bottom: 0.5rem;
+}
+
+.error-boundary__error-id code {
+  background: var(--muted);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-family: monospace;
+}
+
+/* ===== EXTERNAL COMPONENT OVERRIDES ===== */
+/* These overrides ensure external components (like DataTable from @santonastaso/shared) 
+   respect our color scheme variables */
+
+/* Table Headers */
+table thead,
+table thead tr,
+table thead th,
+.table thead,
+.table thead tr,
+.table thead th,
+[data-table] thead,
+[data-table] thead tr,
+[data-table] thead th {
+  background: hsl(var(--muted)) !important;
+  color: hsl(var(--foreground)) !important;
+  font-weight: 600 !important;
+}
+
+/* Table Rows */
+table tbody tr:nth-child(even),
+.table tbody tr:nth-child(even),
+[data-table] tbody tr:nth-child(even) {
+  background: hsl(var(--secondary)) !important;
+}
+
+table tbody tr,
+.table tbody tr,
+[data-table] tbody tr {
+  background: hsl(var(--background)) !important;
+}
+
+/* Ensure text readability in dark mode */
+.dark table tbody tr,
+.dark .table tbody tr,
+.dark [data-table] tbody tr,
+.dark table tbody td,
+.dark .table tbody td,
+.dark [data-table] tbody td,
+.dark table thead th,
+.dark .table thead th,
+.dark [data-table] thead th {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Form Inputs */
+input,
+textarea,
+select,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
+.form-input,
+.form-control {
+  background: hsl(var(--card)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-color: hsl(var(--border)) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+.form-input:focus,
+.form-control:focus {
+  background: hsl(var(--card)) !important;
+  border-color: hsl(var(--ring)) !important;
+}
 
 /* Print styles */
 @media print {
@@ -21,3 +372,7 @@
     page-break-before: always;
   }
 }
+/* ===== SCHEDULER SPECIFIC STYLES ===== */
+/* These are complex enough to keep for now, will migrate later */
+
+/* ===== FULLCALENDAR STYLES ===== */
