@@ -95,8 +95,9 @@ const ScheduledEvent = React.memo(({ event, machine, currentDate, queryClient })
     // Calculate segments for ALL tasks using description column only
     const eventSegments = useMemo(() => {
         const segmentInfo = getSplitTaskInfo(event.id);
-        const currentDayStart = startOfDay(currentDate);
-        const currentDayEnd = endOfDay(currentDate);
+        const safeCurrentDate = currentDate || new Date();
+        const currentDayStart = startOfDay(safeCurrentDate);
+        const currentDayEnd = endOfDay(safeCurrentDate);
         
         // Calculate overall task progress
         const totalDuration = event.duration || 1;
@@ -536,7 +537,8 @@ const WeeklyGanttView = React.memo(({ machines, currentDate, scheduledTasks }) =
   
   // Generate week dates
   const weekDates = useMemo(() => {
-          const weekStart = startOfWeek(currentDate, { weekStartsOn: AppConfig.APP.FIRST_DAY_OF_WEEK });
+          const safeCurrentDate = currentDate || new Date();
+          const weekStart = startOfWeek(safeCurrentDate, { weekStartsOn: AppConfig?.APP?.FIRST_DAY_OF_WEEK || 1 });
     const dates = [];
     for (let i = 0; i < 7; i++) {
       const day = new Date(weekStart);
@@ -667,7 +669,10 @@ const GanttChart = React.memo(({ machines, currentDate, dropTargetId, dragPrevie
   const queryClient = useQueryClient();
 
   // Use the exact same date that's displayed in the banner - no conversion needed
-  const dateStr = useMemo(() => format(currentDate, 'yyyy-MM-dd'), [currentDate]);
+  const dateStr = useMemo(() => {
+    if (!currentDate) return format(new Date(), 'yyyy-MM-dd');
+    return format(currentDate, 'yyyy-MM-dd');
+  }, [currentDate]);
 
   // Use React Query hook for machine availability data with caching and background updates
   const { 
@@ -763,7 +768,7 @@ const GanttChart = React.memo(({ machines, currentDate, dropTargetId, dragPrevie
             >
               &lt;
             </Button>
-            <span className="current-date">{format(currentDate, 'dd/MM/yyyy')}</span>
+            <span className="current-date">{currentDate ? format(currentDate, 'dd/MM/yyyy') : format(new Date(), 'dd/MM/yyyy')}</span>
             <Button
               variant="secondary"
               size="sm"

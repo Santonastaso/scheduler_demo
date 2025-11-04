@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { DataTable, Button } from '@santonastaso/shared';
+import { useNavigate } from 'react-router-dom';
+import { ListPageLayout } from '@santonastaso/shared';
 
 import { useUIStore } from '../store';
 import { useErrorHandler, useOrders, useMachines, usePhases, useRemoveOrder } from '../hooks';
@@ -243,29 +243,17 @@ function BacklogListPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-foreground">Lista Ordini</h1>
-        <Button 
-          asChild
-          variant="outline"
-        >
-          <Link to="/backlog/new">
-            Aggiungi Ordine
-          </Link>
-        </Button>
-      </div>
-      
-      <DataTable
-        columns={columns}
-        data={filteredOrders}
-        onEditRow={handleEditOrder}
-        onDeleteRow={handleDeleteOrder}
-        stickyColumns={['odp_number', 'article_code']}
-        enableGlobalSearch={false}
-        enableFiltering={false}
-      />
-    </div>
+        <ListPageLayout
+          title="Lista Ordini"
+          entityName="Order"
+          createButtonHref="/backlog/add"
+      data={filteredOrders}
+      columns={columns}
+      onEditRow={handleEditOrder}
+      onDeleteRow={handleDeleteOrder}
+      enableGlobalSearch={false}
+      enableFiltering={false}
+    />
   );
 }
 

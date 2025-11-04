@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { Button } from '@santonastaso/shared';
 import MachineForm from '../components/MachineForm';
 import StickyHeader from '../components/StickyHeader';
 import { useMachineStore, useUIStore, useMainStore } from '../store';
@@ -54,12 +55,11 @@ function MachineryFormPage() {
           {isEditMode ? `Modifica Macchina: ${machine?.machine_name}` : 'Aggiungi Nuova Macchina'}
         </h1>
         {isEditMode && (
-          <Link 
-            to={`/machinery/${id}/calendar`} 
-            className="inline-flex items-center px-4 py-2 border border-border rounded-md text-sm font-medium text-foreground bg-background hover:bg-muted"
-          >
-            Visualizza Calendario
-          </Link>
+          <Button asChild variant="outline">
+            <Link to={`/machinery/${id}/calendar`}>
+              Visualizza Calendario
+            </Link>
+          </Button>
         )}
       </div>
       

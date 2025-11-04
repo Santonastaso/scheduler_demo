@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
-import { showError, showSuccess } from '@santonastaso/shared';
+import { showError, showSuccess, Button } from '@santonastaso/shared';
 import SideNav from './components/layout/SideNav';
 import { Header } from './components/layout/Header';
 import MachineryListPage from './pages/MachineryListPage';
@@ -131,24 +131,27 @@ const AppLayout = () => {
                 Dove vuoi spostarlo?
               </p>
               <div className="flex space-x-2">
-                <button
+                <Button
                   onClick={() => handleConflictResolution('left')}
-                  className="px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition-colors"
+                  variant="default"
+                  size="sm"
                 >
                   ← Sposta a Sinistra
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={() => handleConflictResolution('right')}
-                  className="px-3 py-1.5 bg-green-600 text-white text-sm rounded-md hover:bg-green-700 transition-colors"
+                  variant="default"
+                  size="sm"
                 >
                   Sposta a Destra →
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={() => hideConflictDialog()}
-                  className="px-3 py-1.5 bg-gray-300 text-gray-700 text-sm rounded-md hover:bg-gray-400 transition-colors"
+                  variant="outline"
+                  size="sm"
                 >
                   Annulla
-                </button>
+                </Button>
               </div>
             </div>
           </div>
